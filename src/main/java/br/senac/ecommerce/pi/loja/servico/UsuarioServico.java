@@ -18,12 +18,16 @@ public class UsuarioServico {
 		return this.usuarioRepositorio.findAll();
 	}
 	
-	public void salvarUsuarioFormulario(UsuarioModelo usuario) {
+	public void salvarUsuario(UsuarioModelo usuario) {
 		usuarioRepositorio.save(usuario);
 	}
 	
-	public UsuarioModelo editarUsuarioFormulario(Long id) {
+	public UsuarioModelo editarUsuario(Long id) {
 		return usuarioRepositorio.findById(id).get();
+	}
+	
+	public void deletarUsuario(Long id) {
+		 usuarioRepositorio.deleteById(id);
 	}
 
 }
