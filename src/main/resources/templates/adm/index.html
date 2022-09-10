@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Página Inicial do Administrador</title>
+</head>
+<body>
+
+<h1>Usuários</h1>
+<table>
+		<tr>
+			<th>Nome</th>
+			<th>Email</th>
+		</tr>
+		<tr th:each="pessoa : ${listaUsuariosControlador}">
+			<td th:text="${pessoa.id}"></td>
+			<td th:text="${pessoa.nome}"></td>
+			<td th:text="${pessoa.cpf}"></td>
+			
+		</tr>
+		
+	</table>
+</body>
+</html>
