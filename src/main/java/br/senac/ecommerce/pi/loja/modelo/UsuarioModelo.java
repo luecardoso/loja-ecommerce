@@ -32,8 +32,8 @@ public class UsuarioModelo {
 	//@CPF
 	private String cpf;
 	
-	//@DateTimeFormat(style = "yyyy-MM-dd")
-	private Date dataNascimento;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dataNascimento;
 	
 	//@Size(max = 14)
 	private String telefone;
@@ -50,7 +50,7 @@ public class UsuarioModelo {
 				+ ", dataNascimento=" + dataNascimento + ", telefone=" + telefone + ", ativo=" + ativo + "]";
 	}
 
-	public UsuarioModelo(Long id, String nome, String email, String senha, String cpf, Date dataNascimento,
+	public UsuarioModelo(Long id, String nome, String email, String senha, String cpf, LocalDate dataNascimento,
 			String telefone, boolean ativo) {
 		super();
 		this.id = id;
@@ -103,11 +103,11 @@ public class UsuarioModelo {
 		this.cpf = cpf;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
