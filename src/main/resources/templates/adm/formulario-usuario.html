@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Página de Cadastro de Usuários</title>
+</head>
+<body>
+	<h1>Cadastro de Usuários</h1>
+	<form action="/administrador/usuario/salvar" method="POST">
+	<input type="hidden" id="id" name="id" value="" />
+	
+		<label for="nome">Nome:</label> 
+		<input class="form-control" type="text" name="nome" id="nome" />
+		
+		<label for="telefone">Telefone:</label> 
+		<input class="form-control" type="text" name="telefone" id="telefone" />
+		
+<!-- 		<label for="dataNascimento">Data de Nascimento:</label>
+		<input class="form-control" type="date" name="dataNascimento" id="dataNascimento" />  -->
+		
+		<label for="cpf">CPF:</label>
+		<input class="form-control" type="text" name="cpf" id="cpf" /> 
+
+		<label >Ativo:</label>
+		<input type="checkbox" class="m-2" name="ativo"/>
+		
+		<label for="email">Email:</label>
+		<input class="form-control" type="email" name="email" id="email" /> 
+		
+		<label for="senha">Senha</label>
+		<input class="form-control" type="password" name="senha" id="senha" /> 
+		
+		
+		<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+	</form>
+	
+</body>
+</html>

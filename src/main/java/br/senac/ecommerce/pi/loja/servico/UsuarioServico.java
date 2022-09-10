@@ -17,5 +17,9 @@ public class UsuarioServico {
 	public List<UsuarioModelo> listarTodosUsuarios(){
 		return this.usuarioRepositorio.findAll();
 	}
+	
+	public void salvarUsuarioFormulario(UsuarioModelo usuario) {
+		usuarioRepositorio.save(usuario);
+	}
 
 }

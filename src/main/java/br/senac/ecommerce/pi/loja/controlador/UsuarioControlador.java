@@ -2,10 +2,15 @@ package br.senac.ecommerce.pi.loja.controlador;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.ecommerce.pi.loja.modelo.UsuarioModelo;
 import br.senac.ecommerce.pi.loja.servico.UsuarioServico;
@@ -17,11 +22,28 @@ public class UsuarioControlador {
 	UsuarioServico usuarioServico;
 
 	
-	@GetMapping("/")
+	@GetMapping("/administrador")
 	public ModelAndView mostrarListagemUsuarios() {
 		List<UsuarioModelo> listaUsuarios = usuarioServico.listarTodosUsuarios();
 		ModelAndView mv = new ModelAndView("adm/index");
 		mv.addObject("listaUsuariosControlador", listaUsuarios);
+		return mv;
+	}
+	
+	@GetMapping("/administrador/usuario/cadastrar")
+	public ModelAndView cadastrar(UsuarioModelo usuario) {
+		ModelAndView mv = new ModelAndView("adm/formulario-usuario.html");
+		mv.addObject("salvarUsuarioControlador", usuario);
+		return mv;
+	}
+	
+	@PostMapping("/administrador/usuario/salvar")
+	public ModelAndView salvarUsuario(@Valid UsuarioModelo usuario, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return cadastrar(usuario);
+		}
+		usuarioServico.salvarUsuarioFormulario(usuario);
+		ModelAndView mv = new ModelAndView("redirect:/administrador");
 		return mv;
 	}
 }

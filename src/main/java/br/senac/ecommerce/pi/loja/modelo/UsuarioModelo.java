@@ -1,12 +1,15 @@
 package br.senac.ecommerce.pi.loja.modelo;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -30,7 +33,7 @@ public class UsuarioModelo {
 	private String cpf;
 	
 	//@DateTimeFormat(style = "yyyy-MM-dd")
-	private LocalDate dataNascimento;
+	private Date dataNascimento;
 	
 	//@Size(max = 14)
 	private String telefone;
@@ -47,7 +50,7 @@ public class UsuarioModelo {
 				+ ", dataNascimento=" + dataNascimento + ", telefone=" + telefone + ", ativo=" + ativo + "]";
 	}
 
-	public UsuarioModelo(Long id, String nome, String email, String senha, String cpf, LocalDate dataNascimento,
+	public UsuarioModelo(Long id, String nome, String email, String senha, String cpf, Date dataNascimento,
 			String telefone, boolean ativo) {
 		super();
 		this.id = id;
@@ -100,11 +103,11 @@ public class UsuarioModelo {
 		this.cpf = cpf;
 	}
 
-	public LocalDate getDataNascimento() {
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

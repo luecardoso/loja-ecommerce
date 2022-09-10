@@ -6,19 +6,33 @@
 </head>
 <body>
 
-<h1>Usuários</h1>
-<table>
+	<h1>Usuários</h1>
+	<table>
 		<tr>
+			<th>ID</th>
 			<th>Nome</th>
+			<th>Cargo</th>
 			<th>Email</th>
+			<th>Configurações</th>
 		</tr>
 		<tr th:each="pessoa : ${listaUsuariosControlador}">
 			<td th:text="${pessoa.id}"></td>
 			<td th:text="${pessoa.nome}"></td>
-			<td th:text="${pessoa.cpf}"></td>
-			
+			<td >Cargo</td>
+			<td th:text="${pessoa.email}"></td>
+			<td>
+			<td>
+			<a href="">Editar</a>
+			</td>
+			<td>
+				<a href="">Deletar</a>
+			</td>
+			</td>
+
 		</tr>
-		
+
 	</table>
+
+	<a th:href="@{/administrador/usuario/cadastrar}">Cadastrar</a>
 </body>
 </html>
