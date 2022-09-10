@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,8 +33,8 @@ public class UsuarioControlador {
 	
 	@GetMapping("/administrador/usuario/cadastrar")
 	public ModelAndView cadastrar(UsuarioModelo usuario) {
-		ModelAndView mv = new ModelAndView("adm/formulario-usuario.html");
-		mv.addObject("salvarUsuarioControlador", usuario);
+		ModelAndView mv = new ModelAndView("adm/formulario-usuario");
+		mv.addObject("cadastrarUsuarioControlador", usuario);
 		return mv;
 	}
 	
@@ -44,6 +45,18 @@ public class UsuarioControlador {
 		}
 		usuarioServico.salvarUsuarioFormulario(usuario);
 		ModelAndView mv = new ModelAndView("redirect:/administrador");
+		return mv;
+	}
+	
+	@GetMapping("/administrador/usuario/editar/{id}")
+	public ModelAndView editarUsuario(@PathVariable("id") Long id) {
+		// Model model, RedirectAttributes redirectAttributes
+//		UsuarioModelo  usuario = usuarioServico.editarUsuarioFormulario(id);
+//		model.addAttribute("usuarioInformacaoControlador", usuario);
+		
+		ModelAndView mv = new ModelAndView("adm/formulario-usuario");
+		UsuarioModelo listaUsuarios = usuarioServico.editarUsuarioFormulario(id);
+		mv.addObject("listaUsuarioInfo", listaUsuarios);
 		return mv;
 	}
 }

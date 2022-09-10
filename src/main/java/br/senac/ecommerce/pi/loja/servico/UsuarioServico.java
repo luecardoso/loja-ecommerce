@@ -21,5 +21,9 @@ public class UsuarioServico {
 	public void salvarUsuarioFormulario(UsuarioModelo usuario) {
 		usuarioRepositorio.save(usuario);
 	}
+	
+	public UsuarioModelo editarUsuarioFormulario(Long id) {
+		return usuarioRepositorio.findById(id).get();
+	}
 
 }
