@@ -3,39 +3,97 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Página de Cadastro de Usuários</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
 	<h1>Cadastro de Usuários</h1>
-	<form action="/administrador/usuario/salvar" method="POST" th:object="${listaUsuarioInfo}">
-		<input type="text" id="id"  th:field="*{id}" value="" readonly/>
 	
-		<label for="nome">Nome:</label> 
-		<input class="form-control" type="text" th:field="*{nome}" id="nome" />
-		
-		<label for="telefone">Telefone:</label> 
-		<input class="form-control" type="text" th:field="*{telefone}" id="telefone" />
-		
- 		<label for="dataNascimento">Data de Nascimento:</label>
-		<input class="form-control" type="date" th:field="*{dataNascimento}" id="dataNascimento" />  
-		
-		<label for="cpf">CPF:</label>
-		<input class="form-control" type="text" th:field="*{cpf}" id="cpf" /> 
+<!-- 	<div>
+		<div  th:each = "m : ${msg}">
+			<span  th:text="${m}"></span>
+		</div>
+	</div> -->
 
-		<label >Ativo:</label>
-		<input type="checkbox" class="m-2" th:field="*{ativo}"/>
+	<!-- Formulário -->
+	<form action="/administrador/usuario/salvar" method="POST" th:object="${listaUsuarioInfo}">
+		<!--  Mensagem de Erro-->
+<!-- 		<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${#fields.hasAnyErrors()}">
+			<div th:each="mostrarErros : ${#fields.detailedErrors()}">
+				<span><strong th:text="${mostrarErros.message}" ></strong></span>
+			</div>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div> -->
 		
-		<label for="email">Email:</label>
-		<input class="form-control" type="email" th:field="*{email}" id="email" /> 
+		<!--  Mensagem de Sucesso-->
+		<div class="alert alert-success alert-dismissible fade show  m-2 col-8" role="alert"  th:if="${not #strings.isEmpty(mensagem)}">
+			<span><strong  th:text="${mensagem}"></strong></span>
+			<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	
+
+		<input type="hidden" th:field="*{id}" value="" readonly />
+	
+		<!-- NOME -->
+		<div class="form-group mb-3">
+			<label for="nome">Nome:</label> 
+			<div>
+				<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" maxlength=""
+				placeholder="Nome Completo"  title="Insira seu nome completo" required/>
+			</div>
+<!-- 			<div class="invalid-feedback" th:errors="*{nome}"></div> -->
+<!-- 			<div th:classappend="${#fields.hasErrors('nome')} ? has-error"></div> -->
+ 			<span th:if="${#fields.hasErrors('nome')}"  th:errors="*{nome}" class="text-danger"></span>
+		</div>	
 		
-		<label for="senha">Senha</label>
-		<input class="form-control" type="password" th:field="*{senha}" id="senha" /> 
+		<!-- TELEFONE -->
+		<div class="form-group row m-2">
+			<label for="telefone">Telefone:</label> 
+			<input class="form-control" type="text" th:field="*{telefone}" id="telefone" maxlength="11"  title="Insira seu telefone"
+			pattern="^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$" placeholder="Ex.: (00) 00000-0000" data-mask="(00) 00000-0000" required/>
+		</div>
 		
+		<!-- DATA DE NASCIMENTO -->
+		<div class="form-group row m-2">
+			<label for="dataNascimento">Data de Nascimento:</label>
+			<input class="form-control mb-4 col-4" type="date" th:field="*{dataNascimento}" id="dataNascimento"  title="Insira sua data de nascimento" required/> 
+		</div>
+ 		 
+ 		 <!-- CPF -->
+		<div class="form-group row m-2">
+			<label for="cpf">CPF:</label>
+			<input  th:if="${listaUsuarioInfo.cpf == null}" class="form-control cpf-mask" type="text" th:field="*{cpf}" id="cpf" maxlength="14"  title="Insira seu CPF apenas números"
+			placeholder="000.000.000-00" required/> 
+			<input  th:if="${listaUsuarioInfo.cpf != null}" class="form-control cpf-mask" type="text" th:field="*{cpf}" id="cpf" readonly disabled/> 
+		</div>
+		
+		<!-- ATIVAR -->
+		<div class="form-group row  m-2 col-2">
+			<div class="form-check">
+				<label for="ativo">Ativar:</label>
+				<input  type="checkbox" class="form-check-label" th:field="*{ativo}" id="ativo" value="" />
+			</div>
+		</div>
+		
+		<!-- EMAIL -->
+		<div class="form-group row m-2">
+			<label for="email">Email:</label>
+			<input  th:if="${listaUsuarioInfo.id == null}" class="form-control" type="email" th:field="*{email}" id="email"  placeholder="name@email.com" title="Insira seu email" required/>
+			<input  th:if="${listaUsuarioInfo.id != null}" class="form-control" type="email" th:field="*{email}" id="email"  readonly disabled/>
+		</div>
+		 
+		<!-- SENHA -->
+		<div class="form-group row m-2">
+			<label for="senha">Senha</label>
+			<input class="form-control" type="password" th:field="*{senha}" id="senha"  title="Insira sua senha" required/> 
+		</div>		
 		
 		<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
 	</form>
-	
+	<a class="btn btn-danger" th:href="@{/administrador/}">Cancelar</a>
 </body>
 </html>

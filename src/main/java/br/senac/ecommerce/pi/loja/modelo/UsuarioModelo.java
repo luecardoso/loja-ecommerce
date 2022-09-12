@@ -3,12 +3,19 @@ package br.senac.ecommerce.pi.loja.modelo;
 import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
@@ -22,20 +29,24 @@ public class UsuarioModelo {
 	private Long id;
 	
 	//@Column(length = 50)
+	@NotBlank(message = "Preencha o nome")
+	//@NotNull
 	private String nome;
 	
+	///@NotBlank(message = "Email é obrigatório")
+	//@Email(message = "Não é um e-mail válido")
 	private String email;
 	
-	
+	//@NotEmpty(message = "Informe uma senha")
 	private String senha;
 	
-	//@CPF
+	//@CPF(message = "Informe um CPF válido.")
 	private String cpf;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
 	
-	//@Size(max = 14)
+	//@Size(min=11,max = 14, message = "Infome um telefone válido")
 	private String telefone;
 	
 	private boolean ativo;
