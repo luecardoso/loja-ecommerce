@@ -7,7 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.senac.ecommerce.pi.loja.modelo.CargoModelo;
 import br.senac.ecommerce.pi.loja.modelo.UsuarioModelo;
+import br.senac.ecommerce.pi.loja.repositorio.CargoRepositorio;
 import br.senac.ecommerce.pi.loja.repositorio.UsuarioRepositorio;
 
 @Service
@@ -16,6 +18,9 @@ public class UsuarioServico {
 
 	@Autowired
 	UsuarioRepositorio usuarioRepositorio;
+	
+	@Autowired
+	CargoRepositorio cargoRepositorio;
 	
 	public List<UsuarioModelo> listarTodosUsuarios(){
 		return this.usuarioRepositorio.findAll();
@@ -44,5 +49,9 @@ public class UsuarioServico {
 	
 	public UsuarioModelo usuarioPorEmail(String email) {
 		return usuarioRepositorio.pegarUsuarioPeloEmail(email);
+	}
+	
+	public List<CargoModelo> listarCargos() {
+		return  cargoRepositorio.findAll();
 	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -50,15 +51,28 @@ public class UsuarioModelo {
 	private String telefone;
 	
 	private boolean ativo;
+	
+	@ManyToOne
+	private CargoModelo cargo;
+
+	public CargoModelo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(CargoModelo cargo) {
+		this.cargo = cargo;
+	}
 
 	public UsuarioModelo() {
 		
 	}
 
+
 	@Override
 	public String toString() {
 		return "UsuarioModelo [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", cpf=" + cpf
-				+ ", dataNascimento=" + dataNascimento + ", telefone=" + telefone + ", ativo=" + ativo + "]";
+				+ ", dataNascimento=" + dataNascimento + ", telefone=" + telefone + ", ativo=" + ativo + ", cargo="
+				+ cargo + "]";
 	}
 
 	public UsuarioModelo(Long id, String nome, String email, String senha, String cpf, LocalDate dataNascimento,

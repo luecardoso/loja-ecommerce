@@ -20,10 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.senac.ecommerce.pi.loja.modelo.CargoModelo;
 import br.senac.ecommerce.pi.loja.modelo.UsuarioModelo;
 import br.senac.ecommerce.pi.loja.servico.UsuarioServico;
 
-@RestController
+@Controller
 @RequestMapping("/administrador")
 public class UsuarioControlador {
 
@@ -31,18 +32,23 @@ public class UsuarioControlador {
 	UsuarioServico usuarioServico;
 
 	
-	@GetMapping("")
+	@GetMapping("/usuario")
 	public ModelAndView mostrarListagemUsuarios() {
 		List<UsuarioModelo> listaUsuarios = usuarioServico.listarTodosUsuarios();
 		ModelAndView mv = new ModelAndView("adm/index");
 		mv.addObject("listaUsuariosControlador", listaUsuarios);
 		return mv;
 	}
+	@GetMapping("")
+	public String teste() {
+		return "layout/layout";
+	}
 	
 	@GetMapping("/usuario/cadastrar")
 	public ModelAndView cadastrar(UsuarioModelo usuario) {
 		ModelAndView mv = new ModelAndView("adm/formulario-usuario");
 		mv.addObject("listaUsuarioInfo", usuario);
+		mv.addObject("listaCargo", usuarioServico.listarCargos());
 		return mv;
 	}
 	
@@ -88,7 +94,9 @@ public class UsuarioControlador {
 	public ModelAndView editarUsuario(@PathVariable("id") Long id) {		
 		ModelAndView mv = new ModelAndView("adm/formulario-usuario");
 		UsuarioModelo listaInformacaoUsuario = usuarioServico.editarUsuario(id);
+		List<CargoModelo> listaCargo = usuarioServico.listarCargos();
 		mv.addObject("listaUsuarioInfo", listaInformacaoUsuario);
+		mv.addObject("listaCargo", listaCargo);
 		return mv;
 	}
 	
@@ -108,7 +116,7 @@ public class UsuarioControlador {
 		String message = "O usuário " + id + " foi " + status;
 		redirectAttributes.addFlashAttribute("mensagemStatus", message);
 
-		return "redirect:/administrador";
+		return "redirect:/administrador/usuario";
 
 	}
 	

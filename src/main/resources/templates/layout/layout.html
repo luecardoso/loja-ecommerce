@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmls:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>Página Principal</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/administrador}"><strong>Empório Viver Bem</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <div class="vr bg-light"></div>
+                    <li class="nav-item">
+
+                        <a class="nav-link active" aria-current="page" th:href="@{/administrador}">Administrador</a>
+                    </li>
+                    <div class="vr bg-light"></div>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/administrador/usuario}">Usuários</a>
+                    </li>
+                    <div class="vr bg-light"></div>
+                    <li class="nav-item">
+                        <a class="nav-link  disabled" aria-current="page" href="#">Produtos</a>
+                    </li>
+                    <div class="vr bg-light"></div>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-current="page" href="#">Categorias</a>
+                    </li>
+                    <div class="vr bg-light"></div>
+                    <li class="nav-item">
+                        <a class="nav-link  disabled" aria-current="page" href="#">Marcas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <section class="container-fluid" layout:fragment="basepagina">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Página Inicial</h1>
+                        <hr>
+                        <div class="input-group custom-search-form">
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                                <button class="btn btn-primary" type="submit">Procurar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+        </article>
+    </main>
+    <footer class="bd-footer py-4 py-md-5 mt-5 bg-light">
+        <div class="container text-center">
+            <p>2022/2 - Projeto Integrador -<span> Erika</span> - <span>Lucas</span></p>
+        </div>
+    </footer>
+
+
+    <!-- 	    <div id="wrapper">
+
+        Navigation
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/administrador}">Empório Viver Bem</a>
+            </div>
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <ul class="nav navbar-nav navbar-left navbar-top-links">
+                <li><a th:href="@{/administrador}"><i class="fa fa-home fa-fw"></i>| Administrador</a></li>
+            </ul>
+
+            <ul class="nav navbar-right navbar-top-links">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user"></i> Usuário <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            /.navbar-top-links
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+	                        <a class="active"><strong class="active"><span ></span><i class="fa-solid fa-house-blank"></i></strong></a>
+                        </li>
+                        <li>
+                            <a th:href="@{/administrador/usuario}" class="active"><i class="fa-solid fa-user"></i><strong>
+                                    Usuarios</strong></a>
+                        </li>
+                        <li>
+                            <a href="#" class="active"><i
+                                    class="fa-solid fa-cart-shopping"></i><strong>Produtos</strong></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="container-fluid" layout:fragment="layoutadm">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Página Inicial</h1>
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fa-solid fa-magnifying-glass"></i>Buscar
+                                </button>
+                            </span>
+                        </div>
+                        /input-group
+                    </div>
+                    /.col-lg-12
+                </div>
+                /.row
+            </div>
+            /.container-fluid
+        </div>
+        /#page-wrapper
+
+    </div>
+    /#wrapper
+
+    Custom Theme JavaScript
+    <script src="../js/startmin.js"></script> -->
+
+</body>
+
+</html>

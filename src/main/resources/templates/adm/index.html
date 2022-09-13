@@ -1,74 +1,95 @@
 <!DOCTYPE html>
-<html lang="pt-br"  xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
+
 <head>
 	<meta charset="UTF-8">
-	<title>Página Inicial do Administrador</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
-	
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<title>Pagina de usuarios</title>
 </head>
+
 <body>
 
-	<h1>Usuários</h1>
-	<!-- Mensagens de Status -->
-	<div th:if="${mensagemStatus != null}"	class="alert alert-success text-center alert-dismissible fade show" role="alert">
-		<span ><strong th:text="${mensagemStatus}" ></strong></span>
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	<div class="container-fluid" layout:fragment="basepagina">
+		<div class="col-lg-12 ">
+			<h1 class="page-header">Usuarios</h1>
+			<hr>
+			<div class="input-group custom-search-form">
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+					<button class="btn btn-primary" type="submit">Procurar</button>
+				</form>
+			</div>
+		</div>
+		
+		<div>
+			<a th:href="@{/administrador/usuario/cadastrar}" class="btn btn-primary">Cadastrar</a>
+		</div>
+
+		<hr>
+		<!-- Mensagens de Status -->
+		<div th:if="${mensagemStatus != null}" class="alert alert-success text-center alert-dismissible fade show"
+			role="alert">
+			<span><strong th:text="${mensagemStatus}"></strong></span>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+
+		<div class="table-responsive col-xs-1 text-center">
+			<table class="table table-bordered table-sriped table-hover">
+				<tr>
+					<thead class="table-dark">
+						<th>ID</th>
+						<th>Nome</th>
+						<th>Cargo</th>
+						<th>Email</th>
+						<th>Telefone</th>
+						<th>Data</th>
+						<th>CPF</th>
+						<th>Status</th>
+						<th>Configuração</th>
+					</thead>
+				</tr>
+
+				<tr th:each="pessoa : ${listaUsuariosControlador}">
+					<td th:text="${pessoa.id}"></td>
+					<td th:text="${pessoa.nome}"></td>
+					<td th:text="${pessoa.cargo}"></td>
+					<td th:text="${pessoa.email}"></td>
+					<td th:text="${pessoa.telefone}"></td>
+					<td th:text="${pessoa.dataNascimento}"></td>
+					<td th:text="${pessoa.cpf}"></td>
+					<td>
+						<div class="form-check form-switch">
+							<label class="form-check-label" for="flexSwitchCheckDefault">
+
+								<!-- Desativar Usuario -->
+								<a th:if="${pessoa.ativo == true}"
+									th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/false'}"
+									title="Desativar usuÃ¡rio">
+									<input type="checkbox" class="form-check-input" role="switch"
+										id="flexSwitchCheckDefault" checked />
+								</a>
+
+								<!-- Ativar Usuario -->
+								<a th:if="${pessoa.ativo == false}"
+									th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/true'}"
+									title="Ativar usuÃ¡rio">
+									<input type="checkbox" class="form-check-input" role="switch"
+										id="flexSwitchCheckDefault" />
+								</a>
+							</label>
+						</div>
+					</td>
+					<td>
+						<a th:href="@{/administrador/usuario/editar/{id}(id=${pessoa.id})}">Editar</a>
+						<a th:href="@{/administrador/usuario/deletar/{id}(id=${pessoa.id})}">Deletar</a>
+					</td>
+				</tr>
+			</table>
+
+
+		</div>
+
 	</div>
-			
-	<table class="table m-4 table-borderless table-responsive">
-		<tr>
-			<thead class="table-dark">
-				<th>ID</th>
-				<th>Nome</th>
-				<th>Cargo</th>
-				<th>Email</th>
-				<th>Status</th>
-				<th >Configurações</th>
-				
-			</thead>
-		</tr>
-		
-		
-		<tr th:each="pessoa : ${listaUsuariosControlador}">
-			<td th:text="${pessoa.id}"></td>
-			<td th:text="${pessoa.nome}"></td>
-			<td >
-				Cargo
-			</td>
-			<td th:text="${pessoa.email}"></td>
-			<td>
-   				<div class="form-check form-switch">
- 					<label class="form-check-label" for="flexSwitchCheckDefault"> 
- 						
-						<!-- Desativar Usuário -->
-						<a th:if="${pessoa.ativo == true}" th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/false'}" title="Desativar usuário">
-							<input type="checkbox" class="form-check-input"  role="switch" id="flexSwitchCheckDefault" checked/>
-						</a>
-							
-						<!-- Ativar Usuário -->
-						<a th:if="${pessoa.ativo == false}"	th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/true'}" title="Ativar usuário">
-							<input type="checkbox" class="form-check-input"  role="switch" id="flexSwitchCheckDefault"  />
-						</a>
 
- 					</label>
-				</div>
-			</td> 
-			<td>
-				<a th:href="@{/administrador/usuario/editar/{id}(id=${pessoa.id})}">Editar</a>
-				<a th:href="@{/administrador/usuario/deletar/{id}(id=${pessoa.id})}">Deletar</a>
-			</td>
-			<td>
-				
-			</td>
-
-		</tr>
-
-	</table>
-
-	<a class="btn btn-primary btn-sm" th:href="@{/administrador/usuario/cadastrar}">Cadastrar</a>
 </body>
+
 </html>
