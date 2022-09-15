@@ -1,6 +1,7 @@
 package br.senac.ecommerce.pi.loja.servico;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -22,11 +23,24 @@ public class UsuarioServico {
 	@Autowired
 	CargoRepositorio cargoRepositorio;
 	
+	
 	public List<UsuarioModelo> listarTodosUsuarios(){
 		return this.usuarioRepositorio.findAll();
 	}
 	
 	public void salvarUsuario(UsuarioModelo usuario) {
+		boolean estaAtualizandoUsuario = (usuario.getId() != null);
+		if (estaAtualizandoUsuario) {
+			 Optional<UsuarioModelo> usuarioExistente = usuarioRepositorio.findById(usuario.getId());
+			 UsuarioModelo usuarioAtual = usuarioExistente.get();
+			if(usuario.getSenha().isEmpty()) {
+				usuario.setSenha(usuarioAtual.getSenha());
+			}else {
+				//codificarSenha(usuario);
+			}
+		}else {
+			//codificarSenha(usuario);
+		}
 		usuarioRepositorio.save(usuario);
 	}
 	
@@ -54,4 +68,9 @@ public class UsuarioServico {
 	public List<CargoModelo> listarCargos() {
 		return  cargoRepositorio.findAll();
 	}
+	
+//	private void codificarSenha(UsuarioModelo usuario) {
+//		String senhaCodificada = codificadorSenha.encode(usuario.getSenha());
+//		usuario.setSenha(senhaCodificada);
+//	}
 }

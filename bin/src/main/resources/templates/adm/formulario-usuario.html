@@ -3,8 +3,6 @@
 <head>
 	<title>Página de Cadastro de Usuários</title>
 	<meta charset="UTF-8">
-	<script type="text/javascript" src="/js/jquery.mask.js"></script>
-	<script type="text/javascript" src="/js/mascara.js"></script>
 </head>
 <body>
 	
@@ -42,7 +40,7 @@
 			<div class="form-group mb-3">
 				<label for="nome">Nome:</label> 
 				<div>
-					<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" minlength="3" maxlength=""
+					<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" maxlength=""
 					placeholder="Nome Completo"  title="Insira seu nome completo" required/>
 				</div>
 	<!-- 			<div class="invalid-feedback" th:errors="*{nome}"></div> -->
@@ -53,14 +51,14 @@
 			<!-- TELEFONE -->
 			<div class="form-group row m-2">
 				<label for="telefone">Telefone:</label> 
-				<input class="form-control" type="text" th:field="*{telefone}" id="telefone" minlength="10"  title="Insira seu telefone"
-				 placeholder="Ex.: (00) 00000-0000" data-mask="(00) 00000-0000" required/>
+				<input class="form-control" type="text" th:field="*{telefone}" id="telefone" maxlength="11"  title="Insira seu telefone"
+				pattern="^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$" placeholder="Ex.: (00) 00000-0000" data-mask="(00) 00000-0000" required/>
 			</div>
 			
 			<!-- DATA DE NASCIMENTO -->
 			<div class="form-group row m-2">
 				<label for="dataNascimento">Data de Nascimento:</label>
-				<input class="form-control mb-4 col-4" type="date" th:field="*{dataNascimento}" id="dataNascimento" min  title="Insira sua data de nascimento" required/> 
+				<input class="form-control mb-4 col-4" type="date" th:field="*{dataNascimento}" id="dataNascimento"  title="Insira sua data de nascimento" required/> 
 			</div>
 	 		 
 	 		 <!-- CPF -->
@@ -97,8 +95,7 @@
 			<!-- SENHA -->
 			<div class="form-group row m-2">
 				<label for="senha">Senha</label>
-				<input class="form-control"  th:if="${listaUsuarioInfo.id == null}" type="password" th:field="*{senha}" id="senha"  title="Insira sua senha" required/>
-				<input class="form-control"  th:if="${listaUsuarioInfo.id != null}" type="password" th:field="*{senha}" id="senha"  title="Insira sua senha"/>  
+				<input class="form-control" type="password" th:field="*{senha}" id="senha"  title="Insira sua senha" required/> 
 			</div>		
 			
 			<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
