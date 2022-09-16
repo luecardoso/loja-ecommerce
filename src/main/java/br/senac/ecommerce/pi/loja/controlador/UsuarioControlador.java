@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,62 +34,34 @@ public class UsuarioControlador {
 
 	
 	@GetMapping("/usuario")
-	public ModelAndView mostrarListagemUsuarios() {
-		List<UsuarioModelo> listaUsuarios = usuarioServico.listarTodosUsuarios();
-		ModelAndView mv = new ModelAndView("adm/index");
-		mv.addObject("listaUsuariosControlador", listaUsuarios);
-		return mv;
+	public String mostrarUsuariosPaginacao(Model model) {
+		return listarComPaginacao(1, model, null);
 	}
+	
 	@GetMapping("")
 	public String teste() {
 		return "layout/layout";
 	}
 	
 	@GetMapping("/usuario/cadastrar")
-	public ModelAndView cadastrar(UsuarioModelo usuario) {
-		ModelAndView mv = new ModelAndView("adm/formulario-usuario");
-		mv.addObject("listaUsuarioInfo", usuario);
-		mv.addObject("listaCargo", usuarioServico.listarCargos());
-		return mv;
+	public String cadastrar(Model model) {
+		List<CargoModelo> listarCargos = usuarioServico.listarCargos();
+		UsuarioModelo usuario = new UsuarioModelo();
+		model.addAttribute("listaUsuarioInfo", usuario);
+		model.addAttribute("listarCargos", listarCargos);
+		return "adm/formulario-usuario";
 	}
 	
 	@PostMapping("/usuario/salvar")
-	public ModelAndView salvarUsuario(@Valid UsuarioModelo usuario, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
-		System.out.println("Usuario:   ******** "+usuario);
-		ModelAndView mv;
+	public String salvarUsuario(@Valid UsuarioModelo usuario, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
 		if(bindingResult.hasFieldErrors()) {
-			System.out.println("Erro:  *** "+bindingResult);
-			//return new ModelAndView("/administrador/usuario/cadastrar");
-//			mv = new ModelAndView("/administrador/usuario/cadastrar");
-//			//mv.addObject(usuario);
-//			
-//			List<String> msg = new ArrayList<String>();
-//			for(ObjectError erro: bindingResult.getAllErrors()){
-//				msg.add(erro.getDefaultMessage());
-//			}
-//			mv = new ModelAndView("/administrador/usuario/cadastrar");
-//			mv.addObject("msg",msg);
-			
-			redirectAttributes.addFlashAttribute("mensagem", "Usuário não cadastrado");
-			mv = new ModelAndView("redirect:/administrador/usuario/cadastrar");
-			mv.addObject("listaUsuarioInfo", usuario);
-			//return cadastrar(usuario);
-			return mv;
-			
+			return "redirect:/administrador/usuario/cadastrar";
 		}
 		usuarioServico.salvarUsuario(usuario);
 		redirectAttributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
-		//mv = new ModelAndView("/administrador/usuario/cadastrar");
-		mv = new ModelAndView("redirect:/administrador/usuario/cadastrar");
-		//mv = new ModelAndView("adm/formulario-usuario");
-		//mv.addObject("listaUsuarioInfo", usuario);
-		//return new ModelAndView("adm/formulario-usuario");
-		//return new ModelAndView("/administrador/usuario/cadastrar");
-		//return new ModelAndView("adm/formulario-usuario");
-		//redirectAttributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso");
-		//return cadastrar(usuario);
-		return mv;
+		return "redirect:/administrador/usuario/cadastrar";
 	}
+	
 	
 	@GetMapping("/usuario/editar/{id}")
 	public ModelAndView editarUsuario(@PathVariable("id") Long id) {		
@@ -101,10 +74,10 @@ public class UsuarioControlador {
 	}
 	
 	@GetMapping("/usuario/deletar/{id}")
-	public ModelAndView deletarUsuario(@PathVariable("id") Long id) {		
+	public String deletarUsuario(@PathVariable("id") Long id) {		
 		ModelAndView mv = new ModelAndView("adm/formulario-usuario");
 		usuarioServico.deletarUsuario(id);
-		return mostrarListagemUsuarios();
+		return "redirect:/administrador/usuario";
 	}
 	
 	@GetMapping("/usuario/{id}/ativo/{status}")
@@ -127,6 +100,31 @@ public class UsuarioControlador {
 		} else {		
 			return "OK";
 		}
+	}
+	
+	@GetMapping("/usuario/pagina/{numPagina}")
+	public String listarComPaginacao(@PathVariable(name = "numPagina") int numPagina, Model model,
+			@Param("keyword") String keyword) {
+
+		Page<UsuarioModelo> pagina = usuarioServico.listarPorPagina(numPagina, keyword);
+		List<UsuarioModelo> listarUsuarios = pagina.getContent();
+
+		long comecoConta = (numPagina - 1) * UsuarioServico.USUARIOS_POR_PAGINA + 1;
+		long finalConta = comecoConta + UsuarioServico.USUARIOS_POR_PAGINA - 1;
+
+		if (finalConta > pagina.getTotalElements()) {
+			finalConta = pagina.getTotalElements();
+		}
+
+		model.addAttribute("paginaAtual", numPagina);
+		model.addAttribute("totalPaginas", pagina.getTotalPages());
+		model.addAttribute("comecoConta", comecoConta);
+		model.addAttribute("finalConta", finalConta);
+		model.addAttribute("totalItens", pagina.getTotalElements());
+		model.addAttribute("listarUsuarios", listarUsuarios);
+		model.addAttribute("keyword", keyword);
+		return "adm/index";
+
 	}
 }
 

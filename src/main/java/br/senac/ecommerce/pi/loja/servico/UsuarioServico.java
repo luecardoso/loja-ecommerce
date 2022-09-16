@@ -6,6 +6,9 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.ecommerce.pi.loja.modelo.CargoModelo;
@@ -22,6 +25,13 @@ public class UsuarioServico {
 	
 	@Autowired
 	CargoRepositorio cargoRepositorio;
+	
+	
+	public static final int USUARIOS_POR_PAGINA = 10;
+	
+	public Page<UsuarioModelo> listarPorPagina(Pageable pag){
+		return this.usuarioRepositorio.findAll(pag);
+	}
 	
 	
 	public List<UsuarioModelo> listarTodosUsuarios(){
@@ -67,6 +77,15 @@ public class UsuarioServico {
 	
 	public List<CargoModelo> listarCargos() {
 		return  cargoRepositorio.findAll();
+	}
+	
+	public Page<UsuarioModelo> listarPorPagina(int numPagina, String keyword) {
+		Pageable pageable = PageRequest.of(numPagina - 1, USUARIOS_POR_PAGINA);
+
+		if (keyword != null) {
+			return usuarioRepositorio.encontrarPorPagina(keyword, pageable);
+		}
+		return usuarioRepositorio.findAll(pageable);
 	}
 	
 //	private void codificarSenha(UsuarioModelo usuario) {

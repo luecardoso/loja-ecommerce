@@ -2,12 +2,17 @@ package br.senac.ecommerce.pi.loja.modelo;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -28,51 +33,69 @@ public class UsuarioModelo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	//@Column(length = 50)
+
+	// @Column(length = 50)
 	@NotBlank(message = "Preencha o nome")
-	//@NotNull
+	// @NotNull
 	private String nome;
-	
-	///@NotBlank(message = "Email é obrigatório")
-	//@Email(message = "Não é um e-mail válido")
+
+	/// @NotBlank(message = "Email é obrigatório")
+	// @Email(message = "Não é um e-mail válido")
 	private String email;
-	
-	//@NotEmpty(message = "Informe uma senha")
+
+	// @NotEmpty(message = "Informe uma senha")
 	private String senha;
-	
-	//@CPF(message = "Informe um CPF válido.")
+
+	// @CPF(message = "Informe um CPF válido.")
 	private String cpf;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
-	
-	//@Size(min=11,max = 14, message = "Infome um telefone válido")
+
+	// @Size(min=11,max = 14, message = "Infome um telefone válido")
 	private String telefone;
-	
+
 	private boolean ativo;
 	
-	@ManyToOne
-	private CargoModelo cargo;
 
-	public CargoModelo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(CargoModelo cargo) {
-		this.cargo = cargo;
+	public UsuarioModelo(Long id, @NotBlank(message = "Preencha o nome") String nome, String email, String senha,
+			String cpf, LocalDate dataNascimento, String telefone, boolean ativo, Set<CargoModelo> cargos) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+		this.telefone = telefone;
+		this.ativo = ativo;
+		this.cargos = cargos;
 	}
 
 	public UsuarioModelo() {
 		
 	}
 
+	@ManyToMany
+	@JoinTable(name = "usuario_cargos", joinColumns = @JoinColumn(name = " usuario_id"), inverseJoinColumns = @JoinColumn(name = "cargo_id"))
+	private Set<CargoModelo> cargos = new HashSet<>();
+
+	public Set<CargoModelo> getCargos() {
+		return cargos;
+	}
+
+	public void setCargos(Set<CargoModelo> cargos) {
+		this.cargos = cargos;
+	}
+
+	public void adicionarCargo(CargoModelo cargo) {
+		this.cargos.add(cargo);
+	}
 
 	@Override
 	public String toString() {
 		return "UsuarioModelo [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", cpf=" + cpf
 				+ ", dataNascimento=" + dataNascimento + ", telefone=" + telefone + ", ativo=" + ativo + ", cargo="
-				+ cargo + "]";
+				+ cargos + "]";
 	}
 
 	public UsuarioModelo(Long id, String nome, String email, String senha, String cpf, LocalDate dataNascimento,
