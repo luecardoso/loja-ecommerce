@@ -40,4 +40,17 @@ class LojaApplicationTests {
 		CargoModelo cargoSalvo = cargoRepositorio.save(cargoEstoquista);
 		assertThat(cargoSalvo.getId()).isGreaterThan(0);
 	}
+	
+//	@Test
+//	public void testeCodificarSenha() {
+//		BCryptPasswordEncoder codificadorSenha = new BCryptPasswordEncoder();
+//		String senhaCrua = "12345";
+//		String senhaCodificada = codificadorSenha.encode(senhaCrua);
+//		System.out.println("Senha Normal: "+senhaCrua);
+//		System.out.println("Senha Codificada: "+senhaCodificada);
+//
+//		boolean matches = codificadorSenha.matches(senhaCrua, senhaCodificada);
+//
+//		assertThat(matches).isTrue();
+//	}
 }

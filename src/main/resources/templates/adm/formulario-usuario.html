@@ -47,7 +47,7 @@
 				</div>
 	<!-- 			<div class="invalid-feedback" th:errors="*{nome}"></div> -->
 	<!-- 			<div th:classappend="${#fields.hasErrors('nome')} ? has-error"></div> -->
-	 			<span th:if="${#fields.hasErrors('nome')}"  th:errors="*{nome}" class="text-danger"></span>
+	 		<!-- 	<span th:if="${#fields.hasErrors('nome')}"  th:errors="*{nome}" class="text-danger"></span> -->
 			</div>	
 			
 			<!-- TELEFONE -->
@@ -68,14 +68,16 @@
 				<label for="cpf">CPF:</label>
 				<input  th:if="${listaUsuarioInfo.cpf == null}" class="form-control cpf-mask" type="text" th:field="*{cpf}" id="cpf" maxlength="14"  title="Insira seu CPF apenas números"
 				placeholder="000.000.000-00" required/> 
-				<input  th:if="${listaUsuarioInfo.cpf != null}" class="form-control" type="text" th:field="*{cpf}" id="cpf" th:title="*{cpf}" readonly/> 
+				<input  th:if="${listaUsuarioInfo.cpf != null}" class="form-control disabled" type="text" th:field="*{cpf}" id="cpf" th:title="*{cpf}" readonly/> 
 			</div>
 			
 			<!-- CARGO -->
 			<div class="form-group row m-2">
 				<label for="cargo">Cargo: </label>
-				<select class="form-select" th:field="*{cargos}">
-					<option  th:each="lista : ${listaCargo}" th:value="${lista.id}" th:text="${lista.nome}"></option>
+				<select class="form-select" >
+					<th:block th:each="lista : ${listaCargo}" th:field="*{cargos}">
+						<option   th:value="${lista.id}" th:text="${lista.nome}"></option>
+					</th:block>
 				</select>
 			</div>
 			

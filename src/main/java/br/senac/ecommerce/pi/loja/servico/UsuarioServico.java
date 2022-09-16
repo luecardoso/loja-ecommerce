@@ -76,7 +76,7 @@ public class UsuarioServico {
 	}
 	
 	public List<CargoModelo> listarCargos() {
-		return  cargoRepositorio.findAll();
+		return (List<CargoModelo>) cargoRepositorio.findAll();
 	}
 	
 	public Page<UsuarioModelo> listarPorPagina(int numPagina, String keyword) {

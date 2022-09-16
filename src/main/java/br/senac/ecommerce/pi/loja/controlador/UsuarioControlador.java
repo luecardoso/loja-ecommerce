@@ -47,8 +47,9 @@ public class UsuarioControlador {
 	public String cadastrar(Model model) {
 		List<CargoModelo> listarCargos = usuarioServico.listarCargos();
 		UsuarioModelo usuario = new UsuarioModelo();
+		model.addAttribute("listaCargos", listarCargos);
 		model.addAttribute("listaUsuarioInfo", usuario);
-		model.addAttribute("listarCargos", listarCargos);
+		
 		return "adm/formulario-usuario";
 	}
 	

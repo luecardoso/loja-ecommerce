@@ -63,7 +63,7 @@
 								<!-- Desativar Usuario -->
 								<a th:if="${pessoa.ativo == true}"
 									th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/false'}"
-									title="Desativar usuÃ¡rio">
+									title="Desativar usuario">
 									<input type="checkbox" class="form-check-input" role="switch"
 										id="flexSwitchCheckDefault" checked />
 								</a>
@@ -71,7 +71,7 @@
 								<!-- Ativar Usuario -->
 								<a th:if="${pessoa.ativo == false}"
 									th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/true'}"
-									title="Ativar usuÃ¡rio">
+									title="Ativar usuario">
 									<input type="checkbox" class="form-check-input" role="switch"
 										id="flexSwitchCheckDefault" />
 								</a>
