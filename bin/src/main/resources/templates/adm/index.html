@@ -48,10 +48,10 @@
 					</thead>
 				</tr>
 
-				<tr th:each="pessoa : ${listaUsuariosControlador}">
+				<tr th:each="pessoa : ${listarUsuarios}">
 					<td th:text="${pessoa.id}"></td>
 					<td th:text="${pessoa.nome}"></td>
-					<td th:text="${pessoa.cargo}"></td>
+					<td th:text="${pessoa.cargos}"></td>
 					<td th:text="${pessoa.email}"></td>
 					<td th:text="${pessoa.telefone}"></td>
 					<td th:text="${pessoa.dataNascimento}"></td>
@@ -63,7 +63,7 @@
 								<!-- Desativar Usuario -->
 								<a th:if="${pessoa.ativo == true}"
 									th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/false'}"
-									title="Desativar usuÃ¡rio">
+									title="Desativar usuario">
 									<input type="checkbox" class="form-check-input" role="switch"
 										id="flexSwitchCheckDefault" checked />
 								</a>
@@ -71,7 +71,7 @@
 								<!-- Ativar Usuario -->
 								<a th:if="${pessoa.ativo == false}"
 									th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/true'}"
-									title="Ativar usuÃ¡rio">
+									title="Ativar usuario">
 									<input type="checkbox" class="form-check-input" role="switch"
 										id="flexSwitchCheckDefault" />
 								</a>
@@ -79,12 +79,42 @@
 						</div>
 					</td>
 					<td>
-						<a th:href="@{/administrador/usuario/editar/{id}(id=${pessoa.id})}">Editar</a>
-						<a th:href="@{/administrador/usuario/deletar/{id}(id=${pessoa.id})}">Deletar</a>
+						<a class="btn btn-info" th:href="@{/administrador/usuario/editar/{id}(id=${pessoa.id})}">Editar</a>
+<!-- 						<a th:href="@{/administrador/usuario/deletar/{id}(id=${pessoa.id})}">Deletar</a> -->
 					</td>
 				</tr>
 			</table>
 
+
+			<!-- PAGINAÇÃO -->
+ 			<div class="text-center m-1" th:if="${totalItens > 0}">
+				<span>Usuários [[${comecoConta}]] até [[${finalConta}]] de	[[${totalItens}]]</span>
+			</div>
+			<div class="text-center m-1" th:unless="${totalItens > 0}">
+				<span>Nenhum usuário encontrado</span>
+			</div>
+			<div th:if="${totalPaginas > 1}">
+				<nav>
+					<ul class="pagination justify-content-center">
+						<li th:class="${paginaAtual > 1 ?'page-item':'page-item disabled'}">
+							<a class="page-link" th:href="@{/administrador/usuario/pagina/1}" aria-label="Primeira"> <span aria-hidden="true">&laquo;</span></a>
+						</li>
+						<li th:class="${paginaAtual > 1 ?'page-item':'page-item disabled'}">
+							<a class="page-link" th:href="@{'/administrador/usuario/pagina/'+${paginaAtual -1 }}" aria-label="Anterior"><span aria-hidden="true">&lt;</span></a>
+						</li>
+						<li th:class="${paginaAtual != i ? 'page-item' : 'page-item active'}" th:each="i : ${#numbers.sequence(1, totalPaginas)}">
+							<a class="page-link" th:href="@{'/administrador/usuario/pagina/' +${i}}">[[${i}]]</a>
+						</li>
+						<li	th:class="${paginaAtual < totalPaginas ? 'page-item':'page-item disabled'}">
+							<a class="page-link" th:href="@{'/administrador/usuario/pagina/'+${paginaAtual +1 }}" aria-label="Proxima"><span aria-hidden="true">&gt;</span></a>
+						</li>
+						<li th:class="${paginaAtual < totalPaginas ? 'page-item':'page-item disabled'}">
+							<a class="page-link" th:href="@{'/administrador/usuario/pagina/'+${totalPaginas}}" aria-label="Ultima"><span aria-hidden="true">&raquo;</span></a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<!-- FIM PAGINAÇÃO -->
 
 		</div>
 

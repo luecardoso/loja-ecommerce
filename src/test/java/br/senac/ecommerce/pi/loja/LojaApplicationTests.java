@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
 import br.senac.ecommerce.pi.loja.modelo.CargoModelo;
+import br.senac.ecommerce.pi.loja.modelo.UsuarioModelo;
 import br.senac.ecommerce.pi.loja.repositorio.CargoRepositorio;
+import br.senac.ecommerce.pi.loja.repositorio.UsuarioRepositorio;
 
 //@SpringBootTest
 @DataJpaTest
@@ -23,6 +27,11 @@ class LojaApplicationTests {
 	void contextLoads() {
 	}
 	
+	@Autowired
+	UsuarioRepositorio usuarioRepositorio;
+	
+	@Autowired
+	private TestEntityManager entityManager;
 	
 	@Autowired
 	CargoRepositorio cargoRepositorio;
@@ -41,16 +50,26 @@ class LojaApplicationTests {
 		assertThat(cargoSalvo.getId()).isGreaterThan(0);
 	}
 	
-//	@Test
-//	public void testeCodificarSenha() {
-//		BCryptPasswordEncoder codificadorSenha = new BCryptPasswordEncoder();
-//		String senhaCrua = "12345";
-//		String senhaCodificada = codificadorSenha.encode(senhaCrua);
-//		System.out.println("Senha Normal: "+senhaCrua);
-//		System.out.println("Senha Codificada: "+senhaCodificada);
-//
-//		boolean matches = codificadorSenha.matches(senhaCrua, senhaCodificada);
-//
-//		assertThat(matches).isTrue();
-//	}
+	@Test
+	public void testeCodificarSenha() {
+		BCryptPasswordEncoder codificadorSenha = new BCryptPasswordEncoder();
+		String senhaCrua = "12345";
+		String senhaCodificada = codificadorSenha.encode(senhaCrua);
+		System.out.println("Senha Normal: "+senhaCrua);
+		System.out.println("Senha Codificada: "+senhaCodificada);
+
+		boolean matches = codificadorSenha.matches(senhaCrua, senhaCodificada);
+
+		assertThat(matches).isTrue();
+	}
+	
+	@Test
+	public void testeCriarUsuario() {
+//		CargoModelo cargoEstoquista = entityManager.find(Cargo.class, 2);
+//		UsuarioModelo usuario = new UsuarioModelo("abcd@abcd", "123456", "Usuario", "2020-28-08", "115550123",
+//				"4400556688");
+//		usuario.adicionarCargo(cargoEstoquista);
+//		UsuarioModelo usuarioSalvo = usuarioRepositorio.save(usuario);
+//		assertThat(usuarioSalvo.getId()).isGreaterThan(0);
+	}
 }

@@ -3,6 +3,8 @@
 <head>
 	<title>Página de Cadastro de Usuários</title>
 	<meta charset="UTF-8">
+	<script type="text/javascript" src="/js/jquery.mask.js"></script>
+	<script type="text/javascript" src="/js/mascara.js"></script>
 </head>
 <body>
 	
@@ -40,25 +42,25 @@
 			<div class="form-group mb-3">
 				<label for="nome">Nome:</label> 
 				<div>
-					<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" maxlength=""
+					<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" minlength="3" maxlength=""
 					placeholder="Nome Completo"  title="Insira seu nome completo" required/>
 				</div>
 	<!-- 			<div class="invalid-feedback" th:errors="*{nome}"></div> -->
 	<!-- 			<div th:classappend="${#fields.hasErrors('nome')} ? has-error"></div> -->
-	 			<span th:if="${#fields.hasErrors('nome')}"  th:errors="*{nome}" class="text-danger"></span>
+	 		<!-- 	<span th:if="${#fields.hasErrors('nome')}"  th:errors="*{nome}" class="text-danger"></span> -->
 			</div>	
 			
 			<!-- TELEFONE -->
 			<div class="form-group row m-2">
 				<label for="telefone">Telefone:</label> 
-				<input class="form-control" type="text" th:field="*{telefone}" id="telefone" maxlength="11"  title="Insira seu telefone"
-				pattern="^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$" placeholder="Ex.: (00) 00000-0000" data-mask="(00) 00000-0000" required/>
+				<input class="form-control" type="text" th:field="*{telefone}" id="telefone" minlength="10"  title="Insira seu telefone"
+				 placeholder="Ex.: (00) 00000-0000" data-mask="(00) 00000-0000" required/>
 			</div>
 			
 			<!-- DATA DE NASCIMENTO -->
 			<div class="form-group row m-2">
 				<label for="dataNascimento">Data de Nascimento:</label>
-				<input class="form-control mb-4 col-4" type="date" th:field="*{dataNascimento}" id="dataNascimento"  title="Insira sua data de nascimento" required/> 
+				<input class="form-control mb-4 col-4" type="date" th:field="*{dataNascimento}" id="dataNascimento" min  title="Insira sua data de nascimento" required/> 
 			</div>
 	 		 
 	 		 <!-- CPF -->
@@ -66,14 +68,16 @@
 				<label for="cpf">CPF:</label>
 				<input  th:if="${listaUsuarioInfo.cpf == null}" class="form-control cpf-mask" type="text" th:field="*{cpf}" id="cpf" maxlength="14"  title="Insira seu CPF apenas números"
 				placeholder="000.000.000-00" required/> 
-				<input  th:if="${listaUsuarioInfo.cpf != null}" class="form-control" type="text" th:field="*{cpf}" id="cpf" th:title="*{cpf}" readonly/> 
+				<input  th:if="${listaUsuarioInfo.cpf != null}" class="form-control disabled" type="text" th:field="*{cpf}" id="cpf" th:title="*{cpf}" readonly/> 
 			</div>
 			
 			<!-- CARGO -->
 			<div class="form-group row m-2">
 				<label for="cargo">Cargo: </label>
-				<select class="form-select" th:field="*{cargo}">
-					<option  th:each="lista : ${listaCargo}" th:value="${lista.id}" th:text="${lista.nome}"></option>
+				<select class="form-select" >
+					<th:block th:each="lista : ${listaCargo}" th:field="*{cargos}">
+						<option   th:value="${lista.id}" th:text="${lista.nome}"></option>
+					</th:block>
 				</select>
 			</div>
 			
@@ -95,7 +99,8 @@
 			<!-- SENHA -->
 			<div class="form-group row m-2">
 				<label for="senha">Senha</label>
-				<input class="form-control" type="password" th:field="*{senha}" id="senha"  title="Insira sua senha" required/> 
+				<input class="form-control"  th:if="${listaUsuarioInfo.id == null}" type="password" th:field="*{senha}" id="senha"  title="Insira sua senha" required/>
+				<input class="form-control"  th:if="${listaUsuarioInfo.id != null}" type="password" th:field="*{senha}" id="senha"  title="Insira sua senha"/>  
 			</div>		
 			
 			<button type="submit" class="btn btn-primary btn-sm">Salvar</button>

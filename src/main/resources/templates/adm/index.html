@@ -20,8 +20,8 @@
 			</div>
 		</div>
 		
-		<div>
-			<a th:href="@{/administrador/usuario/cadastrar}" class="btn btn-primary">Cadastrar</a>
+		<div >
+			<a th:href="@{/administrador/usuario/cadastrar}" class="btn btn-primary ">Cadastrar</a>
 		</div>
 
 		<hr>
@@ -51,10 +51,10 @@
 				<tr th:each="pessoa : ${listarUsuarios}">
 					<td th:text="${pessoa.id}"></td>
 					<td th:text="${pessoa.nome}"></td>
-					<td th:text="${pessoa.cargos}"></td>
+					<td th:text="${pessoa.cargos}"></td><!-- [[${pessoa.cargos}]] -->
 					<td th:text="${pessoa.email}"></td>
 					<td th:text="${pessoa.telefone}"></td>
-					<td th:text="${pessoa.dataNascimento}"></td>
+					<td th:text="${pessoa.dataNascimento}"></td><!-- [[${pessoa.dataNascimento}]] -->
 					<td th:text="${pessoa.cpf}"></td>
 					<td>
 						<div class="form-check form-switch">
@@ -63,7 +63,7 @@
 								<!-- Desativar Usuario -->
 								<a th:if="${pessoa.ativo == true}"
 									th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/false'}"
-									title="Desativar usuario">
+									title="Desativar Usuario">
 									<input type="checkbox" class="form-check-input" role="switch"
 										id="flexSwitchCheckDefault" checked />
 								</a>
@@ -71,7 +71,7 @@
 								<!-- Ativar Usuario -->
 								<a th:if="${pessoa.ativo == false}"
 									th:href="@{'/administrador/usuario/' + ${pessoa.id} + '/ativo/true'}"
-									title="Ativar usuario">
+									title="Ativar Usuario">
 									<input type="checkbox" class="form-check-input" role="switch"
 										id="flexSwitchCheckDefault" />
 								</a>
@@ -84,8 +84,7 @@
 					</td>
 				</tr>
 			</table>
-
-
+			
 			<!-- PAGINAÇÃO -->
  			<div class="text-center m-1" th:if="${totalItens > 0}">
 				<span>Usuários [[${comecoConta}]] até [[${finalConta}]] de	[[${totalItens}]]</span>
@@ -115,7 +114,6 @@
 				</nav>
 			</div>
 			<!-- FIM PAGINAÇÃO -->
-
 		</div>
 
 	</div>

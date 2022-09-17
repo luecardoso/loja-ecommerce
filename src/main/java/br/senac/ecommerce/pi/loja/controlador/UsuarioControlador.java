@@ -38,18 +38,12 @@ public class UsuarioControlador {
 		return listarComPaginacao(1, model, null);
 	}
 	
-	@GetMapping("")
-	public String teste() {
-		return "layout/layout";
-	}
-	
 	@GetMapping("/usuario/cadastrar")
 	public String cadastrar(Model model) {
 		List<CargoModelo> listarCargos = usuarioServico.listarCargos();
 		UsuarioModelo usuario = new UsuarioModelo();
-		model.addAttribute("listaCargos", listarCargos);
 		model.addAttribute("listaUsuarioInfo", usuario);
-		
+		model.addAttribute("listaCargo", listarCargos);
 		return "adm/formulario-usuario";
 	}
 	
@@ -64,14 +58,26 @@ public class UsuarioControlador {
 	}
 	
 	
+//	@GetMapping("/usuario/editar/{id}")
+//	public ModelAndView editarUsuario(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {		
+//		ModelAndView mv = new ModelAndView("adm/formulario-usuario");
+//		UsuarioModelo listaInformacaoUsuario = usuarioServico.editarUsuario(id);
+//		List<CargoModelo> listaCargo = usuarioServico.listarCargos();
+//		redirectAttributes.addAttribute("mensagem", "Usuário Editado com sucesso");
+//		mv.addObject("listaUsuarioInfo", listaInformacaoUsuario);
+//		mv.addObject("listaCargo", listaCargo);
+//		return mv;
+//	}
+	
 	@GetMapping("/usuario/editar/{id}")
-	public ModelAndView editarUsuario(@PathVariable("id") Long id) {		
-		ModelAndView mv = new ModelAndView("adm/formulario-usuario");
-		UsuarioModelo listaInformacaoUsuario = usuarioServico.editarUsuario(id);
-		List<CargoModelo> listaCargo = usuarioServico.listarCargos();
-		mv.addObject("listaUsuarioInfo", listaInformacaoUsuario);
-		mv.addObject("listaCargo", listaCargo);
-		return mv;
+	public String editarUsuario(@PathVariable(name = "id") Long id, Model model,
+			RedirectAttributes redirectAttributes) {
+
+			UsuarioModelo listaInformacaoUsuario = usuarioServico.editarUsuario(id);
+			List<CargoModelo> listaCargo = usuarioServico.listarCargos();
+			model.addAttribute("listaUsuarioInfo", listaInformacaoUsuario);
+			model.addAttribute("listaCargo", listaCargo);
+			return "adm/formulario-usuario";
 	}
 	
 	@GetMapping("/usuario/deletar/{id}")

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.senac.ecommerce.pi.loja.modelo.CargoModelo;
@@ -26,6 +27,8 @@ public class UsuarioServico {
 	@Autowired
 	CargoRepositorio cargoRepositorio;
 	
+	@Autowired
+	PasswordEncoder codificadorSenha;
 	
 	public static final int USUARIOS_POR_PAGINA = 10;
 	
@@ -46,10 +49,10 @@ public class UsuarioServico {
 			if(usuario.getSenha().isEmpty()) {
 				usuario.setSenha(usuarioAtual.getSenha());
 			}else {
-				//codificarSenha(usuario);
+				codificarSenha(usuario);
 			}
 		}else {
-			//codificarSenha(usuario);
+			codificarSenha(usuario);
 		}
 		usuarioRepositorio.save(usuario);
 	}
@@ -88,8 +91,8 @@ public class UsuarioServico {
 		return usuarioRepositorio.findAll(pageable);
 	}
 	
-//	private void codificarSenha(UsuarioModelo usuario) {
-//		String senhaCodificada = codificadorSenha.encode(usuario.getSenha());
-//		usuario.setSenha(senhaCodificada);
-//	}
+	private void codificarSenha(UsuarioModelo usuario) {
+		String senhaCodificada = codificadorSenha.encode(usuario.getSenha());
+		usuario.setSenha(senhaCodificada);
+	}
 }
