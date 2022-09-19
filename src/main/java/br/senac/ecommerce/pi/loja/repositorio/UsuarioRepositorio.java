@@ -21,6 +21,12 @@ public interface UsuarioRepositorio extends JpaRepository<UsuarioModelo, Long> {
 	@Query("SELECT u FROM UsuarioModelo u WHERE u.email = :email")
 	public UsuarioModelo pegarUsuarioPeloEmail(@Param("email") String email);
 	
+	@Query("SELECT count(u) FROM UsuarioModelo u WHERE u.email = :email")
+	public int pegarQuantidadeEmail(@Param("email") String email);
+	
+	@Query("SELECT count(u) FROM UsuarioModelo u WHERE u.cpf = :cpf")
+	public int pegarQuantidadeCpf(@Param("cpf") String cpf);
+	
 	@Query("SELECT u FROM UsuarioModelo u WHERE u.nome LIKE %?1% OR u.email LIKE %?1%")
-	public Page<UsuarioModelo> encontrarPorPagina(String keyword, Pageable pageable);
+	public Page<UsuarioModelo> findAll(String keyword, Pageable pageable);//encontrarPorPagina
 }

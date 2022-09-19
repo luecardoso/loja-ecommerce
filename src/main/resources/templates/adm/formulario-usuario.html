@@ -15,35 +15,28 @@
 		</div>
 			
 	
-		<!-- DORMULÁRIO -->
-		<form th:action="@{/administrador/usuario/salvar}" method="POST" th:object="${listaUsuarioInfo}">
-			
-			
+		<!-- FORMULÁRIO -->
+		<form th:action="@{/administrador/usuario/salvar}" method="POST" th:object="${usuarioModelo}">
 		
-			<!--  	<div class="alert alert-success alert-dismissible fade show  m-2 col-8" role="alert"  th:if="${not #strings.isEmpty(msg)}">
-			<div  th:each = "m : ${msg}">
-				<span  th:text="${m}"></span>
-			</div>
-		</div> 
-		
-		
-			 Mensagem de Erro
-	 		<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(msg)}">
-				<div th:each="mostrarErros : ${#fields.globalErrors()}">
-					<span><strong th:text="${mostrarErros}" ></strong></span>
+			<!-- MENSAGEM DE ERRO -->
+ 	 		<div th:each="problema   : ${mensagemErro}" class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(mensagemErro)}">
+				<div  ><!-- ${#fields.globalErrors()} -->
+				<ul ><!-- th:if="${#fields.hasErrors('*')}" -->
+					<li > <span th:text="${problema}"><strong  ></strong></span></li><!-- th:each="mostrarErros : ${#fields.errors('*')}"  -->
+				</ul>
 				</div>
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div> -->
+ 			</div>
 			
-			<!--  Mensagem de Sucesso-->
+			<!--  MENSAGEM DE SUCESSO -->
 			<div class="alert alert-success alert-dismissible fade show  m-2 col-8" role="alert"  th:if="${not #strings.isEmpty(mensagem)}">
 				<span><strong  th:text="${mensagem}"></strong></span>
 				<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 			
-			<!--  Mensagem de EMAIL-->
-			<div class="alert alert-warning alert-dismissible fade show  m-2 col-8 text-center" role="alert"  th:if="${mensagemEmail != null}">
-				<span><strong  th:text="${mensagemEmail}"></strong></span>
+			<!--  MENSAGEM ITENS DUPLICADOS-->
+			<div class="alert alert-warning alert-dismissible fade show  m-2 col-8 text-center" role="alert"  th:if="${mensagemDuplicado != null}">
+				<span><strong  th:text="${mensagemDuplicado}"></strong></span>
 				<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 		
@@ -56,10 +49,21 @@
 				<div>
 					<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" maxlength=""
 					placeholder="Nome Completo"  title="Insira seu nome completo" required/>
+					
+<!-- 					<input th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="form-control is-invalid" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" maxlength=""
+					placeholder="Nome Completo"  title="Insira seu nome completo" />
+					
+					<p th:if="${#fields.hasErrors('nome')}" th:class="${#fields.hasErrors('nome')}? error">Nome invalido</p>
+					<p th:errors="*{nome}" th:class="${#fields.hasErrors('nome')}? fieldError"></p>
+					<ul>
+  						<li th:each="err : ${#fields.errors('nome')}" th:text="${err}" />
+					</ul> -->
+<!-- 									<div class="invalid-feedback" th:errors="*{nome}"></div>
+	 			<div th:classappend="${#fields.hasErrors('nome')} ? is-invalid"></div>
+ 	 			<span th:if="${#fields.hasErrors('nome')}"  th:errors="*{nome}" class="text-danger"></span> -->
+					
 				</div>
-	<!-- 			<div class="invalid-feedback" th:errors="*{nome}"></div> -->
-	<!-- 			<div th:classappend="${#fields.hasErrors('nome')} ? has-error"></div> -->
-<!-- 	 			<span th:if="${#fields.hasErrors('nome')}"  th:errors="*{nome}" class="text-danger"></span> -->
+
 			</div>	
 			
 			<!-- TELEFONE -->
@@ -78,21 +82,21 @@
 	 		 <!-- CPF -->
 			<div class="form-group row m-2">
 				<label for="cpf">CPF:</label>
-				<input  th:if="${listaUsuarioInfo.cpf == null}" class="form-control cpf-mask" type="text" th:field="*{cpf}" id="cpf" maxlength="14"  title="Insira seu CPF apenas números"
+				<span th:if="${#fields.hasErrors('cpf')}"  class="text-danger" ></span>
+				<div ><!-- th:classappend="${#fields.hasErrors('nome')} ?  is-invalid" -->
+					<input  th:if="${usuarioModelo.cpf == null}" class="form-control cpf-mask" type="text" th:field="*{cpf}" id="cpf" maxlength="14"  title="Insira seu CPF apenas números"
 				placeholder="000.000.000-00" required/> 
-				<input  th:if="${listaUsuarioInfo.cpf != null}" class="form-control" type="text" th:field="*{cpf}" id="cpf" th:title="*{cpf}" readonly/> 
-			</div>
+				<input  th:if="${usuarioModelo.cpf != null}" class="form-control" type="text" th:field="*{cpf}" id="cpf" th:title="*{cpf}" /> 
+ 				<label class="invalid-feedback text-danger"  th:field="*{cpf}" th:if="${#fields.hasErrors('cpf')}" th:errors="cpf" th:text="${mensagemErro}">Name Error</label>
+				</div>
+			</div>	
 			
-			<!-- CARGO -->
- 			<div class="form-group row m-2">
+			<div class="form-group row m-2">
 				<label for="cargo">Cargo: </label>
-<!-- 				<select class="form-select" > -->
- 					<th:block th:each="lista : ${listaCargo}" class="form-group">
-						<!-- <option th:each="lista : ${listaCargo}" th:field="*{cargos}" th:value="${lista.id}" th:text="${lista.nome}"></option> -->
-						 <input class="" type="radio" th:field="*{cargos}" th:value="${lista.id}"	th:text="${lista.nome}" required />
- 					</th:block> 
-<!-- 				</select> -->
-			</div> 
+				<select class="form-select" th:field="*{cargos}">
+						<option th:each="lista : ${listaCargo}" th:value="${lista.id}" th:text="${lista.nome}"></option>
+				</select>
+			</div>  
 			
 			<!-- ATIVAR -->
 			<div class="form-group row  m-2 col-2">
@@ -105,15 +109,15 @@
 			<!-- EMAIL -->
 			<div class="form-group row m-2">
 				<label for="email">Email:</label>
-				<input  th:if="${listaUsuarioInfo.id == null}" class="form-control" type="email" th:field="*{email}" id="email"  placeholder="name@email.com" title="Insira seu email" required/>
-				<input  th:if="${listaUsuarioInfo.id != null}" class="form-control disabled" type="email" th:field="*{email}" id="email"  th:title="*{email}" readonly/>
+				<input  th:if="${usuarioModelo.id == null}" class="form-control" type="email" th:field="*{email}" id="email"  placeholder="name@email.com" title="Insira seu email" required/>
+				<input  th:if="${usuarioModelo.id != null}" class="form-control disabled" type="email" th:field="*{email}" id="email"  th:title="*{email}" />
 			</div>
 			 
 			<!-- SENHA -->
 			<div class="form-group row m-2">
 				<label for="senha">Senha</label>
-				<input th:if="${listaUsuarioInfo == null}" class="form-control" type="password" th:field="*{senha}" id="senha" placeholder="senha"  title="Insira sua senha" required/> 
-				<input th:if="${listaUsuarioInfo != null}" class="form-control" type="password" th:field="*{senha}" id="senha"/> 
+				<input th:if="${usuarioModelo == null}" class="form-control" type="password" th:field="*{senha}" id="senha" placeholder="senha"  title="Insira sua senha" required/> 
+				<input th:if="${usuarioModelo != null}" class="form-control" type="password" th:field="*{senha}" id="senha"/> 
 			</div>		
 			
 			<button type="submit" class="btn btn-primary btn-sm form-check form-check-inline">Salvar</button>

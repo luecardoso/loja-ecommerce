@@ -19,7 +19,7 @@ public class DetalhesUsuario implements UserDetailsService{
 	//@Transactional
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		UsuarioModelo usuario = usuarioRepositorio.pegarUsuarioPeloEmail(email);
-		
+
 		if (usuario != null) {
 			return new DetalhesUsuarioSeguranca(usuario);
 		}

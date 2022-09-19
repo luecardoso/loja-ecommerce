@@ -40,20 +40,20 @@ public class UsuarioModelo {
 	// @NotNull
 	private String nome;
 
-	/// @NotBlank(message = "Email é obrigatório")
-	// @Email(message = "Não é um e-mail válido")
+	@NotBlank(message = "Email é obrigatório")
+	@Email(message = "Não é um e-mail válido")
 	private String email;
 
-	// @NotEmpty(message = "Informe uma senha")
+	@NotEmpty(message = "Informe uma senha")
 	private String senha;
 
-	// @CPF(message = "Informe um CPF válido.")
+	@CPF(message = "Informe um CPF válido.")
 	private String cpf;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
 
-	// @Size(min=11,max = 14, message = "Infome um telefone válido")
+	///@Size(min=11,max = 14, message = "Infome um telefone válido")
 	private String telefone;
 
 	private boolean ativo;

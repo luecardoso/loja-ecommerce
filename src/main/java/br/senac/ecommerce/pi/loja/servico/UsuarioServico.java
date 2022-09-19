@@ -32,14 +32,14 @@ public class UsuarioServico {
 	
 	public static final int USUARIOS_POR_PAGINA = 10;
 	
-	public Page<UsuarioModelo> listarPorPagina(Pageable pag){
-		return this.usuarioRepositorio.findAll(pag);
-	}
+//	public Page<UsuarioModelo> listarPorPagina(Pageable pag){
+//		return this.usuarioRepositorio.findAll(pag);
+//	}
+//	
 	
-	
-	public List<UsuarioModelo> listarTodosUsuarios(){
-		return this.usuarioRepositorio.findAll();
-	}
+//	public List<UsuarioModelo> listarTodosUsuarios(){
+//		return this.usuarioRepositorio.findAll();
+//	}
 	
 	public void salvarUsuario(UsuarioModelo usuario) {
 		boolean estaAtualizandoUsuario = (usuario.getId() != null);
@@ -74,6 +74,26 @@ public class UsuarioServico {
 		return usuarioPeloEmail == null;
 	}
 	
+	public int quantidadeEmail(String email) {
+		int usuarioPeloEmail = usuarioRepositorio.pegarQuantidadeEmail(email);
+		if(usuarioPeloEmail >= 1) {
+			System.out.println("Email duplicado");
+			usuarioPeloEmail = 1;
+			return usuarioPeloEmail;
+		}
+		return usuarioPeloEmail;
+	}
+	
+	public int quantidadeCpf(String cpf) {
+		int usuarioPeloCpf = usuarioRepositorio.pegarQuantidadeCpf(cpf);
+		if(usuarioPeloCpf >= 1) {
+			System.out.println("Cpf duplicado");
+			usuarioPeloCpf = 1;
+			return usuarioPeloCpf;
+		}
+		return usuarioPeloCpf;
+	}
+	
 	public UsuarioModelo usuarioPorEmail(String email) {
 		return usuarioRepositorio.pegarUsuarioPeloEmail(email);
 	}
@@ -86,7 +106,7 @@ public class UsuarioServico {
 		Pageable pageable = PageRequest.of(numPagina - 1, USUARIOS_POR_PAGINA);
 
 		if (keyword != null) {
-			return usuarioRepositorio.encontrarPorPagina(keyword, pageable);
+			return usuarioRepositorio.findAll(keyword, pageable);
 		}
 		return usuarioRepositorio.findAll(pageable);
 	}

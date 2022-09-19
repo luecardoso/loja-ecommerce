@@ -41,6 +41,7 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 		auth.authenticationProvider(authenticationProvider());
 	}
 	
+	/* PERMISSÃO PARA ENTRAR AUTENTICADO*/
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().anyRequest().authenticated()
@@ -54,6 +55,8 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 				.permitAll();
 	}
 	
+	
+	/*PERMISÃO DE ACESSO AUTORIZADO E COM CARGO ESPECIFICO*/
 //	@Override
 //	protected void configure(HttpSecurity http) throws Exception {
 //		http.authorizeRequests()
@@ -67,6 +70,8 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 //		.and().logout().permitAll();
 //	}
 	
+	
+	/* PERMISSÃO PARA ENTRAR SEM CREDENCIAIS*/
 //	@Override
 //	protected void configure(HttpSecurity http) throws Exception {
 //		http.authorizeRequests()

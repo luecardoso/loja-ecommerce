@@ -1,22 +1,29 @@
 package br.senac.ecommerce.pi.loja.controlador;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -39,35 +46,64 @@ public class UsuarioControlador {
 	}
 	
 	@GetMapping("/usuario/cadastrar")
-	public String cadastrar(Model model) {
+	public String cadastrar(Model model, UsuarioModelo usuario) {
 		List<CargoModelo> listarCargos = usuarioServico.listarCargos();
-		UsuarioModelo usuario = new UsuarioModelo();
-		model.addAttribute("listaUsuarioInfo", usuario);
+//		UsuarioModelo usuario = new UsuarioModelo();
+		model.addAttribute("usuarioModelo", usuario);
 		model.addAttribute("listaCargo", listarCargos);
 		return "adm/formulario-usuario";
 	}
 	
 	@PostMapping("/usuario/salvar")
-	public String salvarUsuario(@Valid UsuarioModelo usuario, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
-		if(bindingResult.hasFieldErrors()) {
+	public String salvarUsuario(@Valid UsuarioModelo usuario, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+		int emailDuplicado = usuarioServico.quantidadeEmail(usuario.getEmail());
+		int cpfDuplicado = usuarioServico.quantidadeCpf(usuario.getCpf());
+		
+//		if(bindingResult.hasErrors()) {
+//			redirectAttributes.addFlashAttribute("mensagem", "houve um porblema");
+//			model.addAttribute("usuarioModelo", usuario);
+//			return "redirect:/administrador/usuario/cadastrar";
+//		}
+		
+		/*VERIFICA CAMPOS COM ERROS*/
+		if(bindingResult.hasErrors()) {
+//			List<ObjectError> problema = bindingResult.getAllErrors();
+//			problema.forEach((erro) -> System.out.println(erro.toString()));
+			model.addAttribute("usuarioModelo", usuario);
+//			for(ObjectError erro : bindingResult.getAllErrors()) {
+//				problema.add( erro);
+//				
+//			}
+//			Map<String,String> problema = new HashMap<>();
+//			
+//			for(ObjectError erro  : bindingResult.getAllErrors()) {
+//				problema.put(bindingResult.getFieldError()+"",erro.getObjectName() +": "+ erro.getDefaultMessage());
+//			}
+			
+			redirectAttributes.addFlashAttribute("mensagemErro","Campo "+bindingResult.getFieldError().getField() +" com problema: \n" +bindingResult.getFieldError().getDefaultMessage());
+//			redirectAttributes.addFlashAttribute("mensagemErro", problema);
+			//.getRejectedValue() retorna o valor inserido
+			//return cadastrar(model, usuario);//bindingResult.getFieldError().getField() retorna o campo com erro
 			return "redirect:/administrador/usuario/cadastrar";
 		}
+		/*VERIFICAR CPF DUPLICADO*/
+		if(cpfDuplicado >= 1) {
+			redirectAttributes.addFlashAttribute("mensagemDuplicado","CPF ja consta na base de dados");
+			return "redirect:/administrador/usuario/cadastrar";
+		}
+		
+		/*VERIFICAR EMAIL DUPLICADO*/
+		if(emailDuplicado >= 1) {
+			redirectAttributes.addFlashAttribute("mensagemDuplicado"," Esse email ja consta na base de dados");
+			return "redirect:/administrador/usuario/cadastrar";
+		}
+		
+		
 		usuarioServico.salvarUsuario(usuario);
+		model.addAttribute("usuarioModelo", usuario);
 		redirectAttributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
 		return "redirect:/administrador/usuario/cadastrar";
 	}
-	
-	
-//	@GetMapping("/usuario/editar/{id}")
-//	public ModelAndView editarUsuario(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {		
-//		ModelAndView mv = new ModelAndView("adm/formulario-usuario");
-//		UsuarioModelo listaInformacaoUsuario = usuarioServico.editarUsuario(id);
-//		List<CargoModelo> listaCargo = usuarioServico.listarCargos();
-//		redirectAttributes.addAttribute("mensagem", "Usuário Editado com sucesso");
-//		mv.addObject("listaUsuarioInfo", listaInformacaoUsuario);
-//		mv.addObject("listaCargo", listaCargo);
-//		return mv;
-//	}
 	
 	@GetMapping("/usuario/editar/{id}")
 	public String editarUsuario(@PathVariable(name = "id") Long id, Model model,
@@ -75,7 +111,7 @@ public class UsuarioControlador {
 
 			UsuarioModelo listaInformacaoUsuario = usuarioServico.editarUsuario(id);
 			List<CargoModelo> listaCargo = usuarioServico.listarCargos();
-			model.addAttribute("listaUsuarioInfo", listaInformacaoUsuario);
+			model.addAttribute("usuarioModelo", listaInformacaoUsuario);
 			model.addAttribute("listaCargo", listaCargo);
 			return "adm/formulario-usuario";
 	}
@@ -100,14 +136,14 @@ public class UsuarioControlador {
 
 	}
 	
-	@PostMapping("/usuarios/checar_email")
-	public String checarEmailDuplicado(@Param("email") String email, @Param("id") Long id) {
-		if (id == null) {
-			return usuarioServico.emailUnico(email) ? "OK" : "Duplicado";
-		} else {		
-			return "OK";
-		}
-	}
+//	@PostMapping("/usuario/checar_email")
+//	public String checarEmailDuplicado(@Param("email") String email, @Param("id") Long id) {
+//		if (id == null) {
+//			return usuarioServico.emailUnico(email) ? "OK" : "Duplicado";
+//		} else {		
+//			return "OK";
+//		}
+//	}
 	
 	@GetMapping("/usuario/pagina/{numPagina}")
 	public String listarComPaginacao(@PathVariable(name = "numPagina") int numPagina, Model model,
@@ -130,8 +166,24 @@ public class UsuarioControlador {
 		model.addAttribute("totalItens", pagina.getTotalElements());
 		model.addAttribute("listarUsuarios", listarUsuarios);
 		model.addAttribute("keyword", keyword);
-		return "adm/index";
+		return "adm/usuario";
 
+	}
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@PostMapping("/error")
+	public Map<String,String> requisao(MethodArgumentNotValidException ex, RedirectAttributes attributes){
+		Map<String,String> problema = new HashMap<>();
+		ex.getBindingResult().getAllErrors().forEach( (error) -> {
+			String campoNome = ((FieldError) problema).getField();
+			String mensagemErro = error.getDefaultMessage();
+			
+			problema.put(campoNome, mensagemErro);
+		});
+		
+		return problema;
+		
 	}
 }
 
