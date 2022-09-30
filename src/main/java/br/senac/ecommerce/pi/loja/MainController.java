@@ -12,16 +12,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import br.senac.ecommerce.pi.loja.modelo.UsuarioModelo;
+
 @Controller
 public class MainController {
 	
-	@GetMapping("/administrador")
+	@GetMapping("")
 	public String teste() {
-		return "layout/layout";
+		return "redirect:/administrador";
 	}
 
 	@GetMapping("/login")
-	public String verTelaLogin() {
+	public String verTelaLogin(UsuarioModelo usuario) {
+		if(usuario.getCargos() == null) {
+			return "redirect:/home";
+		}
 		return "login";
 	}
 	

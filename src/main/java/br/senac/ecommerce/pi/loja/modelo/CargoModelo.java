@@ -1,5 +1,7 @@
 package br.senac.ecommerce.pi.loja.modelo;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,8 +10,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cargo")
-public class CargoModelo {
+public class CargoModelo implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

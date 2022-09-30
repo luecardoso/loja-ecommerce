@@ -10,121 +10,114 @@
 	
 	<div class="container-fluid" layout:fragment="basepagina">
 		<div class="col-lg-12 ">
-			<h1 class="page-header">Cadastro de Usuarios</h1>
+			<h1 class="page-header text-center">Cadastro de Usuários</h1>
 			<hr>
 		</div>
-			
-	
-		<!-- FORMULÁRIO -->
-		<form th:action="@{/administrador/usuario/salvar}" method="POST" th:object="${usuarioModelo}">
 		
-			<!-- MENSAGEM DE ERRO -->
- 	 		<div th:each="problema   : ${mensagemErro}" class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(mensagemErro)}">
-				<div  ><!-- ${#fields.globalErrors()} -->
-				<ul ><!-- th:if="${#fields.hasErrors('*')}" -->
-					<li > <span th:text="${problema}"><strong  ></strong></span></li><!-- th:each="mostrarErros : ${#fields.errors('*')}"  -->
-				</ul>
-				</div>
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- 			</div>
-			
-			<!--  MENSAGEM DE SUCESSO -->
-			<div class="alert alert-success alert-dismissible fade show  m-2 col-8" role="alert"  th:if="${not #strings.isEmpty(mensagem)}">
-				<span><strong  th:text="${mensagem}"></strong></span>
-				<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-			
-			<!--  MENSAGEM ITENS DUPLICADOS-->
-			<div class="alert alert-warning alert-dismissible fade show  m-2 col-8 text-center" role="alert"  th:if="${mensagemDuplicado != null}">
-				<span><strong  th:text="${mensagemDuplicado}"></strong></span>
-				<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-		
-			<!-- ID -->
-			<input type="hidden" th:field="*{id}" value="" readonly id="id"/>
-		
-			<!-- NOME -->
-			<div class="form-group mb-3">
-				<label for="nome">Nome:</label> 
-				<div>
-					<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" maxlength=""
-					placeholder="Nome Completo"  title="Insira seu nome completo" required/>
+		<div class="row">
+			<div class="col-md-6 offset-md-3 ">
+					<div class="border border-secondary rounded p-3 ">
+					<!-- FORMULÁRIO -->
+					<form th:action="@{/administrador/usuario/salvar}" method="POST" th:object="${usuarioModelo}">
+						
+						<!-- MENSAGEM DE ERRO -->
+			 	 		<div th:each="problema   : ${mensagemErro}" class="alert alert-danger col-12 alert-dismissible fade show text-center" role="alert" th:if="${not #strings.isEmpty(mensagemErro)}">
+							<div>
+								<span th:text="${problema}"><strong  ></strong></span>
+							</div>
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			 			</div>
+						
+						<!--  MENSAGEM DE SUCESSO -->
+						<div class="alert alert-success alert-dismissible fade show col-12 text-center" role="alert"  th:if="${not #strings.isEmpty(mensagem)}">
+							<span><strong  th:text="${mensagem}"></strong></span>
+							<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+						
+						<!--  MENSAGEM ITENS DUPLICADOS-->
+						<div class="alert alert-warning alert-dismissible fade show col-12 text-center" role="alert"  th:if="${mensagemDuplicado != null}">
+							<span><strong  th:text="${mensagemDuplicado}"></strong></span>
+							<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
 					
-<!-- 					<input th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="form-control is-invalid" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" maxlength=""
-					placeholder="Nome Completo"  title="Insira seu nome completo" />
+						<!-- ID -->
+						<input type="hidden" th:field="*{id}" value="" readonly id="id"/>
 					
-					<p th:if="${#fields.hasErrors('nome')}" th:class="${#fields.hasErrors('nome')}? error">Nome invalido</p>
-					<p th:errors="*{nome}" th:class="${#fields.hasErrors('nome')}? fieldError"></p>
-					<ul>
-  						<li th:each="err : ${#fields.errors('nome')}" th:text="${err}" />
-					</ul> -->
-<!-- 									<div class="invalid-feedback" th:errors="*{nome}"></div>
-	 			<div th:classappend="${#fields.hasErrors('nome')} ? is-invalid"></div>
- 	 			<span th:if="${#fields.hasErrors('nome')}"  th:errors="*{nome}" class="text-danger"></span> -->
+						<!-- NOME -->
+						<div class="form-group m-2 mb-3">
+							<label for="nome">Nome:</label> 
+							<div>
+								<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}" id="nome" maxlength=""
+								placeholder="Nome Completo"  title="Insira seu nome completo" required/>	
+							</div>
+			
+						</div>	
+						
+						<!-- TELEFONE -->
+						<div class="form-group m-2 mb-3">
+							<label for="telefone">Telefone:</label> 
+							<input class="form-control" type="text" th:field="*{telefone}" id="telefone" maxlength="11"  title="Insira seu telefone"
+							placeholder="Ex.: (00) 00000-0000" data-mask="(00) 00000-0000" required/>
+						</div>
+						
+						<!-- DATA DE NASCIMENTO -->
+						<div class="form-group m-2 mb-3">
+							<label for="dataNascimento">Data de Nascimento:</label>
+							<input class="form-control mb-4 col-4" type="date" th:field="*{dataNascimento}" id="dataNascimento"  title="Insira sua data de nascimento" required/> 
+						</div>
+				 		 
+				 		 <!-- CPF -->
+						<div class="form-group m-2 mb-3">
+							<label for="cpf">CPF:</label>
+							<span th:if="${#fields.hasErrors('cpf')}"  class="text-danger" ></span>
+							<div >
+								<input  th:if="${usuarioModelo.cpf != null}" class="form-control" type="text" th:field="*{cpf}" id="cpf" th:title="*{cpf}" readonly/> 
+								<input  th:if="${usuarioModelo.cpf == null}" class="form-control cpf-mask" type="text" th:field="*{cpf}" id="cpf" maxlength="14"  title="Insira seu CPF apenas números"
+							placeholder="000.000.000-00" required/> 
+							
+							</div>
+						</div>	
+						
+						<div class="form-group m-2 mb-3">
+							<label for="cargo">Cargo: </label>
+							<select class="form-select" th:field="*{cargos}">
+									<option th:each="lista : ${listaCargo}" th:value="${lista.id}" th:text="${lista.nome}"></option>
+							</select>
+						</div>  
+						
+						<!-- ATIVAR -->
+						<div class="form-group">
+							<div class="form-check">
+								<label for="ativo">Ativar:</label>
+								<input  type="checkbox" class="form-check-label" th:field="*{ativo}" id="ativo" value="" />
+							</div>
+						</div>
+						
+						<!-- EMAIL -->
+						<div class="form-group m-2 mb-3">
+							<label for="email">Email:</label>
+							<input  th:if="${usuarioModelo.id == null}" class="form-control" type="email" th:field="*{email}" id="email"  placeholder="name@email.com" title="Insira seu email" required/>
+							<input  th:if="${usuarioModelo.id != null}" class="form-control disabled" type="email" th:field="*{email}" id="email"  th:title="*{email}" readonly/>
+						</div>
+						 
+						<!-- SENHA -->
+						<div class="form-group m-2 mb-3">
+							<label for="senha">Senha</label>
+							<input th:if="${usuarioModelo == null}" class="form-control" type="password" th:field="*{senha}" id="senha" placeholder="senha"  title="Insira sua senha" required/> 
+							<input th:if="${usuarioModelo != null}" class="form-control" type="password" th:field="*{senha}" id="senha"/> 
+						</div>		
+						
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary btn-sm form-check form-check-inline">Salvar</button>
+							<a class="btn btn-danger" th:href="@{/administrador/usuario}">Cancelar</a>
+						</div>
+						
+					</form>
 					
-				</div>
-
-			</div>	
-			
-			<!-- TELEFONE -->
-			<div class="form-group row m-2">
-				<label for="telefone">Telefone:</label> 
-				<input class="form-control" type="text" th:field="*{telefone}" id="telefone" maxlength="11"  title="Insira seu telefone"
-				pattern="^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$" placeholder="Ex.: (00) 00000-0000" data-mask="(00) 00000-0000" required/>
+					</div>
 			</div>
-			
-			<!-- DATA DE NASCIMENTO -->
-			<div class="form-group row m-2">
-				<label for="dataNascimento">Data de Nascimento:</label>
-				<input class="form-control mb-4 col-4" type="date" th:field="*{dataNascimento}" id="dataNascimento"  title="Insira sua data de nascimento" required/> 
-			</div>
-	 		 
-	 		 <!-- CPF -->
-			<div class="form-group row m-2">
-				<label for="cpf">CPF:</label>
-				<span th:if="${#fields.hasErrors('cpf')}"  class="text-danger" ></span>
-				<div ><!-- th:classappend="${#fields.hasErrors('nome')} ?  is-invalid" -->
-					<input  th:if="${usuarioModelo.cpf == null}" class="form-control cpf-mask" type="text" th:field="*{cpf}" id="cpf" maxlength="14"  title="Insira seu CPF apenas números"
-				placeholder="000.000.000-00" required/> 
-				<input  th:if="${usuarioModelo.cpf != null}" class="form-control" type="text" th:field="*{cpf}" id="cpf" th:title="*{cpf}" /> 
- 				<label class="invalid-feedback text-danger"  th:field="*{cpf}" th:if="${#fields.hasErrors('cpf')}" th:errors="cpf" th:text="${mensagemErro}">Name Error</label>
-				</div>
-			</div>	
-			
-			<div class="form-group row m-2">
-				<label for="cargo">Cargo: </label>
-				<select class="form-select" th:field="*{cargos}">
-						<option th:each="lista : ${listaCargo}" th:value="${lista.id}" th:text="${lista.nome}"></option>
-				</select>
-			</div>  
-			
-			<!-- ATIVAR -->
-			<div class="form-group row  m-2 col-2">
-				<div class="form-check">
-					<label for="ativo">Ativar:</label>
-					<input  type="checkbox" class="form-check-label" th:field="*{ativo}" id="ativo" value="" />
-				</div>
-			</div>
-			
-			<!-- EMAIL -->
-			<div class="form-group row m-2">
-				<label for="email">Email:</label>
-				<input  th:if="${usuarioModelo.id == null}" class="form-control" type="email" th:field="*{email}" id="email"  placeholder="name@email.com" title="Insira seu email" required/>
-				<input  th:if="${usuarioModelo.id != null}" class="form-control disabled" type="email" th:field="*{email}" id="email"  th:title="*{email}" />
-			</div>
-			 
-			<!-- SENHA -->
-			<div class="form-group row m-2">
-				<label for="senha">Senha</label>
-				<input th:if="${usuarioModelo == null}" class="form-control" type="password" th:field="*{senha}" id="senha" placeholder="senha"  title="Insira sua senha" required/> 
-				<input th:if="${usuarioModelo != null}" class="form-control" type="password" th:field="*{senha}" id="senha"/> 
-			</div>		
-			
-			<button type="submit" class="btn btn-primary btn-sm form-check form-check-inline">Salvar</button>
-		</form>
-		<div class="form-check form-check-inline">
-		<a class="btn btn-danger" th:href="@{/administrador/usuario}">Cancelar</a>
 		</div>
+		
 		
 	</div>
 	

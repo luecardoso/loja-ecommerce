@@ -43,9 +43,10 @@ public class UsuarioServico {
 	
 	public void salvarUsuario(UsuarioModelo usuario) {
 		boolean estaAtualizandoUsuario = (usuario.getId() != null);
+
 		if (estaAtualizandoUsuario) {
-			 Optional<UsuarioModelo> usuarioExistente = usuarioRepositorio.findById(usuario.getId());
-			 UsuarioModelo usuarioAtual = usuarioExistente.get();
+			Optional<UsuarioModelo> usuarioExistente = usuarioRepositorio.findById(usuario.getId());
+			UsuarioModelo usuarioAtual = usuarioExistente.get();
 			if(usuario.getSenha().isEmpty()) {
 				usuario.setSenha(usuarioAtual.getSenha());
 			}else {
@@ -106,7 +107,7 @@ public class UsuarioServico {
 		Pageable pageable = PageRequest.of(numPagina - 1, USUARIOS_POR_PAGINA);
 
 		if (keyword != null) {
-			return usuarioRepositorio.findAll(keyword, pageable);
+			return usuarioRepositorio.encontrarPorPagina(keyword, pageable);
 		}
 		return usuarioRepositorio.findAll(pageable);
 	}

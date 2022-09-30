@@ -1,17 +1,35 @@
 package br.senac.ecommerce.pi.loja.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "produto")
-public class ProdutoModelo {
+public class ProdutoModelo implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,26 +40,90 @@ public class ProdutoModelo {
 
 	private String nome;
 
+	@Column(length = 500)
 	private String descricaoCurta;
 
+	@Column(length = 5000)
+	@Size(min = 10, max = 5000)
 	private String descricaoLonga;
 
 	private float preco;
 
 	private Integer quantidade;
 
-	private LocalDate dataCriacao;
+	private Date dataCriacao;
 
-	private LocalDate dataAtualizacao;
+	//@Temporal(TemporalType.TIMESTAMP)
+	private Date dataAtualizacao;
 
 	private boolean ativo;
+	private float avaliacao;
+	
+	// categoria marca imagem 
+	
+	public float getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(float avaliacao) {
+		this.avaliacao = avaliacao;
+	}
+
+	//funciona com uma imagem
+//	@Column()
+//	private String imagem;
+//
+//
+//	public String getImagem() {
+//		return imagem;
+//	}
+//
+//	public void setImagem(String imagem) {
+//		this.imagem = imagem;
+//	}
+
+	
+	/*testando para funcionar com varias*/
+	@Column(name="imagem_principal")
+	private String imagemPrincipal;
+	
+	@OneToMany(mappedBy = "produtoimagem", cascade = CascadeType.ALL)
+	private Set<ProdutoImagemModelo> imagemExtra = new HashSet<>();
+	
+	@Transient
+	public String getImagemPrincipal() {
+		if(id == null || imagemPrincipal == null) return "/imagem/imagem-padrao.png";
+		return "/img/" +this.id+"/"+this.imagemPrincipal;
+	}
+
+	public void setImagemPrincipal(String imagemPrincipal) {
+		this.imagemPrincipal = imagemPrincipal;
+	}
+
+	public Set<ProdutoImagemModelo> getImagemExtra() {
+		return imagemExtra;
+	}
+
+	public void setImagemExtra(Set<ProdutoImagemModelo> imagemExtra) {
+		this.imagemExtra = imagemExtra;
+	}
+
+	public void adicionarImagemExtra(String nomeImagem) {
+		this.imagemExtra.add(new ProdutoImagemModelo(nomeImagem,this));
+	}
+	
+	
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public ProdutoModelo() {
 
 	}
 
 	public ProdutoModelo(Long id, Long codigo, String nome, String descricaoCurta, String descricaoLonga, float preco,
-			Integer quantidade, LocalDate dataCriacao, LocalDate dataAtualizacao, boolean ativo) {
+			Integer quantidade, Date dataCriacao, Date dataAtualizacao, boolean ativo) {
 
 		this.id = id;
 		this.codigo = codigo;
@@ -119,19 +201,19 @@ public class ProdutoModelo {
 		this.quantidade = quantidade;
 	}
 
-	public LocalDate getDataCriacao() {
+	public Date getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(LocalDate dataCriacao) {
+	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public LocalDate getDataAtualizacao() {
+	public Date getDataAtualizacao() {
 		return dataAtualizacao;
 	}
 
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+	public void setDataAtualizacao(Date dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
@@ -143,5 +225,5 @@ public class ProdutoModelo {
 		this.ativo = ativo;
 	}
 
-	// categoria marca imagem avalicao
+	
 }

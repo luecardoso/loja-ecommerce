@@ -1,5 +1,6 @@
 package br.senac.ecommerce.pi.loja.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
@@ -29,7 +30,12 @@ import lombok.Data;
 
 @Entity
 @Table(name = "usuario")
-public class UsuarioModelo {
+public class UsuarioModelo implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +50,7 @@ public class UsuarioModelo {
 	@Email(message = "Não é um e-mail válido")
 	private String email;
 
-	@NotEmpty(message = "Informe uma senha")
+	//@NotEmpty(message = "Informe uma senha")
 	private String senha;
 
 	@CPF(message = "Informe um CPF válido.")
@@ -57,7 +63,10 @@ public class UsuarioModelo {
 	private String telefone;
 
 	private boolean ativo;
-	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public UsuarioModelo(Long id, @NotBlank(message = "Preencha o nome") String nome, String email, String senha,
 			String cpf, LocalDate dataNascimento, String telefone, boolean ativo, Set<CargoModelo> cargos) {
@@ -75,6 +84,7 @@ public class UsuarioModelo {
 	public UsuarioModelo() {
 		
 	}
+	
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_cargos", joinColumns = @JoinColumn(name = " usuario_id"), inverseJoinColumns = @JoinColumn(name = "cargo_id"))

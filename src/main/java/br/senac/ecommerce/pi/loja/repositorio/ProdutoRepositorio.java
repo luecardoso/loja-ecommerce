@@ -17,6 +17,6 @@ public interface ProdutoRepositorio extends JpaRepository<ProdutoModelo, Long>{
 	@Modifying
 	public void atualizarStatusAtivado(Long id, boolean enabled);
 	
-	@Query("SELECT p FROM ProdutoModelo p WHERE p.nome LIKE %?1%")
+	@Query("SELECT p FROM ProdutoModelo p WHERE p.nome LIKE %?1% ORDER BY p.dataAtualizacao DESC")//ORDER BY p.dataAtualizacao ASC
 	public Page<ProdutoModelo> findAll(String keyword, Pageable pageable);
 }

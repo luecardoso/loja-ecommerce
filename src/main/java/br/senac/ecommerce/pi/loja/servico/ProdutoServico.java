@@ -1,5 +1,10 @@
 package br.senac.ecommerce.pi.loja.servico;
 
+import java.util.Date;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +16,7 @@ import br.senac.ecommerce.pi.loja.modelo.UsuarioModelo;
 import br.senac.ecommerce.pi.loja.repositorio.ProdutoRepositorio;
 
 @Service
+@Transactional
 public class ProdutoServico {
 
 	@Autowired
@@ -31,5 +37,31 @@ public class ProdutoServico {
 		produtoRepositorio.atualizarStatusAtivado(id, enabled);
 	}
 	
+//	public void salvarProduto(ProdutoModelo produto) {
+//		if(produto.getQuantidade() == 0) {
+//			produto.setAtivo(false);
+//		}
+//		produtoRepositorio.save(produto);
+//	}
+	
+	public ProdutoModelo salvarProduto(ProdutoModelo produto) {
+		if(produto.getId() == null) {
+			produto.setDataCriacao(new Date());
+		}
+		produto.setDataAtualizacao(new Date());
+		return produtoRepositorio.save(produto);
+	}
+	
+	public ProdutoModelo editarProduto(Long id) {
+		return produtoRepositorio.findById(id).get();
+	}
+	
+	public void deletarProduto(Long id) {
+		 produtoRepositorio.deleteById(id);
+	}
+	
+	public ProdutoModelo encontrarPorId(Long id) {
+		return produtoRepositorio.findById(id).get();
+	}
 	
 }
