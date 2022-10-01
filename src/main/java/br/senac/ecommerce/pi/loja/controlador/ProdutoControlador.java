@@ -291,6 +291,22 @@ public class ProdutoControlador {
 		model.addAttribute("imagensExtrasExistentes", imagensExtrasExistentes);
 		return "adm/formulario-produto";
 	}
+	
+	@PostMapping("/produto/editar/{id}")
+	public String editarQuantidade(@RequestParam("quantidade") Integer quantidade,
+			RedirectAttributes redirectAttributes, @PathVariable(name = "id") Long id) {
+		
+		ProdutoModelo listaProdutoInfo = produtoServico.editarProduto(id);
+		if(quantidade == null || quantidade <= 0) {
+			quantidade = 0;
+			listaProdutoInfo.setAtivo(false);
+		}
+		listaProdutoInfo.setQuantidade(quantidade);
+		
+		produtoServico.salvarProduto(listaProdutoInfo);
+		redirectAttributes.addFlashAttribute("mensagemStatus", "Quantidade atualizada");
+		return "redirect:/administrador/produto";
+	}
 
 	@GetMapping("/produto/deletar/{id}")
 	public String deletarUsuario(@PathVariable("id") Long id) {
@@ -315,26 +331,26 @@ public class ProdutoControlador {
 //	}
 	
 	
-	@GetMapping("/produto/mostrarImagem/{imagemPrincipal}")
-	@ResponseBody
-	public byte[] mostrarImagem(@PathVariable("imagemPrincipal") String imagem) {
-		File imagemArquivo = new File(CAMINHO_IMAGEM +imagem);
-		if (imagem != null || imagem.trim().length() > 0) {
-			try {
-				return Files.readAllBytes(imagemArquivo.toPath());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
+//	@GetMapping("/produto/mostrarImagem/{imagemPrincipal}")
+//	@ResponseBody
+//	public byte[] mostrarImagem(@PathVariable("imagemPrincipal") String imagem) {
+//		File imagemArquivo = new File(CAMINHO_IMAGEM +imagem);
+//		if (imagem != null || imagem.trim().length() > 0) {
+//			try {
+//				return Files.readAllBytes(imagemArquivo.toPath());
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		return null;
+//	}
 	
 	
 //	@GetMapping("/produto/mostrarImagem/{imagemPrincipal}")
 //	@ResponseBody
 //	public byte[] mostrarImagem(@PathVariable("imagemPrincipal") String nomeImagem, ProdutoModelo produto) {
-//		File imagemArquivo = new File(CAMINHO_IMAGEM +imagem);//CAMINHO_IMAGEM+"/"+produto.getId()+"/"+ imagem
+//		File imagemArquivo = new File("/img/"+produto.getId()+"/"+nomeImagem);//CAMINHO_IMAGEM+"/"+produto.getId()+"/"+ imagem
 //		if (nomeImagem != null || nomeImagem.trim().length() > 0) {
 //			try {
 //				return Files.readAllBytes(imagemArquivo.toPath());

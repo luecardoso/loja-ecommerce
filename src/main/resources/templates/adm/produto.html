@@ -64,14 +64,14 @@
 					<td>
   					 	<!--   <img th:src="@{/administrador/produto/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${produto.imagem})}" width="100"/>  -->
 <!-- 						<img th:src="|produto/imagem/${produto.id}|"/>  -->
-<!-- <img th:src="@{/administrador/produto/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${produto.imagemPrincipal})}" width="100"/> -->
+				 <!-- <img th:src="@{/administrador/produto/mostrarImagem{imagemPrincipal}(imagemPrincipal=${produto.imagemPrincipal})}" width="100"/> -->
  <!--  					<img th:src="@{/administrador/produto/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${produto.imagemPrincipal})}" width="100"/> -->
 <!-- 					<img th:src="'/img/'+${produto.id}+'/'+${produto.imagemPrincipal}" /> -->
 <!--  					<img th:src="|/img/${produto.id}/${produto.imagemPrincipal}|" /> -->
-					<div class="m-2">
-					<img id="imagemPrincipal" alt="Prévia da imagem principal"
-						class="img-fluid" th:src="@{${produto.getImagemPrincipal}}" width="100" height="100" />
-				</div> 
+ 					 <div class="m-2">
+						<img id="imagemPrincipal" alt="Prévia da imagem principal"
+							class="img-fluid" th:src="@{${produto.getImagemPrincipal}}" width="100" height="100" />
+					</div>  
 
 
 					</td>
@@ -79,7 +79,13 @@
 <!-- 					<td th:text="${produto.descricaoCurta}"></td> -->
 <!--  					<td th:text="${produto.descricaoLonga}" id="descricaoLonga"></td> -->
 					<td th:text="${produto.preco}"></td>
-					<td th:text="${produto.quantidade}"></td>
+<!-- 					<td th:text="${produto.quantidade}"></td> -->
+					<!-- QUANTIDADE -->
+					<td >
+						<form th:action="@{/administrador/produto/editar/{id}(id=${produto.id})}" method="POST">
+							<input class="form-group mb-3" type="number" th:value="${produto.quantidade}" name="quantidade" min="0" max="9999" required/>
+						</form>
+					</td>
 <!-- 					<td th:text="${produto.dataCriacao}"></td> -->
 					<td th:text="${produto.dataAtualizacao}"></td>
 					
@@ -110,7 +116,7 @@
 								</a>
 								</div>
 								<div sec:authorize="hasAuthority('Estoquista')">
-									<p class="text-center green" th:if="${produto.ativo == true}"><strong th:text="ATIVO">ATIVO</strong></p>
+									<p class="text-center bg-sucess" th:if="${produto.ativo == true}" ><strong th:text="ATIVO"></strong></p>
 									<p class="text-center" th:if="${produto.ativo == false}" th:text="INATIVO"></p>
 								</div>
 								
@@ -119,9 +125,9 @@
 					</td>
 					<td>
 					<div class=" d-flex inline text-center">
-						<a class="btn btn-warning m-2" th:href="@{/administrador/produto/editar/{id}(id=${produto.id})}">Editar</a>
+						<a  sec:authorize="hasAuthority('Administrador')" class="btn btn-warning m-2" th:href="@{/administrador/produto/editar/{id}(id=${produto.id})}">Editar</a>
 						<a class="btn btn-info m-2" th:href="@{/home/produto/detalhes/{id}(id=${produto.id})}">Visualizar</a>
- 						<a class="btn btn-danger m-2" th:href="@{/administrador/produto/deletar/{id}(id=${produto.id})}">Deletar</a>
+ 						<a sec:authorize="hasAuthority('Administrador')" class="btn btn-danger m-2" th:href="@{/administrador/produto/deletar/{id}(id=${produto.id})}">Deletar</a>
 					</div>
 						
 					</td>
