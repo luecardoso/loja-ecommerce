@@ -165,6 +165,7 @@ public class ProdutoControlador {
 //		}
 		/* ADICIONA IMAGEM */
 		adicionarImagemPrincipal(imagemPrincipal, produto);	
+//		produto.setImagemPrincipal(imagemPrincipal);
 		adicionarExtraImagem(imagemExtra, produto);
 
 		/* SALVA PRODUTO */

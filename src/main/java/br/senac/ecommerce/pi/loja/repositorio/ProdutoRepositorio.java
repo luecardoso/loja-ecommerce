@@ -19,4 +19,7 @@ public interface ProdutoRepositorio extends JpaRepository<ProdutoModelo, Long>{
 	
 	@Query("SELECT p FROM ProdutoModelo p WHERE p.nome LIKE %?1% ORDER BY p.dataAtualizacao DESC")//ORDER BY p.dataAtualizacao ASC
 	public Page<ProdutoModelo> findAll(String keyword, Pageable pageable);
+	
+//	@Query()
+//	public List<ProdutoModelo> encontrarProdutos();
 }

@@ -60,9 +60,9 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/js/**", "/fontawesome/**", "/richtext/**","/webfonts/**", "/error").permitAll()
 		.antMatchers("/home/**").permitAll()
-		.antMatchers("**/img").permitAll()
+		.antMatchers("/js/**", "/fontawesome/**", "/richtext/**","/webfonts/**", "/error").permitAll()
+		
 		.antMatchers("/administrador").hasAnyAuthority("Administrador","Estoquista")
 		.antMatchers("/administrador/usuario/**").hasAuthority("Administrador")
 		.antMatchers("/administrador/categoria/**").hasAuthority("Administrador")
@@ -76,7 +76,7 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 		.anyRequest().authenticated()
 		.and().formLogin()
 				.loginPage("/login")
-				.defaultSuccessUrl("/administrador")
+				.defaultSuccessUrl("/home")
 				.usernameParameter("email").permitAll()
 		.and().logout().permitAll();
 	}
@@ -95,6 +95,6 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 
-		web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
+		web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**","/home/**");
 	}
 }

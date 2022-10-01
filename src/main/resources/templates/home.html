@@ -12,7 +12,7 @@
 <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 
-<body>
+<body ><!-- th:object="${listarProdutos}" -->
 	<div class="container-fluid">
 		<div class="row">
 			<!-- nav -->
@@ -579,19 +579,28 @@
     
     <!--  -->
     <div class="album py-5 bg-light">
+    <!-- BUSCA -->
+			<div class="input-group custom-search-form form-inline m-2">
+				<form th:action="@{/home/pagina/1}" class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="keyword">
+					<button class="btn btn-primary" type="submit">Procurar</button>
+				</form>
+			</div>
     <div class="container">
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col" >
-          <div class="card shadow-sm">
-			
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" >
+      	
+        <div class="col" th:each="produto : ${listarProdutos}"><!-- th:each="produto : ${listarProdutos}" -->
+        	<a  th:href="@{/home/produto/detalhes/{id}(id=${produto.id})}" th:value="produto.id">
+          <div class="card shadow-sm" >
+			<input type="hidden" />
+			<img th:src="@{${produto.getImagemPrincipal}}"/>
 
             <div class="card-body">
-              <p class="card-text">Nome</p>
-              <p class="card-text">Avaliação</p>
-              <p class="card-text">Descrição</p>
-              <p class="card-text">Preço</p>
+              <p class="card-text" th:text="${produto.nome}">Nome</p> <!-- th:text="${produto.nome}" -->
+              <p class="card-text" th:text="${produto.avaliacao}">Avaliação</p>
+              <p class="card-text" th:text="${produto.descricaoCurta}">Descrição</p>
+              <p class="card-text"th:text="${produto.preco}">Preço</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group col-12">
 					 <button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
@@ -599,154 +608,47 @@
               </div>
             </div>
           </div>
+          </a>
+          
         </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Nome</p>
-              <p class="card-text">Avaliação</p>
-              <p class="card-text">Descrição</p>
-              <p class="card-text">Preço</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group col-12">
-					 <button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Nome</p>
-              <p class="card-text">Avaliação</p>
-              <p class="card-text">Descrição</p>
-              <p class="card-text">Preço</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group col-12">
-					 <button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Nome</p>
-              <p class="card-text">Avaliação</p>
-              <p class="card-text">Descrição</p>
-              <p class="card-text">Preço</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group col-12">
-					 <button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Nome</p>
-              <p class="card-text">Avaliação</p>
-              <p class="card-text">Descrição</p>
-              <p class="card-text">Preço</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group col-12">
-					 <button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Nome</p>
-              <p class="card-text">Avaliação</p>
-              <p class="card-text">Descrição</p>
-              <p class="card-text">Preço</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group col-12">
-					<button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Nome</p>
-              <p class="card-text">Avaliação</p>
-              <p class="card-text">Descrição</p>
-              <p class="card-text">Preço</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group col-12">
-					 <button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Nome</p>
-              <p class="card-text">Avaliação</p>
-              <p class="card-text">Descrição</p>
-              <p class="card-text">Preço</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group col-12">
-					 <button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">Nome</p>
-              <p class="card-text">Avaliação</p>
-              <p class="card-text">Descrição</p>
-              <p class="card-text">Preço</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group col-12">
-					 <button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       
+        
       </div>
     </div>
   </div>
+  <!-- PAGINAÇÃO -->
+ 			<div class="text-center m-1" th:if="${totalItens > 0}">
+				<span>Produtos [[${comecoConta}]] até [[${finalConta}]] de	[[${totalItens}]]</span>
+			</div>
+			<div class="text-center m-1" th:unless="${totalItens > 0}">
+				<span>Nenhum Produto encontrado</span>
+			</div>
+			<div th:if="${totalPaginas > 1}">
+				<nav>
+					<ul class="pagination justify-content-center">
+						<li th:class="${paginaAtual > 1 ?'page-item':'page-item disabled'}">
+							<a class="page-link" th:href="@{/home/produto/pagina/1}" aria-label="Primeira"> <span aria-hidden="true">&laquo;</span></a>
+						</li>
+						<li th:class="${paginaAtual > 1 ?'page-item':'page-item disabled'}">
+							<a class="page-link" th:href="@{'/home/pagina/'+${paginaAtual -1 }}" aria-label="Anterior"><span aria-hidden="true">&lt;</span></a>
+						</li>
+						<li th:class="${paginaAtual != i ? 'page-item' : 'page-item active'}" th:each="i : ${#numbers.sequence(1, totalPaginas)}">
+							<a class="page-link" th:href="@{'/home/pagina/' +${i}}">[[${i}]]</a>
+						</li>
+						<li	th:class="${paginaAtual < totalPaginas ? 'page-item':'page-item disabled'}">
+							<a class="page-link" th:href="@{'/home/pagina/'+${paginaAtual +1 }}" aria-label="Proxima"><span aria-hidden="true">&gt;</span></a>
+						</li>
+						<li th:class="${paginaAtual < totalPaginas ? 'page-item':'page-item disabled'}">
+							<a class="page-link" th:href="@{'/home/pagina/'+${totalPaginas}}" aria-label="Ultima"><span aria-hidden="true">&raquo;</span></a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<!-- FIM PAGINAÇÃO -->
+  
+  
 </main>
-
-		<a th:href="@{/home/produto/detalhes}">Produto Detalhe</a>
-		
-		
-		<!-- FOOTER -->
+<!-- FOOTER -->
 		<footer class="footer">
   <div class="container">
     <div class="row g-4 py-4">
