@@ -594,7 +594,8 @@
         	<a  th:href="@{/home/produto/detalhes/{id}(id=${produto.id})}" th:value="produto.id">
           <div class="card shadow-sm" >
 			<input type="hidden" />
-			<img th:src="@{${produto.getImagemPrincipal}}"/>
+			 <img th:src="@{${produto.getImagemPrincipal}}"/>
+		<!-- 	<img th:src="@{/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${produto.imagem})}" width="300"/> -->
 
             <div class="card-body">
               <p class="card-text" th:text="${produto.nome}">Nome</p> <!-- th:text="${produto.nome}" -->

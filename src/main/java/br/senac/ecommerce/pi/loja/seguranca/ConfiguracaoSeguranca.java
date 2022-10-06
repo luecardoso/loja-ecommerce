@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -59,10 +60,9 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 	/*PERMISÃO DE ACESSO AUTORIZADO E COM CARGO ESPECIFICO*/
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
+		http.csrf().disable().authorizeRequests()
 		.antMatchers("/home/**").permitAll()
 		.antMatchers("/js/**", "/fontawesome/**", "/richtext/**","/webfonts/**", "/error").permitAll()
-		
 		.antMatchers("/administrador").hasAnyAuthority("Administrador","Estoquista")
 		.antMatchers("/administrador/usuario/**").hasAuthority("Administrador")
 		.antMatchers("/administrador/categoria/**").hasAuthority("Administrador")
@@ -75,10 +75,12 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 //		.antMatchers("/administrador/produto/**").hasAuthority("Administrador")
 		.anyRequest().authenticated()
 		.and().formLogin()
-				.loginPage("/login")
 				.defaultSuccessUrl("/home")
+				.loginPage("/login")
 				.usernameParameter("email").permitAll()
 		.and().logout().permitAll();
+//		.and()
+//		.exceptionHandling().accessDeniedPage("/acesso-negado");
 	}
 	
 	

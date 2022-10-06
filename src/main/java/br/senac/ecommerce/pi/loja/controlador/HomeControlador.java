@@ -22,6 +22,11 @@ public class HomeControlador {
 	
 	@Autowired
 	ProdutoServico produtoServico;
+	
+	@GetMapping("teste")
+	public String paginaTeste() {
+		return "template";
+	}
 
 	@GetMapping()
 	public String paginaInicial(Model model) {

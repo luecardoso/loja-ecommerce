@@ -3,19 +3,18 @@
 	xmls:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-<title>Página Principal</title>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
-		<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
+	<title>Página Principal</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" ></script>
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
-	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
-	
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>	
 </head>
 <body>
 
@@ -72,12 +71,12 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link disabled" sec:authorize="hasAuthority('Administrador')" href="">
+							<a class="nav-link" sec:authorize="hasAuthority('Administrador')"th:href="@{/administrador/categoria}">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"	viewBox="0 0 24 24" fill="none" stroke="currentColor"
 									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"	class="feather feather-shopping-cart" aria-hidden="true">
 									<circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
 									<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-								<span>Marcas</span>
+								<span>Categorias</span>
 							</a>
 						</li>
 						<li class="nav-item">
@@ -86,9 +85,10 @@
 									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"	class="feather feather-shopping-cart" aria-hidden="true">
 									<circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
 									<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-								<span>Categorias</span>
+								<span>Marcas</span>
 							</a>
 						</li>
+						
 						<li class="nav-item">
 							<a class="nav-link disabled"  sec:authorize="hasAuthority('Administrador')" href="#">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"	viewBox="0 0 24 24" fill="none" stroke="currentColor"
