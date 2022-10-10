@@ -1,8 +1,6 @@
 package br.senac.ecommerce.pi.loja.modelo;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,12 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
-
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "produto")
@@ -58,9 +52,18 @@ public class ProdutoModelo implements Serializable{
 
 	private boolean ativo;
 	private float avaliacao;
+	private boolean destaque;
 	
-	// categoria marca imagem 
+	// categoria marca 
 	
+	public boolean isDestaque() {
+		return destaque;
+	}
+
+	public void setDestaque(boolean destaque) {
+		this.destaque = destaque;
+	}
+
 	public float getAvaliacao() {
 		return avaliacao;
 	}
@@ -69,21 +72,6 @@ public class ProdutoModelo implements Serializable{
 		this.avaliacao = avaliacao;
 	}
 
-	//funciona com uma imagem
-//	@Column()
-//	private String imagem;
-//
-//
-//	public String getImagem() {
-//		return imagem;
-//	}
-//
-//	public void setImagem(String imagem) {
-//		this.imagem = imagem;
-//	}
-
-	
-	/*testando para funcionar com varias*/
 	@Column(name="imagem_principal")
 	private String imagemPrincipal;
 	
@@ -92,7 +80,7 @@ public class ProdutoModelo implements Serializable{
 	
 	@Transient
 	public String getImagemPrincipal() {
-		if(id == null || imagemPrincipal == null) return "/imagem/imagem-padrao.png";
+		if(id == null || imagemPrincipal == null) return "/imagens/imagem-padrao.png";
 		return "/img/" +this.id+"/"+this.imagemPrincipal;
 	}
 

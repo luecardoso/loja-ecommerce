@@ -1,261 +1,468 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<title>Empório Viver Bem - Detalhes do produto</title>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/detalhes.js}"></script>  
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/elegant-icons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/nice-select.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <script type="text/javascript" th:src="@{/js/detalhes.js}"></script>  
 </head>
 
-<body>
-<main th:object="${produtoModelo}">
-<section>
-<!-- NAV -->
-			<div class="navbar navbar-light py-lg-4 pt-3 px-0 pb-0 col-12">
-				<div class="container ">
-					<div class="row w-100 align-items-center g-lg-2 g-0">
-						<div class="col-xxl-2 col-lg-3">
-							<a class="navbar-brand d-none d-lg-block" href=""> <img
-								src="#"
-								alt="logo da loja">
-							</a>
-							<!-- ALINHAR ELEMENTOS CELULAR -->
-							<div class="d-flex justify-content-between w-100 d-lg-none">
-								<a class="navbar-brand" href=""> <img
-									src="https://freshcart.codescandy.com/assets/images/logo/freshcart-logo.svg"
-									alt="eCommerce HTML Template">
-								</a>
-								<!-- ALINHAR ICONES -->
-								<div class="d-flex align-items-center lh-1">
-									<div class="list-inline me-2">
-										<!--  ICONE USUÁRIO -->
-										<div class="list-inline-item">
-											<a href="#!" class="text-muted" data-bs-toggle="modal" data-bs-target="#userModal">
-												<i class="fa-solid fa-user"></i>
-											</a>
-										</div>
-										<!-- ICONE SACOLA -->
-										<div class="list-inline-item">
-											<a class="text-muted position-relative " data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-												href="#offcanvasExample" role="button" aria-controls="offcanvasRight"> 
-												<i class="fa-solid fa-bag-shopping"></i>
-												<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-													15 <span class="visually-hidden">unread messages</span>
-												</span>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-						<!-- BUSCA -->
-						<div class="col-xxl-6 col-lg-5 d-none d-lg-block">
-							<form action="#">
-								<div class="input-group ">
-									<input class="form-control rounded-3" type="search" placeholder="Buscar" id="searchInput"> 
-									<span class="input-group-append">
-										<button class="btn bg-white border border-start-0 ms-n10" type="button">
-											<span><i class="fa-solid fa-magnifying-glass"></i></span>
-										</button>
-									</span>
-								</div>
-							</form>
-						</div>
-
-
-						<div class="col-md-2 col-xxl-1 text-end d-none d-lg-block">
-							<div class="list-inline">
-							<!-- LISTA DE DESEJOS -->
-								<div class="list-inline-item">
-									<a href="" class="text-muted position-relative"> 
-									<i class="fa-solid fa-heart"></i> 
-									<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-											5 <span class="visually-hidden">Lista de desejos</span>
-									</span>
-									</a>
-								</div>
-								<!-- ICONE USUARIO -->
-								<div class="list-inline-item">
-									<a href="#!" class="text-muted" data-bs-toggle="modal"	data-bs-target="#userModal"> 
-										<i class="fa-solid fa-user"></i>
-									</a>
-								</div>
-								<!-- ICONE SACOLA -->
-								<div class="list-inline-item">
-									<a class="text-muted position-relative " data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-										href="#offcanvasExample" role="button" aria-controls="offcanvasRight"> 
-										<i class="fa-solid fa-bag-shopping"></i> 
-										<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-											10 <span class="visually-hidden">Itens do carrinho</span>
-										</span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-</section>
-	<section >
-		<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3 col-12">
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden col-6">
-    		<!-- CARROUSSEL -->
-	<div class="container-fluid ">
-		<div id="carouselExampleControls" class="carousel slide "
-			data-bs-ride="carousel">
-			<div class="carousel-inner col-6 text-center">
-				<div class="carousel-item active">
-					<div class="zoom">
-						<!-- img -->
-						<!-- <img class="img-fluid" th:src="@{/administrador/produto/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${produtoModelo.imagem})}" width="500" height="550"/> -->
-						<img id="imagemPrincipal" alt="Prévia da imagem principal"
-						class="img-fluid" th:src="@{${produtoModelo.getImagemPrincipal}}" width="550" height="550" />
-					</div>
-				</div>
-				<div class="carousel-item" th:each="produtoImagemExtra : ${produtoModelo.imagemExtra}">
-					<div class="zoom">
-						<!-- img -->
-						<img 
-							th:src="@{${produtoImagemExtra.caminhoImagemExtra}}"
-							alt="" width="550" height="550">
-					</div>
-				</div>
-			</div>
-
-			<!-- BOTÕES CARROSSEL -->
-			<button class="carousel-control-prev" type="button"
-				data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Anterior</span>
-			</button>
-			<button class="carousel-control-next" type="button"
-				data-bs-target="#carouselExampleControls" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Avançar</span>
-			</button>
-
-		</div>
-    	
+<body th:object="${produtoModelo}">
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
     </div>
-    <!-- Miniaturas -->
-    <div class="row">
-    		<div class="container">
-    					<!-- MINIATURAS -->
-		<!-- product tools -->
- 		<div class="product-tools">
-	 		<div class="thumbnails row g-3" id="productThumbnails">
-	 		<!-- <img id="imagemPrincipal" alt="Prévia da imagem principal"
-						class="img-fluid" th:src="@{${produtoModelo.getImagemPrincipal}}" width="100" /> -->
-				<div class="col-2" th:each="produtoImagemExtra : ${produtoModelo.imagemExtra}">
-				
-					<div class="thumbnails-img">
-					
-						<a >
-							<img th:src="@{${produtoImagemExtra.caminhoImagemExtra}}" alt="" width="100">
-						</a>
-						
-					</div>
-				</div>
-				
-				
-			</div> 
-			
-			
-		</div>
 
-    		</div>
-    	</div>
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="img/logo.png" alt=""></a>
+        </div>
+        <div class="humberger__menu__cart">
+            <ul>
+                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            </ul>
+            <div class="header__cart__price">item: <span>$150.00</span></div>
+        </div>
+        <div class="humberger__menu__widget">
+            <div class="header__top__right__language">
+                <img src="img/language.png" alt="">
+                <div>English</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
+                </ul>
+            </div>
+            <div class="header__top__right__auth">
+                <a href="#"><i class="fa fa-user"></i> Login</a>
+            </div>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="./shop-grid.html">Shop</a></li>
+                <li><a href="#">Pages</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="./shop-details.html">Shop Details</a></li>
+                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li>Free Shipping for all Order of $99</li>
+            </ul>
+        </div>
     </div>
-    <div class="bg-light me-md-3  pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden col-6">
-    	<h1>Informações sobre o produto</h1>
-    	<!-- Parte lateral -->
-		<div class="col-md-6">
-			<div class="ps-lg-10 mt-6 mt-md-0">
-				<!-- content -->
-				<!-- heading -->
-				<h1 class="mb-1" th:text=" *{nome}"></h1>
-				<div class="mb-4" >
-				<span th:text="*{avaliacao}"></span>
-					<small class="text-warning"> <i class="bi bi-star-fill"></i>
-					<i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
-					<i class="fa-regular fa-star"></i></small><a href="#avaliacoes" class="ms-2">(30 reviews)</a>
-				</div>
-				<div>
-					<p th:text="*{descricaoCurta}" class="mb-4"></p>
-					<p><a href="#maisInfo">mais informações</a></p>
-				</div>
-				<!-- hr -->
-				<!-- VARIAÇÕES -->
-<!-- 				<hr class="my-6">
-				<div class="mb-5  bg-sucess">
-					<button type="button" class="btn btn-outline-secondary">250g</button>
-					btn
-					<button type="button" class="btn btn-outline-secondary">500g</button>
-					btn
-					<button type="button" class="btn btn-outline-secondary">1kg</button>
-				</div>
-				<div> -->
-					<!-- input -->
-					<div class="input-group  d-flex">
-						<input type="number" step="1"
-							max="10" min="1" value="1" name="quantity"
-							class="quantity-field form-control-sm form-input   ">
-					</div>
-					
-					<div class="mt-3 row justify-content-start g-2 align-items-center">
-					<div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
-							<button th:if="${produtoModelo.ativo == false}" class="btn btn-secondary disable btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Produto Indisponível</button>
-							<button th:if="${produtoModelo.ativo == true}" class="btn btn-secondary disable btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Adicionar ao carrinho</button>
-					</div>
-					<div class="col-md-4 col-4">
-						<!-- btn -->
-						<a class="btn btn-light " href="#" data-bs-toggle="tooltip"
-							data-bs-html="true" aria-label="Compare" title="Adicionar a lista de desejos"><i class="fa-solid fa-heart"></i></a>
-					</div>
-				</div>
-					
-				</div>
-				
-			</div>
-		</div>
-  </div>
-  </div>
-	</section>
-	
-	<section>
-		<div class="col-12 p-3 mx-10 ">
-			<h2 class="h2 m-4" >Mais informações</h2>
-			<div id="maisInfo" class="m-2 p-3 ">
-				<p  class="d-flex" th:text="*{descricaoLonga}" id="descricaoLonga" th:value="*{descricaoLonga}"></p>
-			</div>	
-		</div>
-	
-	</section>
-	
-	<section>
-		<div class="col-12 p-3 mx-10 ">
-			<h2 id="avaliacoes">Avaliações</h2>
-		</div>
-	
-	</section>
-	
-	<section>
-		<div class="col-12 p-3 mx-10 ">
-			<h2 >Produtos similares</h2>
-		</div>
-	
-	</section>
+    <!-- Humberger End -->
 
-</main>
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header__top__left">
+                            <ul>
+                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li>Free Shipping for all Order of $99</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+                            <div class="header__top__right__language">
+                                <img src="img/language.png" alt="">
+                                <div>English</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Spanis</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li class="active"><a href="./shop-grid.html">Shop</a></li>
+                            <li><a href="#">Pages</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="./shop-details.html">Shop Details</a></li>
+                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                    <li><a href="./checkout.html">Check Out</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        </ul>
+                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>All departments</span>
+                        </div>
+                        <ul>
+                            <li><a href="#">Fresh Meat</a></li>
+                            <li><a href="#">Vegetables</a></li>
+                            <li><a href="#">Fruit & Nut Gifts</a></li>
+                            <li><a href="#">Fresh Berries</a></li>
+                            <li><a href="#">Ocean Foods</a></li>
+                            <li><a href="#">Butter & Eggs</a></li>
+                            <li><a href="#">Fastfood</a></li>
+                            <li><a href="#">Fresh Onion</a></li>
+                            <li><a href="#">Papayaya & Crisps</a></li>
+                            <li><a href="#">Oatmeal</a></li>
+                            <li><a href="#">Fresh Bananas</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+65 11.188.888</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" th:data-setbg="@{/imagens/breadcrumb.jpg}">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Categoria</h2>
+                        <div class="breadcrumb__option">
+                            <a >Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__pic">
+                    	<!-- FOTO PRINCIPAL -->
+                        <div class="product__details__pic__item">
+                           <img class="product__details__pic__item--large" 
+                           id="imagemPrincipal" alt="Prévia da imagem principal"
+                            th:src="@{${produtoModelo.getImagemPrincipal}}" width="550" height="550" />
+                        </div>
+                        <!-- FOTOS ADICIONAIS -->
+                        <div class="product__details__pic__slider owl-carousel">
+                        	<div>
+                        		<img id="imagemPrincipal" alt="Prévia da imagem principal"
+                        			th:data-imgbigurl="@{${produtoModelo.getImagemPrincipal}}"
+                            th:src="@{${produtoModelo.getImagemPrincipal}}" />
+                        	</div>
+                        
+                        	<div th:each="produtoImagemExtra : ${produtoModelo.imagemExtra}"	>
+                        	<img th:data-imgbigurl="@{${produtoImagemExtra.caminhoImagemExtra}}"
+                            	th:src="@{${produtoImagemExtra.caminhoImagemExtra}}" alt="">
+                        	</div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__text">
+                        <h3 th:text=" *{nome}">Vetgetable’s Package</h3>
+                        <a href="#avaliacao">
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i>
+                                <span th:text="*{avaliacao}">(18 reviews)</span>
+                            </div>
+                        </a>
+                        <div th:text="*{preco}" class="product__details__price">$50.00</div>
+                        
+                        <p th:text="*{descricaoCurta}"></p>
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="text" value="1">
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="primary-btn">Adicionar ao carrinho</a>
+                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <ul>
+                            <li><b>Availability</b> <span>In Stock</span></li>
+                            <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
+                            <li><b>Weight</b> <span>0.5 kg</span></li>
+                            <li><b>Share on</b>
+                                <div class="share">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                    aria-selected="true">Descrição</a>
+                            </li>
+                            <li class="nav-item" id="avaliacao">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                                    aria-selected="false">Avaliações <span>(1)</span></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6 th:text="*{nome}">Products Infomation</h6>
+                                    <div id="maisInfo" class="m-2 p-3 " width="200">
+                                    	<p width="200" class="" th:text="*{descricaoLonga}" id="descricaoLonga" th:value="*{descricaoLonga}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Avaliações</h6>
+                                    <p>Avaliações aqui</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Details Section End -->
+
+    <!-- Related Product Section Begin -->
+    <section class="related-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title related__product__title">
+                        <h2>Quem viu este produto viu também</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" th:data-setbg="@{/imagens/product/product-1.jpg}">
+                            <ul class="product__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a href="#">Crab Pool Security</a></h6>
+                            <h5>$30.00</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Related Product Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Useful Links</h6>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">About Our Shop</a></li>
+                            <li><a href="#">Secure Shopping</a></li>
+                            <li><a href="#">Delivery infomation</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Our Sitemap</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Who We Are</a></li>
+                            <li><a href="#">Our Services</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Innovation</a></li>
+                            <li><a href="#">Testimonials</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Join Our Newsletter Now</h6>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                                template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+
+ 	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.nice-select.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/jquery.slicknav.js}"></script>
+    <script th:src="@{/js/mixitup.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/detalhes.js}"></script>  
 </body>
 
 </html>

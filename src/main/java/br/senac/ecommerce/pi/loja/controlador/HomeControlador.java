@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.senac.ecommerce.pi.loja.modelo.CategoriaModelo;
 import br.senac.ecommerce.pi.loja.modelo.ProdutoModelo;
+import br.senac.ecommerce.pi.loja.servico.CategoriaServico;
 import br.senac.ecommerce.pi.loja.servico.ProdutoServico;
 
 @Controller
@@ -22,6 +24,9 @@ public class HomeControlador {
 	
 	@Autowired
 	ProdutoServico produtoServico;
+	
+	@Autowired
+	CategoriaServico categoriaServico;
 	
 	@GetMapping("teste")
 	public String paginaTeste() {
@@ -46,7 +51,8 @@ public class HomeControlador {
 		if (finalConta > pagina.getTotalElements()) {
 			finalConta = pagina.getTotalElements();
 		}
-
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		List<ProdutoModelo> listaProduto = produtoServico.listarProdutos();
 		model.addAttribute("paginaAtual", numPagina);
 		model.addAttribute("totalPaginas", pagina.getTotalPages());
 		model.addAttribute("comecoConta", comecoConta);
@@ -54,7 +60,9 @@ public class HomeControlador {
 		model.addAttribute("totalItens", pagina.getTotalElements());
 		model.addAttribute("listarProdutos", listarProdutos);
 		model.addAttribute("keyword", keyword);
-		return "/home";
+		model.addAttribute("listaCategoria", listaCategoria);
+		model.addAttribute("listaProduto", listaProduto);
+		return "/index";
 	}
 	
 	@GetMapping("/produto/detalhes")

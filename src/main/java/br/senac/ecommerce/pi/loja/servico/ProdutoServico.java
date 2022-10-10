@@ -1,7 +1,7 @@
 package br.senac.ecommerce.pi.loja.servico;
 
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.ecommerce.pi.loja.modelo.ProdutoModelo;
-import br.senac.ecommerce.pi.loja.modelo.UsuarioModelo;
 import br.senac.ecommerce.pi.loja.repositorio.ProdutoRepositorio;
 
 @Service
@@ -37,16 +36,12 @@ public class ProdutoServico {
 		produtoRepositorio.atualizarStatusAtivado(id, enabled);
 	}
 	
-//	public void salvarProduto(ProdutoModelo produto) {
-//		if(produto.getQuantidade() == 0) {
-//			produto.setAtivo(false);
-//		}
-//		produtoRepositorio.save(produto);
-//	}
-	
 	public ProdutoModelo salvarProduto(ProdutoModelo produto) {
 		if(produto.getId() == null) {
 			produto.setDataCriacao(new Date());
+		}
+		if(produto.getQuantidade() == 0) {
+			produto.setAtivo(false);
 		}
 		produto.setDataAtualizacao(new Date());
 		return produtoRepositorio.save(produto);
@@ -64,4 +59,7 @@ public class ProdutoServico {
 		return produtoRepositorio.findById(id).get();
 	}
 	
+	public List<ProdutoModelo> listarProdutos() {
+		return (List<ProdutoModelo>) produtoRepositorio.findAll();
+	}
 }

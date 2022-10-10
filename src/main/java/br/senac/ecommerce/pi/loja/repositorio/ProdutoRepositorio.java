@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.senac.ecommerce.pi.loja.modelo.ProdutoModelo;
-import br.senac.ecommerce.pi.loja.modelo.UsuarioModelo;
 
 @Repository
 public interface ProdutoRepositorio extends JpaRepository<ProdutoModelo, Long>{

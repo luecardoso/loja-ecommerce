@@ -1,5 +1,7 @@
 package br.senac.ecommerce.pi.loja.servico;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,5 +44,9 @@ public class CategoriaServico {
 	
 	public void deletar(Long id) {
 		categoriaRepositorio.deleteById(id);
+	}
+	
+	public List<CategoriaModelo> listaCategoria(){
+		return (List<CategoriaModelo>) categoriaRepositorio.findAll();
 	}
 }

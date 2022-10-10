@@ -58,7 +58,7 @@ public class CategoriaModelo {
 	}
 
 	public String getImagem() {
-		return imagem;
+		return "/img/categoria/" +this.imagem;
 	}
 
 	public void setImagem(String imagem) {

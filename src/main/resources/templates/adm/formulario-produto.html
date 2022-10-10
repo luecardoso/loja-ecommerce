@@ -202,11 +202,17 @@
 						<div class=" d-flex inline text-center">
 							<label for="ativo" class="me-4">Ativar:  </label>
 							<input sec:authorize="hasAuthority('Administrador')" type="checkbox" class="form-check-label" th:field="*{ativo}" id="ativo" value="" />
-							<div sec:authorize="hasAuthority('Estoquista')">
- 								<input type="hidden" class="form-check-label" th:field="*{ativo}" id="ativo" readonly="readonly"  /> <!-- onclick="return false;" readonly="readonly" disabled="disabled" onclick="return false;"  -->
-								<span th:if="${produtoModelo.ativo == true}"  ><strong th:text="ATIVO"></strong></span>
-								<span th:if="${produtoModelo.ativo == false}"  th:text="INATIVO"></span> 
-							</div>
+						</div>
+							
+						</div>
+					</div>
+					
+					<!-- DESTAQUE -->
+					<div class="form-group row  m-2 col-2">
+						<div class="form-check row">
+						<div class=" d-flex inline text-center">
+							<label for="destaque" class="me-4">Destacar Imagem:  </label>
+							<input type="checkbox" class="form-check-label" th:field="*{destaque}" id="destaque" value="" />					
 						</div>
 							
 						</div>
