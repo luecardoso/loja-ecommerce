@@ -1,559 +1,374 @@
 <!DOCTYPE html>
-<html lang="zxx"  xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br"  
+xmlns:th="http://www.thymeleaf.org"
+layout:decorate="~{layout/loja-layout}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
     <title>Empório Viver Bem</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/elegant-icons.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/nice-select.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css">
-    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
 </head>
 
 <body>
-    <!-- Page Preloder -->
-<!--     <div id="preloder">
-        <div class="loader"></div>
-    </div>  -->
-
-    <!-- Header Section Begin -->
-    <header class="header">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a th:href="@{/home}">Naturalis</a></li>
-                            <li><a href="./shop-grid.html">Navegar</a></li>
-<!--                             <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li> -->
-                            <li><a href="./blog.html">Ofertas</a></li>
-                            <li><a href="./contact.html">Contato</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__cart">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                        </ul>
-                        <div class="header__top__right__auth">
-                            <a href="#"><i class="fa fa-user"></i> Entrar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header Section End -->
-
-    <!-- Hero Section Begin -->
-    <section class="hero hero-normal">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="hero__categories">
-                        <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
-                            <span>Todas Categorias</span>
-                        </div>
-<!--                         <div th:each="categoria : ${listaCategoria}">
-                        <div>
-                                <h5><a href="#" th:text="${categoria.nome}"></a></h5>
-                        </div>
-                    </div> -->
-                         <div >
-                        	<ul >
-                            	<li th:each="categoria : ${listaCategoria}"><a href="#adad" ><span th:text="${categoria.nome}"></span></a></li>
-                       		</ul>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form th:action="@{/home/pagina/1}" class="d-flex" role="search">
-                                <input type="search" placeholder="Busque aqui seu produto" name="keyword">
-                                <button type="submit" class="site-btn">Procurar</button>
-                            </form>
-                        </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h5>11 99999-1234</h5>
-                                <span>De Seg a Sex - 8h as 20h</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Hero Section End -->
-    <!--CARROUSSEL-->
-    <section>
-        <div class="container-fluid col-md-7 w-auto" th:object="${listaProduto}">
-            <div id="carouselExampleIndicators" class="carousel slide " th:data-ride="carousel">
-<!--                 <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" th:data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" th:data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" th:data-slide-to="2"></li>
-
-                </ol> -->
-                <div class="carousel-inner">
-                    <div class="carousel-item" th:each="produto : ${listaProduto}">
-                    	<div  ><!-- th:if="${produto.destaque == true}" -->
-                    		<a href="shop-details.html">
-                            <img class="d-block w-100" th:src="@{${produto.imagemPrincipal}}" alt="Primeiro Slide" width="auto"
-                                height="600">
-                        </a>
-                    	</div>
-                        
-                    </div>
-                    <div class="carousel-item active">
-                        <img class="d-block w-100"  th:src="@{/imagens/categories/cat-2.jpg}" alt="Segundo Slide" width="auto"
-                            height="600">
-                    </div>
-
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Anterior</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Próximo</span>
-                </a>
-            </div>
-		</div>
-    </section>
-
-
-
-
-    <!-- Categories Section Begin -->
-    <section class="categories  m-2 p-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 section-title text-center">
-                    <h2>Categorias</h2>
-                </div>
-                <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3" th:each="categoria : ${listaCategoria}">
-                        <div class="categories__item set-bg">
-                            <a href="shop-grid.html">
-                                <img th:src="@{${categoria.imagem}}" />
-                                <h5><a href="#" th:text="${categoria.nome}"></a></h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Categories Section End -->
-
-    <!-- Featured Section Begin -->
-    <!-- PRODUTOS -->
-    <section class="featured spad">
-        <div class="container" >
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <h2>Produtos</h2>
-                    </div>
-                    <div class="featured__controls">
-                        <ul>
-                        	<!-- Filtrar por Categoria -->
-<!--                             <li class="active" data-filter="*">All</li>
-                            <li data-filter=".oranges">Oranges</li>
-                            <li data-filter=".fresh-meat">Fresh Meat</li>
-                            <li data-filter=".vegetables">Vegetables</li>
-                            <li data-filter=".fastfood">Fastfood</li> -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row featured__filter col-12" >
-                <div class="row row-cols-2 row-cols-sm-6 row-cols-md-3 row-cols-lg-3"><!-- col-lg-3 col-md-4 col-sm-6  -->
-                    <div class="featured__item " th:each="produto : ${listarProdutos}">
-                        <div class="featured__item__pic" >
-                            <a  th:href="@{/home/produto/detalhes/{id}(id=${produto.id})}" th:value="produto.id">
-                            	<img th:src="@{${produto.getImagemPrincipal}}" width="300" height="300"/>
-                            </a>
-                            <ul class="featured__item__pic__hover text-center col-md-10">
-                                <li><a href="shop-details.html"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="shoping-cart.html"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text text-center col-md-10">
-                        <a  th:href="@{/home/produto/detalhes/{id}(id=${produto.id})}" th:value="produto.id">
-                            <h6 th:text="${produto.nome}">Crab Pool Security</h6>
-                            <div class="product__details__rating">
-                            <div>
-                            	<div th:if="${produto.avaliacao % 2 == 0}">
-                            	 <i class="fa fa-star"></i>
-                            	</div>
-                            </div>
-                                <div th:if="${produto.avaliacao % 2 != 0}">
-                                	<i class="fa fa-star-half-o"></i>
-                                </div>
-                                
-                                <span th:text="${produto.avaliacao}">(18 reviews)</span>
-                            </div>
-                            <h5 th:text=" 'R$ ' + ${produto.preco }">R$30,00</h5>
-						</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Featured Section End -->
-     <section class="product__pagination text-center">
-    	<!-- PAGINAÇÃO -->
- 			<div class="text-center m-1" th:if="${totalItens > 0}">
-				<span>Produtos [[${comecoConta}]] até [[${finalConta}]] de	[[${totalItens}]]</span>
-			</div>
-			<div class="text-center m-1" th:unless="${totalItens > 0}">
-				<span>Nenhum Produto encontrado</span>
-			</div>
-			<div th:if="${totalPaginas > 1}">
-				<nav class="">
-					<ul class="pagination justify-content-center">
-						<li th:class="${paginaAtual > 1 ?'page-item':'page-item disabled'}">
-							<a class="page-link" th:href="@{/home/produto/pagina/1}" aria-label="Primeira"> <span aria-hidden="true">&laquo;</span></a>
-						</li>
-						<li th:class="${paginaAtual > 1 ?'page-item':'page-item disabled'}">
-							<a class="page-link" th:href="@{'/home/pagina/'+${paginaAtual -1 }}" aria-label="Anterior"><span aria-hidden="true">&lsaquo;</span></a>
-						</li>
-						<li th:class="${paginaAtual != i ? 'page-item' : 'page-item active'}" th:each="i : ${#numbers.sequence(1, totalPaginas)}">
-							<a class="page-link" th:href="@{'/home/pagina/' +${i}}">[[${i}]]</a>
-						</li>
-						<li	th:class="${paginaAtual < totalPaginas ? 'page-item':'page-item disabled'}">
-							<a class="page-link" th:href="@{'/home/pagina/'+${paginaAtual +1 }}" aria-label="Proxima"><span aria-hidden="true">&rsaquo;</span></a>
-						</li>
-						<li th:class="${paginaAtual < totalPaginas ? 'page-item':'page-item disabled'}">
-							<a class="page-link" th:href="@{'/home/pagina/'+${totalPaginas}}" aria-label="Ultima"><span aria-hidden="true">&raquo;</span></a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-			<!-- FIM PAGINAÇÃO -->
-    </section>
-
-    <!-- Latest Product Section Begin -->
-    <section class="latest-product spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Latest Products</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Top Rated Products</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Review Products</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Latest Product Section End -->
-       
-
-
-    <!-- Footer Section Begin -->
-    <footer class="footer spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="footer__about">
-                        <div class="footer__about__logo">
-                            <a th:href="@{/index.html}"><img th:src="@{img/logo.png}" alt=""></a>
-                        </div>
-                        <ul>
-                            <li>Endereço: Rua ABC, São Paulo -SP</li>
-                            <li>Telefone: 11 99999-1234</li>
-                            <li>Email: emporioviverbem@naturalis.com</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 offset-lg-1">
-                    <div class="footer__widget">
-                        <h6>Links úteis</h6>
-                        <ul>
-                            <li><a href="#">Sobre a empresa</a></li>
-                            <li><a href="#">Produtos</a></li>
-                            <li><a href="#">Informações</a></li>
-                            <li><a href="#">Entregas</a></li>
-                            <li><a href="#">Politica de Privacidade</a></li>
-                            <li><a href="#">Nossas franquias</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-12">
-                    <div class="footer__widget">
-                        <h6>Nos siga nas redes sociais</h6>
-                        <div class="footer__widget__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-lg-12">
-                    <div class="footer__copyright ">
-                        <div class="footer__copyright__text ">
-                            <p class="text-center">
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;
-                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This
-                                template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
-                                    href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            </p>
-                        </div>
-                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer Section End -->
-
-    <!-- Js Plugins -->
-    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/jquery.nice-select.min.js}"></script>
-    <script th:src="@{/js/jquery-ui.min.js}"></script>
-    <script th:src="@{/js/jquery.slicknav.js}"></script>
-    <script th:src="@{/js/mixitup.min.js}"></script>
-    <script th:src="@{/js/owl.carousel.min.js}"></script>
-    <script th:src="@{/js/main.js}"></script>
-
+	<main>
+		<section layout:fragment="conteudo-principal">
+			<!--CARROUSSEL-->
+		    <section>
+		        <div class="container-fluid col-md-7 w-auto" th:object="${listaProduto}">
+		            <div id="carouselExampleIndicators" class="carousel slide " th:data-ride="carousel">
+		<!--                 <ol class="carousel-indicators">
+		                    <li data-target="#carouselExampleIndicators" th:data-slide-to="0" class="active"></li>
+		                    <li data-target="#carouselExampleIndicators" th:data-slide-to="1"></li>
+		                    <li data-target="#carouselExampleIndicators" th:data-slide-to="2"></li>
+		
+		                </ol> -->
+		                <div class="carousel-inner">
+		                    <div class="carousel-item" th:each="produto : ${listaProduto}">
+		                    	<div  ><!-- th:if="${produto.destaque == true}" -->
+		                    		<a th:href="@{/home/navegar}">
+		                            <img class="d-block w-100" th:src="@{${produto.imagemPrincipal}}" alt="Primeiro Slide" width="auto"
+		                                height="600">
+		                        </a>
+		                    	</div>
+		                        
+		                    </div>
+		                    <div class="carousel-item active">
+		                        <img class="d-block w-100"  th:src="@{/imagens/categories/cat-2.jpg}" alt="Segundo Slide" width="auto"
+		                            height="600">
+		                    </div>
+		
+		                </div>
+		                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+		                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		                    <span class="sr-only">Anterior</span>
+		                </a>
+		                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+		                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		                    <span class="sr-only">Próximo</span>
+		                </a>
+		            </div>
+				</div>
+		    </section>
+		
+		
+		
+		
+		    <!-- Categories Section Begin -->
+		    <section class="categories  m-2 p-3">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-12 section-title text-center">
+		                    <h2>Categorias</h2>
+		                </div>
+		                <div class="categories__slider owl-carousel">
+		                    <div class="col-lg-3" th:each="categoria : ${listaCategoria}">
+		                        <div class="categories__item set-bg">
+		                            <a th:href="@{/home/navegar}">
+		                                <img th:src="@{${categoria.imagem}}" />
+		                                <h5 class="h5" th:text="${categoria.nome}"></h5>
+		                            </a>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+		    <!-- Categories Section End -->
+		
+		    <!-- Featured Section Begin -->
+		    <!-- PRODUTOS -->
+		    <section class="featured spad">
+		        <div class="container" >
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <div class="section-title">
+		                        <h2>Produtos</h2>
+		                    </div>
+		                    <div class="featured__controls">
+		                        <ul>
+		                        	<!-- Filtrar por Categoria -->
+		<!--                             <li class="active" data-filter="*">All</li>
+		                            <li data-filter=".oranges">Oranges</li>
+		                            <li data-filter=".fresh-meat">Fresh Meat</li>
+		                            <li data-filter=".vegetables">Vegetables</li>
+		                            <li data-filter=".fastfood">Fastfood</li> -->
+		                        </ul>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="row featured__filter col-12" >
+		                <div class="row row-cols-2 row-cols-sm-6 row-cols-md-3 row-cols-lg-3"><!-- col-lg-3 col-md-4 col-sm-6  -->
+		                    <div class="featured__item " th:each="produto : ${listarProdutos}">
+		                        <div class="featured__item__pic" >
+		                            <a  th:href="@{/home/produto/detalhes/{id}(id=${produto.id})}" th:value="produto.id">
+		                            	<img th:src="@{${produto.getImagemPrincipal}}" width="300" height="300"/>
+		                            </a>
+		                            <ul class="featured__item__pic__hover text-center col-md-10">
+		                                <li><a th:href="@{/home/favoritos}"><i class="fa fa-heart"></i></a></li>
+		                                <li><a th:href="@{/home/carrinho}" ><i class="fa fa-shopping-cart"></i></a></li>
+		                            </ul>
+		                        </div>
+		                        <div class="featured__item__text text-center col-md-10">
+		                        <a  th:href="@{/home/produto/detalhes/{id}(id=${produto.id})}" th:value="produto.id">
+		                            <h6 th:text="${produto.nome}">Crab Pool Security</h6>
+		                            <div class="product__details__rating">
+		                            <div>
+		                            	<div th:if="${produto.avaliacao % 2 == 0}">
+		                            	 <i class="fa fa-star"></i>
+		                            	</div>
+		                            </div>
+		                                <div th:if="${produto.avaliacao % 2 != 0}">
+		                                	<i class="fa fa-star-half-o"></i>
+		                                </div>
+		                                
+		                                <span th:text="${produto.avaliacao}">(18 reviews)</span>
+		                            </div>
+		                            <h5 th:text=" 'R$ ' + ${produto.preco }">R$30,00</h5>
+								</a>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+		    <!-- Featured Section End -->
+		     <section class="product__pagination text-center">
+		    	<!-- PAGINAÇÃO -->
+		 			<div class="text-center m-1" th:if="${totalItens > 0}">
+						<span>Produtos [[${comecoConta}]] até [[${finalConta}]] de	[[${totalItens}]]</span>
+					</div>
+					<div class="text-center m-1" th:unless="${totalItens > 0}">
+						<span>Nenhum Produto encontrado</span>
+					</div>
+					<div th:if="${totalPaginas > 1}">
+						<nav class="">
+							<ul class="pagination justify-content-center">
+								<li th:class="${paginaAtual > 1 ?'page-item':'page-item disabled'}">
+									<a class="page-link" th:href="@{/home/produto/pagina/1}" aria-label="Primeira"> <span aria-hidden="true">&laquo;</span></a>
+								</li>
+								<li th:class="${paginaAtual > 1 ?'page-item':'page-item disabled'}">
+									<a class="page-link" th:href="@{'/home/pagina/'+${paginaAtual -1 }}" aria-label="Anterior"><span aria-hidden="true">&lsaquo;</span></a>
+								</li>
+								<li th:class="${paginaAtual != i ? 'page-item' : 'page-item active'}" th:each="i : ${#numbers.sequence(1, totalPaginas)}">
+									<a class="page-link" th:href="@{'/home/pagina/' +${i}}">[[${i}]]</a>
+								</li>
+								<li	th:class="${paginaAtual < totalPaginas ? 'page-item':'page-item disabled'}">
+									<a class="page-link" th:href="@{'/home/pagina/'+${paginaAtual +1 }}" aria-label="Proxima"><span aria-hidden="true">&rsaquo;</span></a>
+								</li>
+								<li th:class="${paginaAtual < totalPaginas ? 'page-item':'page-item disabled'}">
+									<a class="page-link" th:href="@{'/home/pagina/'+${totalPaginas}}" aria-label="Ultima"><span aria-hidden="true">&raquo;</span></a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<!-- FIM PAGINAÇÃO -->
+		    </section>
+		
+		    <!-- Latest Product Section Begin -->
+		    <section class="latest-product spad">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-4 col-md-6">
+		                    <div class="latest-product__text">
+		                        <h4>Latest Products</h4>
+		                        <div class="latest-product__slider owl-carousel">
+		                            <div class="latest-prdouct__slider__item">
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-1.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-2.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-3.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                            </div>
+		                            <div class="latest-prdouct__slider__item">
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-1.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-2.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-3.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="col-lg-4 col-md-6">
+		                    <div class="latest-product__text">
+		                        <h4>Top Rated Products</h4>
+		                        <div class="latest-product__slider owl-carousel">
+		                            <div class="latest-prdouct__slider__item">
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-1.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-2.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-3.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                            </div>
+		                            <div class="latest-prdouct__slider__item">
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-1.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-2.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-3.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="col-lg-4 col-md-6">
+		                    <div class="latest-product__text">
+		                        <h4>Review Products</h4>
+		                        <div class="latest-product__slider owl-carousel">
+		                            <div class="latest-prdouct__slider__item">
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-1.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-2.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-3.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                            </div>
+		                            <div class="latest-prdouct__slider__item">
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-1.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-2.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                                <a href="#" class="latest-product__item">
+		                                    <div class="latest-product__item__pic">
+		                                        <img src="img/latest-product/lp-3.jpg" alt="">
+		                                    </div>
+		                                    <div class="latest-product__item__text">
+		                                        <h6>Crab Pool Security</h6>
+		                                        <span>$30.00</span>
+		                                    </div>
+		                                </a>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+		    <!-- Latest Product Section End -->
+		</section>
+	</main>
 </body>
 
 </html>

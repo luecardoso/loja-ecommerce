@@ -74,10 +74,45 @@ public class HomeControlador {
 	public String produtoDetalhes(@PathVariable(name = "id") Long id, Model model) {
 		
 		ProdutoModelo produto = produtoServico.encontrarPorId(id);
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		model.addAttribute("listaCategoria", listaCategoria);
 		model.addAttribute("produtoModelo", produto);
 		model.addAttribute("imagemExtraProduto", produto.getImagemExtra());
 		return "produto-detalhe";
 	}
 	
+	@GetMapping("/navegar")
+	public String areaNavegar(Model model) {
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		model.addAttribute("listaCategoria", listaCategoria);
+		return "area-navegar";
+	}
 	
+	@GetMapping("/contato")
+	public String contato(Model model) {
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		model.addAttribute("listaCategoria", listaCategoria);
+		return "contato";
+	}
+	
+	@GetMapping("/entrar")
+	public String lojaLogin(Model model) {
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		model.addAttribute("listaCategoria", listaCategoria);
+		return "loja-login";
+	}
+	
+	@GetMapping("/ofertas")
+	public String areaOfertas(Model model) {
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		model.addAttribute("listaCategoria", listaCategoria);
+		return "ofertas";
+	}
+	
+	@GetMapping("/carrinho")
+	public String carrinho(Model model) {
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		model.addAttribute("listaCategoria", listaCategoria);
+		return "carrinho";
+	}
 }
