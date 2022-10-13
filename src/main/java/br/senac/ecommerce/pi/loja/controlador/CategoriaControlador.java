@@ -55,6 +55,8 @@ public class CategoriaControlador {
 			finalConta = pagina.getTotalElements();
 		}
 
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		model.addAttribute("listaCategoria", listaCategoria);
 		model.addAttribute("paginaAtual", numPagina);
 		model.addAttribute("totalPaginas", pagina.getTotalPages());
 		model.addAttribute("comecoConta", comecoConta);

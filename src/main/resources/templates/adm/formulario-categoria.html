@@ -3,6 +3,7 @@
 <head>
 	<title>Página de Cadastro de Categorias</title>
 	<meta charset="UTF-8">
+	<script th:src="@{/js/imagem.js}"></script>
 </head>
 <body>
 	
@@ -28,7 +29,7 @@
 		 			</div>
 					
 					<!--  MENSAGEM DE SUCESSO -->
-					<div class="alert alert-success alert-dismissible fade show  m-2 col-12" role="alert"  th:if="${not #strings.isEmpty(mensagem)}">
+					<div class="alert alert-success alert-dismissible fade show  m-2 col-12 text-center" role="alert"  th:if="${not #strings.isEmpty(mensagem)}">
 						<span><strong  th:text="${mensagem}"></strong></span>
 						<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>

@@ -9,7 +9,6 @@ window.onload = function(){
 		});
 		
 		$("#descricaoLonga").richText();
-		//$("#descricaoCurta").richText();
 		
 		$("input[name='imagemExtra']").each(function(index){
 			contadorImagemExtra++;

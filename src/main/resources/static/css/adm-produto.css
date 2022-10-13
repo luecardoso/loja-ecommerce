@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button,
+input[name="quantidade"]{
+	border: none;
+	outline: none;
+	text-align: center;
+	max-width: 70px;
+	-moz-appearance: textfield;
+}

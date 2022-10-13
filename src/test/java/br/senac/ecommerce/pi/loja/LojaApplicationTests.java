@@ -69,13 +69,55 @@ class LojaApplicationTests {
 	}
 	
 	@Test
-	public void testeCriarUsuario() {
-//		CargoModelo cargoEstoquista = entityManager.find(Cargo.class, 2);
-//		UsuarioModelo usuario = new UsuarioModelo("abcd@abcd", "123456", "Usuario", "2020-28-08", "115550123",
-//				"4400556688");
-//		usuario.adicionarCargo(cargoEstoquista);
-//		UsuarioModelo usuarioSalvo = usuarioRepositorio.save(usuario);
-//		assertThat(usuarioSalvo.getId()).isGreaterThan(0);
+	public void testeCriarAdministrador() {
+		CargoModelo cargo = entityManager.find(CargoModelo.class, 1L);
+		UsuarioModelo usuario = new UsuarioModelo();
+		BCryptPasswordEncoder codificadorSenha = new BCryptPasswordEncoder();
+		String senhaCrua = "123";
+		String senhaCodificada = codificadorSenha.encode(senhaCrua);
+//		usuario.setId(1L);
+		usuario.setNome("ADMIN");
+		usuario.setEmail("adm@teste.com");
+		usuario.setSenha(senhaCodificada);
+		usuario.setCpf("774.521.770-96");
+//		usuario.setDataNascimento("2020-28-08");
+		usuario.setTelefone("115550123");
+		usuario.setAtivo(true);
+		usuario.adicionarCargo(cargo);
+		
+		
+		UsuarioModelo usuarioSalvo = usuarioRepositorio.save(usuario);
+		boolean matches = codificadorSenha.matches(senhaCrua, senhaCodificada);
+
+		assertThat(matches).isTrue();
+		
+		assertThat(usuarioSalvo.getId()).isGreaterThan(0);
+		
+		
+	}
+	
+	@Test
+	public void testeCriarEstoquista() {
+		CargoModelo cargo = entityManager.find(CargoModelo.class, 2L);
+		UsuarioModelo usuario = new UsuarioModelo();
+		BCryptPasswordEncoder codificadorSenha = new BCryptPasswordEncoder();
+		String senhaCrua = "123";
+		String senhaCodificada = codificadorSenha.encode(senhaCrua);
+//		usuario.setId(1L);
+		usuario.setNome("ESTOQUISTA");
+		usuario.setEmail("est@teste.com");
+		usuario.setSenha(senhaCodificada);
+		usuario.setCpf("079.962.630-94");
+//		usuario.setDataNascimento("2020-28-08");
+		usuario.setTelefone("115550123");
+		usuario.setAtivo(true);
+		usuario.adicionarCargo(cargo);
+		
+		UsuarioModelo usuarioSalvo = usuarioRepositorio.save(usuario);
+		boolean matches = codificadorSenha.matches(senhaCrua, senhaCodificada);
+
+		assertThat(matches).isTrue();
+		assertThat(usuarioSalvo.getId()).isGreaterThan(0);
 	}
 	
 	@Test

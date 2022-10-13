@@ -41,22 +41,7 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
 	}
-	
-	/* PERMISSÃO PARA ENTRAR AUTENTICADO*/
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests().anyRequest().authenticated()
-//			.and()
-//			.formLogin()
-//				.loginPage("/login")
-//				.usernameParameter("email")
-//				.permitAll()
-//			.and()
-//				.logout()
-//				.permitAll();
-//	}
-	
-	
+
 	/*PERMISÃO DE ACESSO AUTORIZADO E COM CARGO ESPECIFICO*/
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -72,7 +57,6 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 		.antMatchers("/administrador/produto/editar/**").hasAnyAuthority("Administrador","Estoquista")
 		.antMatchers("/administrador/produto/pagina/**").hasAnyAuthority("Administrador","Estoquista")
 		.antMatchers("/administrador/produto/mostrarImagem/**").hasAnyAuthority("Administrador","Estoquista")
-//		.antMatchers("/administrador/produto/**").hasAuthority("Administrador")
 		.anyRequest().authenticated()
 		.and().formLogin()
 				.defaultSuccessUrl("/home")
@@ -83,17 +67,6 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 //		.exceptionHandling().accessDeniedPage("/acesso-negado");
 	}
 	
-	
-	/* PERMISSÃO PARA ENTRAR SEM CREDENCIAIS*/
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests()
-//				.anyRequest()
-//					.permitAll();
-////					.and()
-////				.logout()
-////					.permitAll();
-//	}
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 

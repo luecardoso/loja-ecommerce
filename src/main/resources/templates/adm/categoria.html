@@ -52,7 +52,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 					<td th:text="${categoria.id}"></td>
 					<!-- IMAGEM -->
 					<td>
-						<img th:src="@{/administrador/categoria/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${categoria.imagem})}" width="100"/>
+						<!-- <img th:src="@{/administrador/categoria/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${categoria.imagem})}" width="100"/> -->
+						<img th:src="@{${categoria.imagem}}" width="100"/>
 					</td>
 					<td th:text="${categoria.nome}"></td>
 					<td>

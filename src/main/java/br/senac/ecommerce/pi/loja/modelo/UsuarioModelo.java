@@ -122,6 +122,22 @@ public class UsuarioModelo implements Serializable{
 		this.ativo = ativo;
 	}
 
+	
+	public UsuarioModelo(@NotBlank(message = "Preencha o nome") String nome,
+			@NotBlank(message = "Email é obrigatório") @Email(message = "Não é um e-mail válido") String email,
+			String senha, @CPF(message = "Informe um CPF válido.") String cpf, LocalDate dataNascimento,
+			String telefone, boolean ativo, Set<CargoModelo> cargos) {
+		super();
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+		this.telefone = telefone;
+		this.ativo = ativo;
+		this.cargos = cargos;
+	}
+
 	public Long getId() {
 		return id;
 	}

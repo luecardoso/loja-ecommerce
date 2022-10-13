@@ -28,7 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.ecommerce.pi.loja.UploadArquivo;
+import br.senac.ecommerce.pi.loja.modelo.CategoriaModelo;
 import br.senac.ecommerce.pi.loja.modelo.ProdutoModelo;
+import br.senac.ecommerce.pi.loja.servico.CategoriaServico;
 import br.senac.ecommerce.pi.loja.servico.ProdutoServico;
 
 @Controller
@@ -37,6 +39,9 @@ public class ProdutoControlador {
 
 	@Autowired
 	ProdutoServico produtoServico;
+	
+	@Autowired
+	CategoriaServico categoriaServico;
 
 	public static String CAMINHO_IMAGEM = System.getProperty("user.dir") + "/img/";
 
@@ -72,84 +77,12 @@ public class ProdutoControlador {
 
 	@GetMapping("/produto/cadastrar")
 	public String cadastrar(Model model, ProdutoModelo produto) {
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		model.addAttribute("listaCategoria", listaCategoria);
 		model.addAttribute("produtoModelo", produto);
 		return "adm/formulario-produto";
 	}
-//Funciona pra 1 imagem
-//	@PostMapping("/produto/salvar")
-//	public String salvarUsuario(@Valid ProdutoModelo produto, BindingResult bindingResult,
-//			RedirectAttributes redirectAttributes, Model model, @RequestParam("image") MultipartFile arquivo) {
-//
-//		/* VERIFICA CAMPOS COM ERROS */
-//		if (bindingResult.hasErrors()) {
-//			model.addAttribute("produtoModelo", produto);
-//			redirectAttributes.addFlashAttribute("mensagemErro", "Campo " + bindingResult.getFieldError().getField()
-//					+ " com problema: \n" + bindingResult.getFieldError().getDefaultMessage());
-//			return "redirect:/administrador/produto/cadastrar";
-//		}
-//		/* ADICIONA IMAGEM */
-//		StringBuilder nomeDoArquivo = new StringBuilder();
-//		try {
-//			Path nomeDoCaminho = Paths.get(CAMINHO_IMAGEM, arquivo.getOriginalFilename());
-//			nomeDoArquivo.append(arquivo.getOriginalFilename());
-//
-//			Files.write(nomeDoCaminho, arquivo.getBytes());
-//			
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-////		produto.setImagem(CAMINHO_IMAGEM +"/"+produto.getId()+"/"+nomeDoArquivo+"");
-//		//produto.setImagem("/"+produto.getId()+"/"+nomeDoArquivo);
-//		produto.setImagem(""+nomeDoArquivo);
-//		/* SALVA PRODUTO */
-//		produtoServico.salvarProduto(produto);
-//		
-//		model.addAttribute("produtoModelo", produto);
-//		redirectAttributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
-//		return "redirect:/administrador/produto";
-//	}
 	
-	//Funcionando com pastas
-//	@PostMapping("/produto/salvar")
-//	public String salvarUsuario(@Valid ProdutoModelo produto, BindingResult bindingResult,
-//			RedirectAttributes redirectAttributes, Model model, @RequestParam("image") MultipartFile arquivo) throws IOException {
-//
-//		/* VERIFICA CAMPOS COM ERROS */
-//		if (bindingResult.hasErrors()) {
-//			model.addAttribute("produtoModelo", produto);
-//			redirectAttributes.addFlashAttribute("mensagemErro", "Campo " + bindingResult.getFieldError().getField()
-//					+ " com problema: \n" + bindingResult.getFieldError().getDefaultMessage());
-//			return "redirect:/administrador/produto/cadastrar";
-//		}
-//		/* ADICIONA IMAGEM */
-//		if(!arquivo.isEmpty()) {
-//			String nomeArquivo = StringUtils.cleanPath(arquivo.getOriginalFilename());
-//			produto.setImagemPrincipal(nomeArquivo);
-//			//produto.setImagem(nomeArquivo);
-//			
-//			ProdutoModelo produtoSalvo = produtoServico.salvarProduto(produto);
-//			String salvarCaminho =CAMINHO_IMAGEM + produtoSalvo.getId();
-//			
-//			UploadArquivo.excluirDiretorio(salvarCaminho);
-//			UploadArquivo.salvarArquivo(salvarCaminho, nomeArquivo, arquivo);
-//		}else {
-//			/* SALVA PRODUTO */
-////			if(produto.getImagemPrincipal() != null) {
-////				produto.setImagemPrincipal(produto.getImagemPrincipal());
-////			}
-//			produtoServico.salvarProduto(produto);
-//			
-//			
-//		}
-//		
-//		model.addAttribute("produtoModelo", produto);
-//		redirectAttributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
-//		return "redirect:/administrador/produto";
-//		
-//	}
-	
-	//Testando com varias imagens
 	@PostMapping("/produto/salvar")
 	public String salvarUsuario(@Valid ProdutoModelo produto, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model, 
@@ -165,23 +98,16 @@ public class ProdutoControlador {
 //		}
 		/* ADICIONA IMAGEM */
 		adicionarImagemPrincipal(imagemPrincipal, produto);	
-//		produto.setImagemPrincipal(imagemPrincipal);
 		adicionarExtraImagem(imagemExtra, produto);
 
 		/* SALVA PRODUTO */
 		ProdutoModelo produtoSalvo = produtoServico.salvarProduto(produto);
 		
 		salvarImagens(imagemPrincipal, imagemExtra, produtoSalvo);
-			
-			//produtoServico.salvarProduto(produto);
-			
-			
-		
-		
+
 		model.addAttribute("produtoModelo", produto);
 		redirectAttributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
 		return "redirect:/administrador/produto";
-		
 	}
 	
 	public void salvarImagens(MultipartFile imagemPrincipal, MultipartFile[] imagemExtra,
@@ -222,42 +148,6 @@ public class ProdutoControlador {
 			}
 		}
 	}
-	
-//	@PostMapping("/produto/salvar")
-//	public String salvarUsuario(@Valid ProdutoModelo produto, BindingResult bindingResult,
-//			RedirectAttributes redirectAttributes, Model model, @RequestParam("image") MultipartFile arquivo) {
-//
-//		/* VERIFICA CAMPOS COM ERROS */
-//		if (bindingResult.hasErrors()) {
-//			model.addAttribute("produtoModelo", produto);
-//			redirectAttributes.addFlashAttribute("mensagemErro", "Campo " + bindingResult.getFieldError().getField()
-//					+ " com problema: \n" + bindingResult.getFieldError().getDefaultMessage());
-//			return "redirect:/administrador/produto/cadastrar";
-//		}
-//		/* ADICIONA IMAGEM */
-//		StringBuilder nomeDoArquivo = new StringBuilder();
-//		try {
-//			Path nomeDoCaminho = Paths.get(CAMINHO_IMAGEM, arquivo.getOriginalFilename());
-//			nomeDoArquivo.append(arquivo.getOriginalFilename());
-//
-//			Files.write(nomeDoCaminho, arquivo.getBytes());
-//			
-//			
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-////		produto.setImagem(CAMINHO_IMAGEM +"/"+produto.getId()+"/"+nomeDoArquivo+"");
-//		//produto.setImagem("/"+produto.getId()+"/"+nomeDoArquivo);
-//		produto.setImagem(""+nomeDoArquivo);
-//		/* SALVA PRODUTO */
-//		produtoServico.salvarProduto(produto);
-//		
-//		model.addAttribute("produtoModelo", produto);
-//		redirectAttributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
-//		return "redirect:/administrador/produto";
-//	}
-	
 
 	@GetMapping("/produto/{id}/ativo/{status}")
 	public String atualizarStatusAtivadoUsuario(@PathVariable("id") Long id, @PathVariable("status") boolean enabled,
@@ -285,10 +175,12 @@ public class ProdutoControlador {
 			RedirectAttributes redirectAttributes) {
 
 		ProdutoModelo listaProdutoInfo = produtoServico.editarProduto(id);
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
 		listaProdutoInfo.getImagemPrincipal();
 		Integer imagensExtrasExistentes = listaProdutoInfo.getImagemExtra().size();
 		
 		model.addAttribute("produtoModelo", listaProdutoInfo);
+		model.addAttribute("listaCategoria", listaCategoria);
 		model.addAttribute("imagensExtrasExistentes", imagensExtrasExistentes);
 		return "adm/formulario-produto";
 	}
@@ -298,6 +190,7 @@ public class ProdutoControlador {
 			RedirectAttributes redirectAttributes, @PathVariable(name = "id") Long id) {
 		
 		ProdutoModelo listaProdutoInfo = produtoServico.editarProduto(id);
+		
 		if(quantidade == null || quantidade <= 0) {
 			quantidade = 0;
 			listaProdutoInfo.setAtivo(false);

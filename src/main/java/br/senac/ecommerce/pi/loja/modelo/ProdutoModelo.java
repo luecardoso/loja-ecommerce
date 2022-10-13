@@ -1,8 +1,10 @@
 package br.senac.ecommerce.pi.loja.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -71,7 +73,16 @@ public class ProdutoModelo implements Serializable{
 	public void setAvaliacao(float avaliacao) {
 		this.avaliacao = avaliacao;
 	}
-
+//	@OneToMany(mappedBy ="produtoCategoria")
+//	private List<CategoriaModelo> categoria = new ArrayList<>();
+//
+//	public List<CategoriaModelo> getCategoria() {
+//		return categoria;
+//	}
+//
+//	public void setCategoria(List<CategoriaModelo> categoria) {
+//		this.categoria = categoria;
+//	}
 	@Column(name="imagem_principal")
 	private String imagemPrincipal;
 	
@@ -100,7 +111,38 @@ public class ProdutoModelo implements Serializable{
 		this.imagemExtra.add(new ProdutoImagemModelo(nomeImagem,this));
 	}
 	
+	@OneToMany
+	private List<CategoriaModelo> categoria = new ArrayList<>();
 	
+	public List<CategoriaModelo> getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(List<CategoriaModelo> categoria) {
+		this.categoria = categoria;
+	}
+
+	public ProdutoModelo(Long id, Long codigo, String nome, String descricaoCurta,
+			@Size(min = 10, max = 5000) String descricaoLonga, float preco, Integer quantidade, Date dataCriacao,
+			Date dataAtualizacao, boolean ativo, float avaliacao, boolean destaque, String imagemPrincipal,
+			Set<ProdutoImagemModelo> imagemExtra, List<CategoriaModelo> categoria) {
+		super();
+		this.id = id;
+		this.codigo = codigo;
+		this.nome = nome;
+		this.descricaoCurta = descricaoCurta;
+		this.descricaoLonga = descricaoLonga;
+		this.preco = preco;
+		this.quantidade = quantidade;
+		this.dataCriacao = dataCriacao;
+		this.dataAtualizacao = dataAtualizacao;
+		this.ativo = ativo;
+		this.avaliacao = avaliacao;
+		this.destaque = destaque;
+		this.imagemPrincipal = imagemPrincipal;
+		this.imagemExtra = imagemExtra;
+		this.categoria = categoria;
+	}
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;

@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -24,6 +26,18 @@ public class CategoriaModelo {
 
 	private boolean ativo;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "produto_id")
+//	private ProdutoModelo produtoCategoria;
+//	
+//	public ProdutoModelo getProduto() {
+//		return produtoCategoria;
+//	}
+//
+//	public void setProduto(ProdutoModelo produto) {
+//		this.produtoCategoria = produto;
+//	}
+
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -64,4 +78,10 @@ public class CategoriaModelo {
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
+
+	@Override
+	public String toString() {
+		return  nome;
+	}
+	
 }

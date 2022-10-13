@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Pagina de Produtos</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/adm-produto.css}" />
 		<script th:src="@{/js/produto.js}"></script>
 </head>
 
@@ -43,6 +44,7 @@
 						<th>Codigo</th>
 						<th>Imagem</th>
 						<th>Nome</th>
+						<th>Categoria</th>
 <!-- 						<th>Descricao curta</th> -->
 <!-- 						<th>Descricao longa</th> -->
 						<th>Preço</th>
@@ -58,16 +60,7 @@
 				<tr th:each="produto : ${listarProdutos}">
 					<td th:text="${produto.id}"></td>
 					<td th:text="${produto.codigo}"></td>
-					<!-- <td th:text="${produto.imagem}"><i class="fa-regular fa-image"></i></td> -->
-  					 
-					
 					<td>
-  					 	<!--   <img th:src="@{/administrador/produto/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${produto.imagem})}" width="100"/>  -->
-<!-- 						<img th:src="|produto/imagem/${produto.id}|"/>  -->
-				 <!-- <img th:src="@{/administrador/produto/mostrarImagem{imagemPrincipal}(imagemPrincipal=${produto.imagemPrincipal})}" width="100"/> -->
- <!--  					<img th:src="@{/administrador/produto/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${produto.imagemPrincipal})}" width="100"/> -->
-<!-- 					<img th:src="'/img/'+${produto.id}+'/'+${produto.imagemPrincipal}" /> -->
-<!--  					<img th:src="|/img/${produto.id}/${produto.imagemPrincipal}|" /> -->
  					 <div class="m-2">
 						<img id="imagemPrincipal" alt="Prévia da imagem principal"
 							class="img-fluid" th:src="@{${produto.getImagemPrincipal}}" width="100" height="100" />
@@ -75,24 +68,18 @@
 
 					</td>
 					<td th:text="${produto.nome}"></td>
-<!-- 					<td th:text="${produto.descricaoCurta}"></td> -->
-<!--  					<td th:text="${produto.descricaoLonga}" id="descricaoLonga"></td> -->
+					<td th:text="${produto.categoria}"></td>
 					<td th:text="${produto.preco}"></td>
-<!-- 					<td th:text="${produto.quantidade}"></td> -->
 					<!-- QUANTIDADE -->
 					<td >
 						<form th:action="@{/administrador/produto/editar/{id}(id=${produto.id})}" method="POST">
 							<input class="form-group mb-3" type="number" th:value="${produto.quantidade}" name="quantidade" min="0" max="9999" required/>
 						</form>
 					</td>
-<!-- 					<td th:text="${produto.dataCriacao}"></td> -->
 					<td th:text="${produto.dataAtualizacao}"></td>
-					
 					<td th:text="${produto.avaliacao}"></td>
 					<td>
 						<div  class="form-check form-switch">
-
-								<!--  -->
 							<label class="form-check-label" for="flexSwitchCheckDefault">
 								<div sec:authorize="hasAuthority('Administrador')">
 									<!-- Desativar Produto -->
