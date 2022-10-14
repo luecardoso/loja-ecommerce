@@ -115,4 +115,11 @@ public class HomeControlador {
 		model.addAttribute("listaCategoria", listaCategoria);
 		return "carrinho";
 	}
+	
+	@GetMapping("/cadastro")
+	public String cadastro(Model model) {
+		List<CategoriaModelo> listaCategoria = categoriaServico.listaCategoria();
+		model.addAttribute("listaCategoria", listaCategoria);
+		return "cadastro";
+	}
 }

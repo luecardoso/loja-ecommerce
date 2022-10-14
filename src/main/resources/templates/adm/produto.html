@@ -71,7 +71,7 @@
 					<td th:text="${produto.categoria}"></td>
 					<td th:text="${produto.preco}"></td>
 					<!-- QUANTIDADE -->
-					<td >
+					<td id="input-quantidade">
 						<form th:action="@{/administrador/produto/editar/{id}(id=${produto.id})}" method="POST">
 							<input class="form-group mb-3" type="number" th:value="${produto.quantidade}" name="quantidade" min="0" max="9999" required/>
 						</form>
