@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br"  
+xmlns:th="http://www.thymeleaf.org"
+layout:decorate="~{layout/loja-layout}">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Contato</title>
+</head>
+
+<body>
+<main>
+	<section layout:fragment="conteudo-principal">
+		 <!-- Contact Section Begin -->
+	    <section class="contact spad">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+	                    <div class="contact__widget">
+	                        <span class="icon_phone"></span>
+	                        <h4>Telefone</h4>
+	                        <p>11 99999-1234</p>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+	                    <div class="contact__widget">
+	                        <span class="icon_pin_alt"></span>
+	                        <h4>Endereço</h4>
+	                        <p>Rua ABC, São Paulo -SP</p>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+	                    <div class="contact__widget">
+	                        <span class="icon_clock_alt"></span>
+	                        <h4>Horário</h4>
+	                        <p>De Seg a Sex - 8h as 20h</p>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+	                    <div class="contact__widget">
+	                        <span class="icon_mail_alt"></span>
+	                        <h4>Email</h4>
+	                        <p>emporioviverbem@naturalis.com</p>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </section>
+	    <!-- Contact Section End -->
+	    
+	    <!-- Contact Form Begin -->
+	    <div class="contact-form spad">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-lg-12">
+	                    <div class="contact__form__title">
+	                        <h2>Entre em contato</h2>
+	                    </div>
+	                </div>
+	            </div>
+	            <form action="#">
+	                <div class="row">
+	                    <div class="col-lg-6 col-md-6">
+	                        <input type="text" placeholder="Seu nome">
+	                    </div>
+	                    <div class="col-lg-6 col-md-6">
+	                        <input type="text" placeholder="Email">
+	                    </div>
+	                    <div class="col-lg-12 text-center">
+	                        <textarea placeholder="Duvidas"></textarea>
+	                        <button type="submit" class="site-btn">Enviar Mensagem</button>
+	                    </div>
+	                </div>
+	            </form>
+	        </div>
+	    </div>
+	    <!-- Contact Form End -->
+	
+	    <!-- Map Begin -->
+	    <div class="map">
+	    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.1778227805607!2d-46.7016794850202!3d-23.669597984629256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5036539648d5%3A0x78501a72680ea23a!2sCentro%20Universit%C3%A1rio%20Senac%20-%20Santo%20Amaro!5e0!3m2!1spt-BR!2sbr!4v1665501727064!5m2!1spt-BR!2sbr" 
+	    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" aria-hidden="false"
+	    referrerpolicy="no-referrer-when-downgrade"></iframe>
+	        
+	        <div class="map-inside">
+	            <i class="icon_pin"></i>
+	            <div class="inside-widget">
+	                <h4>São Paulo</h4>
+	                <ul>
+	                    <li>Telefone: 11 99999-1234</li>
+	                    <li>Rua ABC, São Paulo - SP</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	    <!-- Map End -->
+	
+	    
+	</section>
+</main>
+</body>
+
+</html>

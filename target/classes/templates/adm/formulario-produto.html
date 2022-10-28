@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
+<head>
+	<title>Página de Cadastro de Produtos</title>
+	<meta charset="UTF-8">
+	<script th:src="@{/js/produto.js}"></script>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+	<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+	<link rel="stylesheet" type="text/css"	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" ></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+
+</head>
+<body>
+	
+	<div class="container-fluid" layout:fragment="basepagina">
+		<div class="col-lg-12 text-center">
+			<h1 class="page-header">Cadastro de Produtos</h1>
+			<hr>
+		</div>
+			
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<!-- FORMULÁRIO -->
+				<form th:action="@{/administrador/produto/salvar}" method="POST" th:object="${produtoModelo}" enctype="multipart/form-data">
+					<div class="border border-secondary rounded p-3">
+					<!-- MENSAGEM DE ERRO -->
+		 	 		<div th:each="problema   : ${mensagemErro}" class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(mensagemErro)}">
+						<div  >
+						<ul >
+							<li > <span th:text="${problema}"><strong  ></strong></span></li><!-- th:each="mostrarErros : ${#fields.errors('*')}"  -->
+						</ul>
+						</div>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		 			</div>
+					
+					<!--  MENSAGEM DE SUCESSO -->
+					<div class="alert alert-success alert-dismissible fade show  m-2 col-12" role="alert"  th:if="${not #strings.isEmpty(mensagem)}">
+						<span><strong  th:text="${mensagem}"></strong></span>
+						<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					
+					<!--  MENSAGEM ITENS DUPLICADOS-->
+					<div class="alert alert-warning alert-dismissible fade show  m-2 col-8 text-center" role="alert"  th:if="${mensagemDuplicado != null}">
+						<span><strong  th:text="${mensagemDuplicado}"></strong></span>
+						<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				
+					<!-- ID -->
+					<input type="hidden" th:field="*{id}" value="" readonly id="id"/>
+				
+					<!-- NOME -->
+					<div class="form-group mb-3">
+						<label for="nome">Nome:</label> 
+						<div>
+							<input sec:authorize="hasAuthority('Administrador')" class="form-control" type="text" th:field="*{nome}" id="nome" maxlength=""
+							placeholder="Nome do Produto"  title="Insira seu nome completo" required/>
+						</div>
+		
+					</div>	
+					<!-- DESCRIÇÃO CURTA -->
+					<div class="form-group mb-3">
+						<label for="descricaoCurta">Descrição:</label> 
+						<div>
+							<textarea sec:authorize="hasAuthority('Administrador')" class="form-control" type="text" th:field="*{descricaoCurta}" id="descricaoCurta" maxlength="200"
+							placeholder="Descrição do Produto"  title="Insira a descrição do produto" required></textarea>
+						</div>
+		
+					</div>
+					
+					<!-- DESCRIÇÃO LONGA -->
+					<div class="form-group mb-3">
+						<label for="descricaoLonga">Detalhes:</label> 
+							<div>
+								<textarea sec:authorize="hasAuthority('Administrador')" class="form-control" type="text" th:field="*{descricaoLonga}" id="descricaoLonga" maxlength=""
+								placeholder="Detalhes do Produto"  title="Insira detalhes do produto" required></textarea>
+							</div>
+						</div>
+						
+					<!-- CATEGORIAS -->
+					<div class="form-group mb-3">
+					<label for="categoria">Categoria:</label> 
+						<th:block th:each="cat : ${listaCategoria}">
+						<br/>
+						<input type="checkbox" th:field="*{categoria}" th:text="${cat.nome}" th:value="${cat.id}" class="m-2" />
+						</th:block> 
+						
+					</div>
+					
+					
+					
+					<!-- IMAGEM -->
+					<div  class="form-group col border m-3 p-2 " id="imagemProduto">
+						<label for="image">Imagem:</label> 
+						<div class="form-group rounded">
+						<!-- PREVIA IMAGEM PRINCIPAL -->
+ 						<div class="m-2 d-flex">
+ 							<img id="previaImagemPrincipal" alt="Prévia da imagem principal"
+							class="img-fluid" th:src="@{${produtoModelo.imagemPrincipal}}"  width="300"/>
+						</div>  
+						
+						<!-- INPUT IMAGEM PRINCIPAL -->
+ 						<input type="hidden" th:field="*{imagemPrincipal}" />
+						<img th:if="${produtoModelo.imagemPrincipal == null}" th:src="@{${produtoModelo.imagemPrincipal}}"/>
+						<div class="m-2" > <!-- sec:authorize="hasAuthority('Administrador')" -->
+							<input type="file" name="imagemPrincipal" id="imagemPrincipal" accept="image/*">
+						</div>
+						</div>
+						
+						<!-- IMAGEM EXTRA -->
+ 						
+						<!-- IMAGENS DE PRODUTOS SALVOS -->
+ 						<th:block th:each="produtoImagemExtra, status : ${produtoModelo.imagemExtra}">
+ 						<div class="m-2" th:id="'divExtraImagem' + ${status.index}">
+							<label>Imagem Extra: [[${status.index  + 1}]] :  [[${produtoImagemExtra.nome}]] </label>
+							<a class="btn fas fa-times-circle fa-2x icon-dark float-right"
+								title="Remover essa imagem" name="removerImagemExtra"></a>
+						</div>
+							<div class="m-2">
+								<img th:id="'mostrarImagemExtra' + ${status.index} " alt="Prévia da imagem extra"
+								class="img-fluid" th:src="@{${produtoImagemExtra.caminhoImagemExtra}}" width="300"/>
+							</div>
+								<!-- INPUT IMAGEM EXTRA  -->
+							<div>
+								<input type="file" id="imagemExtra" name="imagemExtra" accept="image/*" />
+							</div>
+							
+							<input type="hidden" name="imagemExtraID" th:id="'imagemExtraID' + ${status.index}"/>
+							<input type="hidden" name="imagemExtraNome" th:id="'imagemExtraNome' + ${status.index}"/>
+						</th:block>
+						
+						<!-- PRÉVIA IMAGEM EXTRA -->
+						<div class="m-2" th:id="'divExtraImagem' + ${imagensExtrasExistentes}">
+							<img th:id="'mostrarImagemExtra' + ${imagensExtrasExistentes} " alt="Prévia da imagem extra"
+							class="img-fluid" src="@{/imagem/imagem-padrao.png}" width="300"/>
+						</div>
+						<!-- INPUT IMAGEM EXTRA -->
+						<div >
+							<input type="file" id="imagemExtra" name="imagemExtra" accept="image/*" />
+						</div>
+						
+					</div>
+
+					<!-- PREÇO -->
+					<div class="form-group mb-3">
+						<label for="preco">Preço:</label> 
+						<div>
+							<input class="form-control" type="text" th:field="*{preco}" id="preco" maxlength=""
+							placeholder="R$"  title="Insira o preço do produto" required/>
+						</div>
+					</div>
+					<!-- QUANTIDADE -->
+					<div class="form-group mb-3">
+						<label for="quantidade">Quantidade:</label> 
+						<div>
+							<input class="form-control" type="number" th:field="*{quantidade}" id="quantidade" max="9999" maxlength="9999" min="0"
+							placeholder="Quantidade"  title="Insira a quantidade do produto" required>
+							
+						</div>
+					</div>
+					
+					<!-- AVALIAÇÃO -->
+					<div class="form-group mb-3">
+						<label for="avaliacao">Avaliação:</label> 
+						<div sec:authorize="hasAuthority('Administrador')"> 
+							<input class="form-control" type="number" step="0.5" th:field="*{avaliacao}" id="avaliacao" max="5" maxlength="5" min="0"
+							placeholder="Estrelas"  title="Insira a avaliação do produto" required>
+						</div>
+					</div>
+					
+					<!-- DATA DE CRIAÇÃO -->
+					<div class="form-group row m-2">
+						<label for="dataCricao">Data Criação:</label>
+						<input class="form-control mb-4 col-4" type="text" th:field="*{dataCriacao}" id="dataCriacao"  title="Criação do produto" readonly/> 
+					</div>
+					<!-- DATA DE CRIAÇÃO -->
+					<div class="form-group row m-2">
+						<label for="dataAtualizacao">Data Atualização:</label>
+						<input class="form-control mb-4 col-4" type="text" th:field="*{dataAtualizacao}" id="dataAtualizacao"  title="Atualização do produto" readonly/> 
+					</div>
+					
+					
+					<!-- ATIVAR -->
+					<div class="form-group row  m-2 col-2">
+						<div class="form-check row">
+						<div class=" d-flex inline text-center">
+							<label for="ativo" class="me-4">Ativar:  </label>
+							<input type="checkbox" class="form-check-label" th:field="*{ativo}" id="ativo" value="" />
+						</div>
+							
+						</div>
+					</div>
+					
+					<!-- DESTAQUE -->
+					<div class="form-group row  m-2 col-2">
+						<div class="form-check row">
+						<div class=" d-flex inline text-center">
+							<label for="destaque" class="me-4">Destacar Imagem:  </label>
+							<input type="checkbox" class="form-check-label" th:field="*{destaque}" id="destaque" value="" />					
+						</div>
+							
+						</div>
+					</div>
+					
+					<div class="inline text-center">
+						<button type="submit" class="btn btn-primary btn-sm form-check form-check-inline">Salvar</button>
+						<a class="btn btn-danger" th:href="@{/administrador/produto}">Cancelar</a>
+					</div>
+					
+					</div>
+				</form>
+			</div>
+		</div>	
+
+	</div>
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/produto.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#descricaoLonga").richText();
+		});
+	</script>
+</body>
+</html>

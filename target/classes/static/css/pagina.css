@@ -1,0 +1,20 @@
+body{
+    background-color: aquamarine;
+}
+
+article {
+    background-color: #d9e2f3;
+    width: 75%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+#login-usuario {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    column-gap: 50px;
+    margin-top: 50px;
+  }

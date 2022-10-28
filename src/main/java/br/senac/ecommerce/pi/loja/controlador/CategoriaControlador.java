@@ -31,7 +31,7 @@ import br.senac.ecommerce.pi.loja.servico.CategoriaServico;
 @Controller
 @RequestMapping("/administrador")
 public class CategoriaControlador {
-	
+
 	@Autowired
 	CategoriaServico categoriaServico;
 	public static String CAMINHO_IMAGEM = System.getProperty("user.dir") + "/img/categoria/";
@@ -40,7 +40,7 @@ public class CategoriaControlador {
 	public String mostrarComPaginacao(Model model) {
 		return listarComPaginacao(1, model, null);
 	}
-	
+
 	@GetMapping("/categoria/pagina/{numPagina}")
 	public String listarComPaginacao(@PathVariable(name = "numPagina") int numPagina, Model model,
 			@Param("keyword") String keyword) {
@@ -67,25 +67,26 @@ public class CategoriaControlador {
 		return "adm/categoria";
 
 	}
-	
+
 	@GetMapping("/categoria/cadastrar")
 	public String cadastrar(Model model, CategoriaModelo categoria) {
 		model.addAttribute("categoriaModelo", categoria);
 		return "adm/formulario-categoria";
 	}
-	
+
 	@PostMapping("/categoria/salvar")
 	public String salvar(@Valid CategoriaModelo categoria, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes, Model model, 
+			RedirectAttributes redirectAttributes, Model model,
 			@RequestParam("imagem") MultipartFile arquivo) {
 
 		/* VERIFICA CAMPOS COM ERROS */
-//		if (bindingResult.hasErrors()) {
-//			model.addAttribute("categoriaModelo", categoria);
-//			redirectAttributes.addFlashAttribute("mensagemErro", "Campo " + bindingResult.getFieldError().getField()
-//					+ " com problema: \n" + bindingResult.getFieldError().getDefaultMessage());
-//			return "redirect:/administrador/categoria/cadastrar";
-//		}
+		// if (bindingResult.hasErrors()) {
+		// model.addAttribute("categoriaModelo", categoria);
+		// redirectAttributes.addFlashAttribute("mensagemErro", "Campo " +
+		// bindingResult.getFieldError().getField()
+		// + " com problema: \n" + bindingResult.getFieldError().getDefaultMessage());
+		// return "redirect:/administrador/categoria/cadastrar";
+		// }
 		/* ADICIONA IMAGEM */
 		StringBuilder nomeDoArquivo = new StringBuilder();
 		try {
@@ -93,19 +94,19 @@ public class CategoriaControlador {
 			nomeDoArquivo.append(arquivo.getOriginalFilename());
 
 			Files.write(nomeDoCaminho, arquivo.getBytes());
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		categoria.setImagem(""+nomeDoArquivo);
+
+		categoria.setImagem("" + nomeDoArquivo);
 		/* SALVA PRODUTO */
 		categoriaServico.salvar(categoria);
 		model.addAttribute("categoriaModelo", categoria);
 		redirectAttributes.addFlashAttribute("mensagem", "Categoria salva com sucesso!");
 		return "redirect:/administrador/categoria/cadastrar";
 	}
-	
+
 	@GetMapping("/categoria/{id}/ativo/{status}")
 	public String atualizarStatusAtivadoUsuario(@PathVariable("id") Long id, @PathVariable("status") boolean enabled,
 			RedirectAttributes redirectAttributes) {
@@ -117,31 +118,35 @@ public class CategoriaControlador {
 		return "redirect:/administrador/categoria";
 
 	}
-	
+
 	@GetMapping("/categoria/editar/{id}")
 	public ModelAndView editarProduto(@PathVariable(name = "id") Long id,
 			RedirectAttributes redirectAttributes) {
 		ModelAndView mv = new ModelAndView("/adm/formulario-categoria");
 		CategoriaModelo listaCategoriaInfo = categoriaServico.editar(id);
-		if(listaCategoriaInfo.getImagem() != null) {
+		if (listaCategoriaInfo.getImagem() != null) {
 			listaCategoriaInfo.setImagem(listaCategoriaInfo.getImagem());
 		}
-//		model.addAttribute("categoriaModelo", listaCategoriaInfo);
+		// model.addAttribute("categoriaModelo", listaCategoriaInfo);
 		mv.addObject("categoriaModelo", listaCategoriaInfo);
 		return mv;
 	}
-	
+
+	/**
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/categoria/deletar/{id}")
 	public ModelAndView deletarUsuario(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView("redirect:/administrador/categoria");
 		categoriaServico.deletar(id);
 		return mv;
 	}
-	
+
 	@GetMapping("/categoria/mostrarImagem/{imagemPrincipal}")
 	@ResponseBody
 	public byte[] mostrarImagem(@PathVariable("imagemPrincipal") String nomeImagem) {
-		File imagemArquivo = new File(CAMINHO_IMAGEM +nomeImagem);
+		File imagemArquivo = new File(CAMINHO_IMAGEM + nomeImagem);
 		if (nomeImagem != null || nomeImagem.trim().length() > 0) {
 			try {
 				return Files.readAllBytes(imagemArquivo.toPath());

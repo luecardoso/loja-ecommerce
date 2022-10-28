@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br" 
+xmlns:th="http://www.thymeleaf.org"
+layout:decorate="~{layout/loja-layout}">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Detalhes do produto</title>
+    <script type="text/javascript" th:src="@{/js/detalhes.js}"></script>  
+</head>
+
+<body th:object="${produtoModelo}">
+  <main>
+  	<section layout:fragment="conteudo-principal">
+		    <!-- Product Details Section Begin -->
+		    <section class="product-details spad">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-6 col-md-6">
+		                    <div class="product__details__pic">
+		                    	<!-- FOTO PRINCIPAL -->
+		                        <div class="product__details__pic__item">
+		                           <img class="product__details__pic__item--large" 
+		                           id="imagemPrincipal" alt="Prévia da imagem principal"
+		                            th:src="@{${produtoModelo.getImagemPrincipal}}" width="550" height="550" />
+		                        </div>
+		                        <!-- FOTOS ADICIONAIS -->
+		                        <div class="product__details__pic__slider owl-carousel">
+		                        	<div>
+		                        		<img id="imagemPrincipal" alt="Prévia da imagem principal"
+		                        			th:data-imgbigurl="@{${produtoModelo.getImagemPrincipal}}"
+		                            th:src="@{${produtoModelo.getImagemPrincipal}}" />
+		                        	</div>
+		                        
+		                        	<div th:each="produtoImagemExtra : ${produtoModelo.imagemExtra}"	>
+		                        	<img th:data-imgbigurl="@{${produtoImagemExtra.caminhoImagemExtra}}"
+		                            	th:src="@{${produtoImagemExtra.caminhoImagemExtra}}" alt="">
+		                        	</div>
+		                            
+		                            
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="col-lg-6 col-md-6">
+		                    <div class="product__details__text">
+		                        <h3 th:text=" *{nome}">Nome</h3>
+		                        <a href="#avaliacao">
+		                            <div class="product__details__rating">
+		                                <i class="fa fa-star"></i>
+		                                <i class="fa fa-star"></i>
+		                                <i class="fa fa-star"></i>
+		                                <i class="fa fa-star"></i>
+		                                <i class="fa fa-star-half-o"></i>
+		                                <span th:text="*{avaliacao}">Avaliacao</span>
+		                            </div>
+		                        </a>
+		                        <div th:text="*{preco}" class="product__details__price">Valor</div>
+		                        
+		                        <p th:text="*{descricaoCurta}"></p>
+		                        <div class="product__details__quantity">
+		                            <div class="quantity">
+		                                <div class="pro-qty">
+		                                    <input type="text" value="1">
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <a th:href="@{/home/carrinho}" class="primary-btn">Adicionar ao carrinho</a>
+		                        <a th:href="@{/home/favoritos}" class="heart-icon"><span class="icon_heart_alt"></span></a>
+		                        <ul>
+		                            <li><b>Marca</b> <span>In Stock</span></li>
+		                            <li><b>Entrega</b> <span>Até 7 dias após a compra. <samp>Grátis: busque na loja</samp></span></li>
+		                            <li><b>Compartilhar</b>
+		                                <div class="share">
+		                                    <a href="#"><i class="fa fa-facebook"></i></a>
+		                                    <a href="#"><i class="fa fa-twitter"></i></a>
+		                                    <a href="#"><i class="fa fa-instagram"></i></a>
+		                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+		                                </div>
+		                            </li>
+		                        </ul>
+		                    </div>
+		                </div>
+		                <div class="col-lg-12">
+		                    <div class="product__details__tab">
+		                        <ul class="nav nav-tabs" role="tablist">
+		                            <li class="nav-item">
+		                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+		                                    aria-selected="true">Descrição</a>
+		                            </li>
+		                            <li class="nav-item" id="avaliacao">
+		                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+		                                    aria-selected="false">Avaliações <span>(1)</span></a>
+		                            </li>
+		                        </ul>
+		                        <div class="tab-content">
+		                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+		                                <div class="product__details__tab__desc">
+		                                    <h6 th:text="*{nome}">Descrição detalhada</h6>
+		                                    <div id="maisInfo" class="m-2 p-3 " width="200">
+		                                    	<p width="200" class="" th:text="*{descricaoLonga}" id="descricaoLonga" th:value="*{descricaoLonga}"></p>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+		                                <div class="product__details__tab__desc">
+		                                    <h6>Avaliações</h6>
+		                                    <div class="product__details__rating">
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<span>5,0</span>
+		                                    	</div>
+		                                    <div>
+		                                    	<div class="product__details__rating">
+		                                    		<span>5 estrelas</span>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<span>0 avaliações</span>
+		                                    	</div>
+		                                    	<div class="product__details__rating">
+		                                    		<span>4 estrelas</span>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<span>0 avaliações</span>
+		                                    	</div>
+		                                    	<div class="product__details__rating">
+		                                    		<span>3 estrelas</span>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<span>0 avaliações</span>
+		                                    	</div>
+		                                    	<div class="product__details__rating">
+		                                    		<span>2 estrelas</span>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<span>0 avaliações</span>
+		                                    	</div>
+		                                    	<div class="product__details__rating">
+		                                    		<span>1 estrelas</span>
+		                                    		<i class="fa fa-star"></i>
+		                                    		<span>0 avaliações</span>
+		                                    	</div>
+		                                    </div>
+		                                    <p>Avaliações aqui</p>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+		    <!-- Product Details Section End -->
+		
+		    <!-- Related Product Section Begin -->
+		    <section class="related-product">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <div class="section-title related__product__title">
+		                        <h2>Quem viu este produto viu também</h2>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-lg-3 col-md-4 col-sm-6">
+		                    <div class="product__item">
+		                        <div class="product__item__pic set-bg" th:data-setbg="@{/imagens/product/product-1.jpg}">
+		                            <ul class="product__item__pic__hover">
+		                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+		                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+		                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+		                            </ul>
+		                        </div>
+		                        <div class="product__item__text">
+		                            <h6><a href="#">Crab Pool Security</a></h6>
+		                            <h5>$30.00</h5>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+  	</section>
+  </main>
+</body>
+
+</html>

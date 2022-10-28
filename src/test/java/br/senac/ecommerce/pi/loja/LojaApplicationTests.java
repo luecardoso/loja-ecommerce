@@ -31,16 +31,16 @@ class LojaApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-	
+
 	@Autowired
 	UsuarioRepositorio usuarioRepositorio;
-	
+
 	@Autowired
 	private TestEntityManager entityManager;
-	
+
 	@Autowired
 	CargoRepositorio cargoRepositorio;
-	
+
 	@Test
 	public void testeCriarPrimeiroCargo() {
 		CargoModelo cargoAdmin = new CargoModelo("Administrador", "Administrar usuários cadastrados");
@@ -54,20 +54,20 @@ class LojaApplicationTests {
 		CargoModelo cargoSalvo = cargoRepositorio.save(cargoEstoquista);
 		assertThat(cargoSalvo.getId()).isGreaterThan(0);
 	}
-	
+
 	@Test
 	public void testeCodificarSenha() {
 		BCryptPasswordEncoder codificadorSenha = new BCryptPasswordEncoder();
 		String senhaCrua = "12345";
 		String senhaCodificada = codificadorSenha.encode(senhaCrua);
-		System.out.println("Senha Normal: "+senhaCrua);
-		System.out.println("Senha Codificada: "+senhaCodificada);
+		System.out.println("Senha Normal: " + senhaCrua);
+		System.out.println("Senha Codificada: " + senhaCodificada);
 
 		boolean matches = codificadorSenha.matches(senhaCrua, senhaCodificada);
 
 		assertThat(matches).isTrue();
 	}
-	
+
 	@Test
 	public void testeCriarAdministrador() {
 		CargoModelo cargo = entityManager.find(CargoModelo.class, 1L);
@@ -75,27 +75,25 @@ class LojaApplicationTests {
 		BCryptPasswordEncoder codificadorSenha = new BCryptPasswordEncoder();
 		String senhaCrua = "123";
 		String senhaCodificada = codificadorSenha.encode(senhaCrua);
-//		usuario.setId(1L);
+		// usuario.setId(1L);
 		usuario.setNome("ADMIN");
-		usuario.setEmail("adm@teste.com");
+		usuario.setEmail("0000");
 		usuario.setSenha(senhaCodificada);
 		usuario.setCpf("774.521.770-96");
-//		usuario.setDataNascimento("2020-28-08");
+		// usuario.setDataNascimento("2020-28-08");
 		usuario.setTelefone("115550123");
 		usuario.setAtivo(true);
 		usuario.adicionarCargo(cargo);
-		
-		
+
 		UsuarioModelo usuarioSalvo = usuarioRepositorio.save(usuario);
 		boolean matches = codificadorSenha.matches(senhaCrua, senhaCodificada);
 
 		assertThat(matches).isTrue();
-		
+
 		assertThat(usuarioSalvo.getId()).isGreaterThan(0);
-		
-		
+
 	}
-	
+
 	@Test
 	public void testeCriarEstoquista() {
 		CargoModelo cargo = entityManager.find(CargoModelo.class, 2L);
@@ -103,34 +101,34 @@ class LojaApplicationTests {
 		BCryptPasswordEncoder codificadorSenha = new BCryptPasswordEncoder();
 		String senhaCrua = "123";
 		String senhaCodificada = codificadorSenha.encode(senhaCrua);
-//		usuario.setId(1L);
+		// usuario.setId(1L);
 		usuario.setNome("ESTOQUISTA");
 		usuario.setEmail("est@teste.com");
 		usuario.setSenha(senhaCodificada);
 		usuario.setCpf("079.962.630-94");
-//		usuario.setDataNascimento("2020-28-08");
+		// usuario.setDataNascimento("2020-28-08");
 		usuario.setTelefone("115550123");
 		usuario.setAtivo(true);
 		usuario.adicionarCargo(cargo);
-		
+
 		UsuarioModelo usuarioSalvo = usuarioRepositorio.save(usuario);
 		boolean matches = codificadorSenha.matches(senhaCrua, senhaCodificada);
 
 		assertThat(matches).isTrue();
 		assertThat(usuarioSalvo.getId()).isGreaterThan(0);
 	}
-	
+
 	@Test
 	public void testeProcuraUsuarios() {
 		String keyword = "Lucas";
-		
+
 		int numPagina = 0;
 		int tamanhoPagina = 4;
 		Pageable pageable = PageRequest.of(numPagina, tamanhoPagina);
 		Page<UsuarioModelo> page = usuarioRepositorio.encontrarPorPagina(keyword, pageable);
 		List<UsuarioModelo> listaUsuarios = page.getContent();
 
-		listaUsuarios.forEach(usuario -> System.out.println(usuario));		
+		listaUsuarios.forEach(usuario -> System.out.println(usuario));
 		assertThat(listaUsuarios.size()).isGreaterThan(0);
 	}
 }
