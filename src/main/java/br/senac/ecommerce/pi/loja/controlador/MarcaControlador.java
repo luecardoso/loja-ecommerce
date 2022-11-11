@@ -25,9 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.senac.ecommerce.pi.loja.modelo.CategoriaModelo;
 import br.senac.ecommerce.pi.loja.modelo.MarcaModelo;
-import br.senac.ecommerce.pi.loja.servico.CategoriaServico;
 import br.senac.ecommerce.pi.loja.servico.MarcaServico;
 
 @Controller
@@ -74,28 +72,20 @@ public class MarcaControlador {
     public String cadastrar(Model model, MarcaModelo marca) {
         model.addAttribute("marcaModelo", marca);
         return "adm/formulario-marca";
-    }
+    }    
 
-    /**
-     * @param marca
-     * @param bindingResult
-     * @param redirectAttributes
-     * @param model
-     * @param arquivo
-     * @return
-     */
     @PostMapping("/marca/salvar")
-    public String salvar(@Valid CategoriaModelo marca, BindingResult bindingResult,
+    public String salvar(@Valid MarcaModelo marca, BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model,
             @RequestParam("imagem") MultipartFile arquivo) {
 
         /* VERIFICA CAMPOS COM ERROS */
         // if (bindingResult.hasErrors()) {
-        // model.addAttribute("categoriaModelo", categoria);
+        // model.addAttribute("marcaModelo", marca);
         // redirectAttributes.addFlashAttribute("mensagemErro", "Campo " +
         // bindingResult.getFieldError().getField()
         // + " com problema: \n" + bindingResult.getFieldError().getDefaultMessage());
-        // return "redirect:/administrador/categoria/cadastrar";
+        // return "redirect:/administrador/marca/cadastrar";
         // }
         /* ADICIONA IMAGEM */
         StringBuilder nomeDoArquivo = new StringBuilder();
@@ -129,11 +119,6 @@ public class MarcaControlador {
 
     }
 
-    /**
-     * @param id
-     * @param redirectAttributes
-     * @return
-     */
     @GetMapping("/marca/editar/{id}")
     public ModelAndView editarProduto(@PathVariable(name = "id") Long id,
             RedirectAttributes redirectAttributes) {

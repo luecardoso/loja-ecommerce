@@ -9,9 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.senac.ecommerce.pi.loja.modelo.CategoriaModelo;
 import br.senac.ecommerce.pi.loja.modelo.MarcaModelo;
-import br.senac.ecommerce.pi.loja.repositorio.CategoriaRepositorio;
 import br.senac.ecommerce.pi.loja.repositorio.MarcaRepositorio;
 
 @Service

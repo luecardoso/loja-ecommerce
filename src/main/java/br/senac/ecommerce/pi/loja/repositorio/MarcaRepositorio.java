@@ -14,6 +14,6 @@ public interface MarcaRepositorio extends JpaRepository<MarcaModelo, Long> {
     @Modifying
     public void atualizarStatusAtivado(Long id, boolean enabled);
 
-    @Query("SELECT c FROM CategoriaModelo c WHERE c.nome LIKE %?1%")
+    @Query("SELECT c FROM MarcaModelo c WHERE c.nome LIKE %?1%")
     public Page<MarcaModelo> findAll(String keyword, Pageable pageable);
 }

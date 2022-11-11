@@ -8,17 +8,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
-public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
+public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -42,34 +38,34 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 		auth.authenticationProvider(authenticationProvider());
 	}
 
-	/*PERMISÃO DE ACESSO AUTORIZADO E COM CARGO ESPECIFICO*/
+	/* PERMISÃO DE ACESSO AUTORIZADO E COM CARGO ESPECIFICO */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-		.antMatchers("/home/**").permitAll()
-		.antMatchers("/js/**", "/fontawesome/**", "/richtext/**","/webfonts/**", "/error").permitAll()
-		.antMatchers("/administrador").hasAnyAuthority("Administrador","Estoquista")
-		.antMatchers("/administrador/usuario/**").hasAuthority("Administrador")
-		.antMatchers("/administrador/categoria/**").hasAuthority("Administrador")
-		.antMatchers("/administrador/marca/**").hasAuthority("Administrador")
-		.antMatchers("/administrador/produto/**").hasAnyAuthority("Administrador","Estoquista")
-		.antMatchers("/administrador/produto/salvar/**").hasAnyAuthority("Administrador","Estoquista")
-		.antMatchers("/administrador/produto/editar/**").hasAnyAuthority("Administrador","Estoquista")
-		.antMatchers("/administrador/produto/pagina/**").hasAnyAuthority("Administrador","Estoquista")
-		.antMatchers("/administrador/produto/mostrarImagem/**").hasAnyAuthority("Administrador","Estoquista")
-		.anyRequest().authenticated()
-		.and().formLogin()
+				.antMatchers("/home/**").permitAll()
+				.antMatchers("/js/**", "/fontawesome/**", "/richtext/**", "/webfonts/**", "/error").permitAll()
+				.antMatchers("/administrador").hasAnyAuthority("Administrador", "Estoquista")
+				.antMatchers("/administrador/usuario/**").hasAuthority("Administrador")
+				.antMatchers("/administrador/categoria/**").hasAuthority("Administrador")
+				.antMatchers("/administrador/marca/**").hasAuthority("Administrador")
+				.antMatchers("/administrador/produto/**").hasAnyAuthority("Administrador", "Estoquista")
+				.antMatchers("/administrador/produto/salvar/**").hasAnyAuthority("Administrador", "Estoquista")
+				.antMatchers("/administrador/produto/editar/**").hasAnyAuthority("Administrador", "Estoquista")
+				.antMatchers("/administrador/produto/pagina/**").hasAnyAuthority("Administrador", "Estoquista")
+				.antMatchers("/administrador/produto/mostrarImagem/**").hasAnyAuthority("Administrador", "Estoquista")
+				.anyRequest().authenticated()
+				.and().formLogin()
 				.defaultSuccessUrl("/home")
 				.loginPage("/login")
 				.usernameParameter("email").permitAll()
-		.and().logout().permitAll();
-//		.and()
-//		.exceptionHandling().accessDeniedPage("/acesso-negado");
+				.and().logout().permitAll();
+		// .and()
+		// .exceptionHandling().accessDeniedPage("/acesso-negado");
 	}
-	
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 
-		web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**","/home/**");
+		web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**", "/home/**");
 	}
 }

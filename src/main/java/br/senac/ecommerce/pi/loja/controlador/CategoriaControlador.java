@@ -132,10 +132,6 @@ public class CategoriaControlador {
 		return mv;
 	}
 
-	/**
-	 * @param id
-	 * @return
-	 */
 	@GetMapping("/categoria/deletar/{id}")
 	public ModelAndView deletarUsuario(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView("redirect:/administrador/categoria");

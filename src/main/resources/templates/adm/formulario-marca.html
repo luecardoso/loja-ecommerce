@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
+<head>
+	<title>Página de Cadastro de Marcas</title>
+	<meta charset="UTF-8">
+	<script th:src="@{/js/imagem.js}"></script>
+</head>
+<body>
+	
+	<div class="container-fluid" layout:fragment="basepagina">
+		<div class="col-lg-12 text-center">
+			<h1 class="page-header">Cadastro de Marcas</h1>
+			<hr>
+		</div>
+			
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<!-- FORMULÁRIO -->
+				<form th:action="@{/administrador/marca/salvar}" method="POST" th:object="${marcaModelo}" enctype="multipart/form-data">
+					<div class="border border-secondary rounded p-3">
+					<!-- MENSAGEM DE ERRO -->
+		 	 		<div th:each="problema   : ${mensagemErro}" class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(mensagemErro)}">
+						<div  >
+						<ul >
+							<li > <span th:text="${problema}"><strong  ></strong></span></li><!-- th:each="mostrarErros : ${#fields.errors('*')}"  -->
+						</ul>
+						</div>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		 			</div>
+					
+					<!--  MENSAGEM DE SUCESSO -->
+					<div class="alert alert-success alert-dismissible fade show  m-2 col-12 text-center" role="alert"  th:if="${not #strings.isEmpty(mensagem)}">
+						<span><strong  th:text="${mensagem}"></strong></span>
+						<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					
+					<!--  MENSAGEM ITENS DUPLICADOS-->
+					<div class="alert alert-warning alert-dismissible fade show  m-2 col-8 text-center" role="alert"  th:if="${mensagemDuplicado != null}">
+						<span><strong  th:text="${mensagemDuplicado}"></strong></span>
+						<button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				
+					<!-- ID -->
+					<input type="hidden" th:field="*{id}" value="" readonly/>
+				
+					<!-- NOME -->
+					<div class="form-group mb-3">
+						<label for="nome">Nome:</label> 
+						<div>
+							<input class="form-control" type="text" th:field="*{nome}" id="nome" maxlength=""
+							placeholder="Nome da marca"  title="Insira o nome da marca" required/>
+						</div>
+		
+					</div>	
+					
+					<!-- IMAGEM -->
+					<div  class="form-group col border m-3 p-2 " id="imagemProduto">
+						<label for="image">Imagem:</label> 
+						<div class="form-group rounded">
+						<!-- PREVIA IMAGEM PRINCIPAL -->
+						<img id="imagemPrincipal" name="imagemPrincipal" th:src="@{/administrador/marca/mostrarImagem/{imagemPrincipal}(imagemPrincipal=${marcaModelo.imagem})}" width="300"/>
+						<!-- INPUT IMAGEM PRINCIPAL -->
+						<div class="m-2" >		
+							<input type="file" name="imagem" id="imagem" accept="image/*" >
+						</div>
+						</div>
+					</div>
+					
+					<!-- ATIVAR -->
+					<div class="form-group row  m-2 col-2">
+						<div class="form-check row">
+						<div class=" d-flex inline text-center">
+							<label for="ativo" class="me-4">Ativar:  </label>
+							<input  type="checkbox" class="form-check-label" th:field="*{ativo}" id="ativo" value="" />
+						</div>
+							
+						</div>
+					</div>
+					
+					<div class="inline text-center">
+						<button type="submit" class="btn btn-primary btn-sm form-check form-check-inline">Salvar</button>
+						<a class="btn btn-danger" th:href="@{/administrador/marca}">Cancelar</a>
+					</div>
+					
+					</div>
+				</form>
+			</div>
+		</div>	
+
+	</div>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			$(document).ready(function() {
+				$("#imagemPrincipal").change(function (){
+					mostrarPreviaImagem(this);
+				});
+			});
+			function mostrarPreviaImagem(arquivoEntrada){
+				var arquivo = arquivoEntrada.files[0];
+				var leitor = new FileReader();
+				leitor.onload = function(e){
+					$("#imagem").attr("src", e.target.result);
+				}
+				
+				leitor.readAsDataURL(arquivo);
+			}
+		}
+	</script>
+</body>
+</html>

@@ -2,7 +2,6 @@ package br.senac.ecommerce.pi.loja.modelo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +25,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Data;
+
 
 @Entity
 @Table(name = "usuario")

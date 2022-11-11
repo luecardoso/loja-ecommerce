@@ -1,6 +1,6 @@
 package br.senac.ecommerce.pi.loja.modelo;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

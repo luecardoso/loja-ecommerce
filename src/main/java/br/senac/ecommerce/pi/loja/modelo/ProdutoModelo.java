@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "produto")
-public class ProdutoModelo implements Serializable{
+public class ProdutoModelo implements Serializable {
 
 	/**
 	 * 
@@ -49,15 +49,15 @@ public class ProdutoModelo implements Serializable{
 
 	private Date dataCriacao;
 
-	//@Temporal(TemporalType.TIMESTAMP)
+	// @Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
 
 	private boolean ativo;
 	private float avaliacao;
 	private boolean destaque;
-	
-	// categoria marca 
-	
+
+	// categoria marca
+
 	public boolean isDestaque() {
 		return destaque;
 	}
@@ -73,26 +73,28 @@ public class ProdutoModelo implements Serializable{
 	public void setAvaliacao(float avaliacao) {
 		this.avaliacao = avaliacao;
 	}
-//	@OneToMany(mappedBy ="produtoCategoria")
-//	private List<CategoriaModelo> categoria = new ArrayList<>();
-//
-//	public List<CategoriaModelo> getCategoria() {
-//		return categoria;
-//	}
-//
-//	public void setCategoria(List<CategoriaModelo> categoria) {
-//		this.categoria = categoria;
-//	}
-	@Column(name="imagem_principal")
+
+	// @OneToMany(mappedBy ="produtoCategoria")
+	// private List<CategoriaModelo> categoria = new ArrayList<>();
+	//
+	// public List<CategoriaModelo> getCategoria() {
+	// return categoria;
+	// }
+	//
+	// public void setCategoria(List<CategoriaModelo> categoria) {
+	// this.categoria = categoria;
+	// }
+	@Column(name = "imagem_principal")
 	private String imagemPrincipal;
-	
+
 	@OneToMany(mappedBy = "produtoimagem", cascade = CascadeType.ALL)
 	private Set<ProdutoImagemModelo> imagemExtra = new HashSet<>();
-	
+
 	@Transient
 	public String getImagemPrincipal() {
-		if(id == null || imagemPrincipal == null) return "/imagens/imagem-padrao.png";
-		return "/img/" +this.id+"/"+this.imagemPrincipal;
+		if (id == null || imagemPrincipal == null)
+			return "/imagens/imagem-padrao.png";
+		return "/img/" + this.id + "/" + this.imagemPrincipal;
 	}
 
 	public void setImagemPrincipal(String imagemPrincipal) {
@@ -108,12 +110,12 @@ public class ProdutoModelo implements Serializable{
 	}
 
 	public void adicionarImagemExtra(String nomeImagem) {
-		this.imagemExtra.add(new ProdutoImagemModelo(nomeImagem,this));
+		this.imagemExtra.add(new ProdutoImagemModelo(nomeImagem, this));
 	}
-	
+
 	@OneToMany
 	private List<CategoriaModelo> categoria = new ArrayList<>();
-	
+
 	public List<CategoriaModelo> getCategoria() {
 		return categoria;
 	}
@@ -143,7 +145,7 @@ public class ProdutoModelo implements Serializable{
 		this.imagemExtra = imagemExtra;
 		this.categoria = categoria;
 	}
-	
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -255,5 +257,14 @@ public class ProdutoModelo implements Serializable{
 		this.ativo = ativo;
 	}
 
-	
+	private Double valorVenda;
+
+	public Double getValorVenda() {
+		return valorVenda;
+	}
+
+	public void setValorVenda(Double valorVenda) {
+		this.valorVenda = valorVenda;
+	}
+
 }
